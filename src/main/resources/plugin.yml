@@ -2,3 +2,7 @@ name: FishyBusiness
 version: '${version}'
 main: com.github.kaspiandev.fishybusiness.FishyBusiness
 api-version: '1.19'
+author: KaspianDev
+softdepend: [ Vault, WorldGuard ]
+libraries:
+  - dev.dejvokep:boosted-yaml:1.3.5

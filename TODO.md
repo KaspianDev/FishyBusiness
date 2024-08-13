@@ -33,3 +33,8 @@ Physical rewards (items) are stashed and given upon leaving the area.
 Points can be fully disabled and configured, they come with out-of-the-box
 PlaceholderAPI support and will support exchanging for other good in future (as
 alternative currency with exclusive items).
+
+Planned placeholders:
+
+- %fishybusiness_points% - Returns the amount of points player has  
+  ...
