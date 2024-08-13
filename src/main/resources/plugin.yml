@@ -1,0 +1,4 @@
+name: FishyBusiness
+version: '${version}'
+main: com.github.kaspiandev.fishybusiness.FishyBusiness
+api-version: '1.19'
