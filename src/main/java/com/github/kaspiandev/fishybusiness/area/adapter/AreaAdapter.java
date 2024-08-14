@@ -1,17 +1,18 @@
-package com.github.kaspiandev.fishybusiness.area;
+package com.github.kaspiandev.fishybusiness.area.adapter;
 
+import com.github.kaspiandev.fishybusiness.area.Area;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AreaSerializer implements JsonDeserializer<Area>, JsonSerializer<Area> {
+public class AreaAdapter implements JsonDeserializer<Area>, JsonSerializer<Area> {
 
     private final Map<String, Class<? extends Area>> areaRegistry;
     private final Gson gson;
 
-    public AreaSerializer() {
+    public AreaAdapter() {
         this.gson = new Gson();
         this.areaRegistry = new HashMap<>();
     }
@@ -35,10 +36,6 @@ public class AreaSerializer implements JsonDeserializer<Area>, JsonSerializer<Ar
         areaObject.addProperty("type", src.getClass().getSimpleName());
 
         return areaObject;
-    }
-
-    public Gson getGson() {
-        return gson;
     }
 
 }

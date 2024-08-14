@@ -1,5 +1,6 @@
 package com.github.kaspiandev.fishybusiness;
 
+import com.github.kaspiandev.fishybusiness.area.AreaManager;
 import com.github.kaspiandev.fishybusiness.config.Config;
 import com.github.kaspiandev.fishybusiness.exception.PluginLoadFailureException;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,6 +18,7 @@ public final class FishyBusiness extends JavaPlugin {
             throw new RuntimeException(ex);
         }
 
+        new AreaManager(this);
     }
 
     @Override
