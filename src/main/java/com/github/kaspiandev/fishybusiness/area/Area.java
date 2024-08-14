@@ -18,4 +18,29 @@ public interface Area {
 
     Location getMaxCorner();
 
+    default double getMinX() {
+        return getMinCorner().getX();
+    }
+
+    default double getMaxX() {
+        return getMaxCorner().getX();
+    }
+
+    default double getMinY() {
+        return getMinCorner().getY();
+    }
+
+    default double getMaxY() {
+        return getMaxCorner().getY();
+    }
+
+    default double getMinZ() {
+        return getMinCorner().getZ();
+    }
+
+    default double getMaxZ() {
+        return getMaxCorner().getZ();
+    }
+
+
 }

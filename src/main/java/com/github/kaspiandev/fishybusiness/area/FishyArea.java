@@ -48,26 +48,32 @@ public class FishyArea implements Area {
         return new Location(world, maxX, maxY, maxZ);
     }
 
+    @Override
     public double getMinX() {
         return minX;
     }
 
+    @Override
     public double getMaxX() {
         return maxX;
     }
 
+    @Override
     public double getMinY() {
         return minY;
     }
 
+    @Override
     public double getMaxY() {
         return maxY;
     }
 
+    @Override
     public double getMinZ() {
         return minZ;
     }
 
+    @Override
     public double getMaxZ() {
         return maxZ;
     }
