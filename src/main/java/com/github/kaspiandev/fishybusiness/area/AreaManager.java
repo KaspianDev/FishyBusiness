@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 
 import java.io.File;
 import java.io.FileReader;
@@ -13,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 public class AreaManager {
@@ -47,6 +49,12 @@ public class AreaManager {
         areas.add(area);
     }
 
+    public Optional<Area> findArea(Location location) {
+        return areas.stream()
+                    .filter((area) -> area.isInside(location))
+                    .findFirst();
+    }
+
     private void load() {
         try {
             if (areaFile.createNewFile()) return;
@@ -64,7 +72,6 @@ public class AreaManager {
     }
 
     public void save() {
-
         try (FileWriter writer = new FileWriter(areaFile)) {
             writer.write(GSON.toJson(areas, new TypeToken<List<Area>>() {}.getType()));
         } catch (IOException ex) {
@@ -72,4 +79,9 @@ public class AreaManager {
         }
 
     }
+
+    public AreaAdapter getAreaAdapter() {
+        return areaAdapter;
+    }
+
 }

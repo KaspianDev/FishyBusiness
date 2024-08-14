@@ -31,6 +31,7 @@ public class FishyArea implements Area {
 
     @Override
     public boolean isInside(World world, double x, double y, double z) {
+        System.out.println("w " + this.world.equals(world));
         if (this.world.equals(world)) return false;
 
         return (x >= minX && x <= maxX) &&

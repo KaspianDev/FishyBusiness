@@ -6,13 +6,13 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class AreaEnterEvent extends PlayerEvent {
+public class AreaLeaveEvent extends PlayerEvent {
 
     private static final HandlerList HANDLER_LIST = new HandlerList();
 
     private final Area area;
 
-    public AreaEnterEvent(@NotNull Player who, Area area) {
+    public AreaLeaveEvent(@NotNull Player who, Area area) {
         super(who);
         this.area = area;
     }

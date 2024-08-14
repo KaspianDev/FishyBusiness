@@ -18,11 +18,12 @@ public class AreaAdapter implements JsonDeserializer<Area>, JsonSerializer<Area>
     public AreaAdapter() {
         this.gsonBuilder = new GsonBuilder()
                 .registerTypeHierarchyAdapter(World.class, new WorldAdapter());
-        this.gson = new Gson();
+        this.gson = gsonBuilder.create();
         this.areaRegistry = new HashMap<>();
     }
 
-    public final void register(AreaType areaType) {
+    // TODO
+    public void register(AreaType areaType) {
         for (PropertyAdapter<?> adapter : areaType.getPropertyAdapters()) {
             gsonBuilder.registerTypeHierarchyAdapter(adapter.getAdapterClass(), adapter);
         }
