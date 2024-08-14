@@ -40,13 +40,12 @@ dependencies {
     // Shaded, hard dependencies
     compileOnly "dev.dejvokep:boosted-yaml:1.3.5"
     implementation "de.themoep:minedown:1.7.1-SNAPSHOT"
-    implementation "com.j256.ormlite:ormlite-jdbc:6.1"
+    //implementation "com.j256.ormlite:ormlite-jdbc:6.1"
 }
 
 shadowJar {
     setArchiveClassifier(null)
 
-    relocate "dev.dejvokep.boostedyaml", "com.github.kaspiandev.fishybusiness.boostedyaml"
     relocate "de.themoep.minedown", "com.github.kaspiandev.fishybusiness.minedown"
 }
 
