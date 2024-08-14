@@ -3,6 +3,7 @@ package com.github.kaspiandev.fishybusiness.area.adapter;
 import com.github.kaspiandev.fishybusiness.area.Area;
 import com.github.kaspiandev.fishybusiness.area.AreaType;
 import com.google.gson.*;
+import org.bukkit.World;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -15,7 +16,8 @@ public class AreaAdapter implements JsonDeserializer<Area>, JsonSerializer<Area>
     private Gson gson;
 
     public AreaAdapter() {
-        this.gsonBuilder = new GsonBuilder();
+        this.gsonBuilder = new GsonBuilder()
+                .registerTypeHierarchyAdapter(World.class, new WorldAdapter());
         this.gson = new Gson();
         this.areaRegistry = new HashMap<>();
     }

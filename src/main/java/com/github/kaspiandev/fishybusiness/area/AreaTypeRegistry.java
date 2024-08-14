@@ -1,7 +1,5 @@
 package com.github.kaspiandev.fishybusiness.area;
 
-import com.github.kaspiandev.fishybusiness.area.adapter.WorldAdapter;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -11,7 +9,7 @@ public class AreaTypeRegistry {
     private static final Map<String, AreaType> registry = new HashMap<>();
 
     static {
-        registry.put("FISHY", new AreaType(FishyArea.class, new WorldAdapter()));
+        registry.put("FISHY", new AreaType(FishyArea.class));
     }
 
     private AreaTypeRegistry() {}
