@@ -7,7 +7,7 @@ import org.bukkit.World;
 import java.lang.reflect.Type;
 import java.util.UUID;
 
-public class WorldAdapter implements JsonDeserializer<World>, JsonSerializer<World> {
+public class WorldAdapter implements PropertyAdapter<World> {
 
     @Override
     public World deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -22,6 +22,11 @@ public class WorldAdapter implements JsonDeserializer<World>, JsonSerializer<Wor
         jsonObject.addProperty("world-uid", src.getUID().toString());
 
         return jsonObject;
+    }
+
+    @Override
+    public Class<World> getAdapterClass() {
+        return World.class;
     }
 
 }

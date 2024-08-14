@@ -1,1 +1,8 @@
+area:
+  # Available:
+  # - FISHY - Build-in, only rectangles
+  # - WORLDGUARD - Requires WorldGuard, more shapes
+  enabled-adapters:
+    - "FISHY"
+
 version: 1

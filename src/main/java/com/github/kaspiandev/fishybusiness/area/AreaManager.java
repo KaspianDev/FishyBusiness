@@ -2,12 +2,10 @@ package com.github.kaspiandev.fishybusiness.area;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.area.adapter.AreaAdapter;
-import com.github.kaspiandev.fishybusiness.area.adapter.WorldAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 
 import java.io.File;
 import java.io.FileReader;
@@ -21,25 +19,22 @@ public class AreaManager {
 
     private static final Logger LOGGER = Logger.getLogger(AreaManager.class.getSimpleName());
     private static final Gson GSON;
-    private static final AreaAdapter AREA_SERIALIZER = new AreaAdapter();
 
     static {
         GSON = new GsonBuilder()
                 .setPrettyPrinting()
-                .registerTypeHierarchyAdapter(World.class, new WorldAdapter())
                 .registerTypeAdapter(Area.class, new AreaAdapter())
                 .create();
-
-        AREA_SERIALIZER.register(WorldGuardArea.class);
-        AREA_SERIALIZER.register(FishyArea.class);
     }
 
+    private final AreaAdapter areaAdapter;
     private final FishyBusiness plugin;
     private final File areaFile;
     private final List<Area> areas;
 
     public AreaManager(FishyBusiness plugin) {
         this.plugin = plugin;
+        this.areaAdapter = new AreaAdapter();
         this.areaFile = new File(plugin.getDataFolder(), "areas.json");
         this.areas = new ArrayList<>();
         load();

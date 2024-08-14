@@ -1,6 +1,7 @@
 package com.github.kaspiandev.fishybusiness.area.adapter;
 
 import com.github.kaspiandev.fishybusiness.area.Area;
+import com.github.kaspiandev.fishybusiness.area.AreaType;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
@@ -10,15 +11,25 @@ import java.util.Map;
 public class AreaAdapter implements JsonDeserializer<Area>, JsonSerializer<Area> {
 
     private final Map<String, Class<? extends Area>> areaRegistry;
-    private final Gson gson;
+    private final GsonBuilder gsonBuilder;
+    private Gson gson;
 
     public AreaAdapter() {
+        this.gsonBuilder = new GsonBuilder();
         this.gson = new Gson();
         this.areaRegistry = new HashMap<>();
     }
 
-    public void register(Class<? extends Area> areaClazz) {
-        areaRegistry.put(areaClazz.getSimpleName(), areaClazz);
+    public final void register(AreaType areaType) {
+        for (PropertyAdapter<?> adapter : areaType.getPropertyAdapters()) {
+            gsonBuilder.registerTypeHierarchyAdapter(adapter.getAdapterClass(), adapter);
+        }
+        areaRegistry.put(areaType.getAreaClass().getSimpleName(), areaType.getAreaClass());
+        rebuildGson();
+    }
+
+    private void rebuildGson() {
+        gson = gsonBuilder.create();
     }
 
     @Override
