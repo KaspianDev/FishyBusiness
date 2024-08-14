@@ -9,7 +9,7 @@ public class AreaTypeRegistry {
     private static final Map<String, AreaType> registry = new HashMap<>();
 
     static {
-        registry.put("FISHY", new AreaType(FishyArea.class));
+        registry.put("fishy", new AreaType(FishyArea.class));
     }
 
     private AreaTypeRegistry() {}

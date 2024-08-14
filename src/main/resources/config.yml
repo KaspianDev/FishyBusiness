@@ -1,3 +1,9 @@
+hooks:
+  # Available:
+  # - WorldGuard - provides worldguard area adapter
+  enabled:
+    - "WorldGuard"
+
 area:
   # Available:
   # - fishy - Build-in, only rectangles

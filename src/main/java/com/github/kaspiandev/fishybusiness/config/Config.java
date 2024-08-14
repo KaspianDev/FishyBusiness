@@ -1,7 +1,9 @@
 package com.github.kaspiandev.fishybusiness.config;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
+import com.github.kaspiandev.fishybusiness.area.AreaTypeRegistry;
 import com.github.kaspiandev.fishybusiness.exception.PluginLoadFailureException;
+import com.github.kaspiandev.fishybusiness.hook.HookRegistry;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.dvs.versioning.BasicVersioning;
 import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;
@@ -34,6 +36,21 @@ public class Config {
         } catch (IOException ex) {
             throw new PluginLoadFailureException("Config could not be loaded.", ex);
         }
+
+        loadAreaEnabledAdapters();
+        loadEnabledHooks();
+    }
+
+    public void loadAreaEnabledAdapters() {
+        document.getStringList("area.enabled-adapters").forEach((adapterName) -> {
+            AreaTypeRegistry.findByName(adapterName).ifPresent(plugin.getAreaManager().getAreaAdapter()::register);
+        });
+    }
+
+    public void loadEnabledHooks() {
+        document.getStringList("hooks.enabled").forEach((hookName) -> {
+            HookRegistry.findByName(hookName).ifPresent((hookFunction) -> plugin.getHookManager().register(hookName, hookFunction));
+        });
     }
 
     public YamlDocument getDocument() {

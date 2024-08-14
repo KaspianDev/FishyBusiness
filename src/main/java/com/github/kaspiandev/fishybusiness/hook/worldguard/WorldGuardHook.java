@@ -10,8 +10,8 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 
 public class WorldGuardHook extends Hook<WorldGuardPlugin> {
 
-    public WorldGuardHook(FishyBusiness plugin, WorldGuardPlugin hookPlugin) {
-        super(plugin, hookPlugin);
+    public WorldGuardHook(FishyBusiness plugin) {
+        super(plugin, "WorldGuard");
     }
 
     @Override

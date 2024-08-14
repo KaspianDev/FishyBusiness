@@ -10,8 +10,4 @@ public class PluginLoadFailureException extends Exception {
         super(message, cause);
     }
 
-    public PluginLoadFailureException(Throwable cause) {
-        super(cause);
-    }
-
 }
