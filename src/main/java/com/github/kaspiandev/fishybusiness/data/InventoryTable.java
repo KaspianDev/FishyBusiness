@@ -2,7 +2,7 @@ package com.github.kaspiandev.fishybusiness.data;
 
 import com.github.kaspiandev.fishybusiness.util.InventoryUtil;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,15 +46,14 @@ public class InventoryTable extends Table {
         });
     }
 
-    public CompletableFuture<Optional<Inventory>> loadInventory(Player player) {
+    public CompletableFuture<Optional<ItemStack[]>> loadInventory(Player player) {
         return CompletableFuture.supplyAsync(() -> {
             try (Connection connection = database.getSQLConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement(GET_INVENTORY)) {
                     statement.setString(1, player.getUniqueId().toString());
                     ResultSet resultSet = statement.executeQuery();
                     if (resultSet.next()) {
-                        Inventory inventory = InventoryUtil.decodeInventory(resultSet.getBytes(1));
-                        return Optional.of(inventory);
+                        return Optional.of(InventoryUtil.decodeInventory(resultSet.getBytes(1)));
                     }
                     return Optional.empty();
                 }

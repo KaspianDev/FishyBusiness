@@ -10,7 +10,6 @@ import com.github.kaspiandev.fishybusiness.exception.PluginLoadFailureException;
 import com.github.kaspiandev.fishybusiness.hook.HookManager;
 import com.github.kaspiandev.fishybusiness.listener.AreaEventListener;
 import org.bukkit.Bukkit;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.ExecutionException;
@@ -46,15 +45,22 @@ public final class FishyBusiness extends JavaPlugin {
 
         Bukkit.getScheduler().runTaskLater(this, () -> {
             Bukkit.getOnlinePlayers().forEach((player) -> {
+                inventoryTable.saveInventory(player);
+            });
+            System.out.println("saved");
+        }, 700);
+
+        Bukkit.getScheduler().runTaskLater(this, () -> {
+            Bukkit.getOnlinePlayers().forEach((player) -> {
                 try {
-                    Inventory inventory = inventoryTable.loadInventory(player).get().get();
-                    player.getInventory().setStorageContents(inventory.getStorageContents());
+                    player.getInventory().setContents(inventoryTable.loadInventory(player).get().get());
                 } catch (InterruptedException | ExecutionException e) {
                     throw new RuntimeException(e);
                 }
             });
             System.out.println("saved");
-        }, 600);
+        }, 1500);
+
 
         getServer().getPluginManager().registerEvents(new AreaEventListener(this), this);
     }
