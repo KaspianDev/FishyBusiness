@@ -30,15 +30,13 @@ public class InventoryUtil {
         }
     }
 
-    public static Inventory decodeInventory(byte[] bytes, Inventory inventory) {
+    public static Inventory decodeInventory(byte[] bytes) {
         try (ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
              BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream)) {
 
             int size = dataInput.readInt();
 
-            if (inventory == null || inventory.getSize() != size) {
-                inventory = Bukkit.createInventory(null, size);
-            }
+            Inventory inventory = Bukkit.createInventory(null, size);
 
             for (int i = 0; i < size; i++) {
                 byte[] encodedItem = (byte[]) dataInput.readObject();

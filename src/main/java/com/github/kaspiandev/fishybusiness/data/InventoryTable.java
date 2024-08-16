@@ -2,10 +2,13 @@ package com.github.kaspiandev.fishybusiness.data;
 
 import com.github.kaspiandev.fishybusiness.util.InventoryUtil;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class InventoryTable extends Table {
@@ -17,8 +20,12 @@ public class InventoryTable extends Table {
             );
             """;
     private static final String SAVE_INVENTORY = """
-            INSERT INTO whitelist (player_uuid, player_name)
+            INSERT INTO inventory_backup (player_uuid, inventory)
             VALUES (?, ?)
+            """;
+    private static final String GET_INVENTORY = """
+            SELECT inventory FROM inventory_backup
+            WHERE player_uuid = ?
             """;
 
     public InventoryTable(Database database) {
@@ -32,7 +39,24 @@ public class InventoryTable extends Table {
                     statement.setString(1, player.getUniqueId().toString());
                     statement.setBytes(2, InventoryUtil.encodeInventory(player.getInventory()));
                     statement.executeUpdate();
-                    connection.close();
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException("An SQL exception occured.", ex);
+            }
+        });
+    }
+
+    public CompletableFuture<Optional<Inventory>> loadInventory(Player player) {
+        return CompletableFuture.supplyAsync(() -> {
+            try (Connection connection = database.getSQLConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement(GET_INVENTORY)) {
+                    statement.setString(1, player.getUniqueId().toString());
+                    ResultSet resultSet = statement.executeQuery();
+                    if (resultSet.next()) {
+                        Inventory inventory = InventoryUtil.decodeInventory(resultSet.getBytes(1));
+                        return Optional.of(inventory);
+                    }
+                    return Optional.empty();
                 }
             } catch (SQLException ex) {
                 throw new RuntimeException("An SQL exception occured.", ex);
