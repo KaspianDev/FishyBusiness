@@ -43,7 +43,7 @@ public class Config {
 
     public void loadAreaEnabledAdapters() {
         document.getStringList("area.enabled-adapters").forEach((adapterName) -> {
-            AreaTypeRegistry.findByName(adapterName).ifPresent(plugin.getAreaManager().getAreaAdapter()::register);
+            AreaTypeRegistry.findByName(adapterName).ifPresent(plugin.getAreaAdapter()::register);
         });
     }
 

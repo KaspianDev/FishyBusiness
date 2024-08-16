@@ -11,7 +11,7 @@ public class WorldAdapter implements PropertyAdapter<World> {
 
     @Override
     public World deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        String worldUid = json.getAsString();
+        String worldUid = json.getAsJsonObject().get("world-uid").getAsString();
 
         return Bukkit.getWorld(UUID.fromString(worldUid));
     }

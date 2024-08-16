@@ -2,6 +2,7 @@ package com.github.kaspiandev.fishybusiness;
 
 import com.github.kaspiandev.fishybusiness.area.AreaManager;
 import com.github.kaspiandev.fishybusiness.area.FishyArea;
+import com.github.kaspiandev.fishybusiness.area.adapter.AreaAdapter;
 import com.github.kaspiandev.fishybusiness.config.Config;
 import com.github.kaspiandev.fishybusiness.exception.PluginLoadFailureException;
 import com.github.kaspiandev.fishybusiness.hook.HookManager;
@@ -12,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class FishyBusiness extends JavaPlugin {
 
     private Config config;
+    private AreaAdapter areaAdapter;
     private AreaManager areaManager;
     private HookManager hookManager;
 
@@ -19,8 +21,7 @@ public final class FishyBusiness extends JavaPlugin {
     public void onEnable() {
         hookManager = new HookManager(this);
 
-        areaManager = new AreaManager(this);
-        areaManager.addArea(new FishyArea(Bukkit.getWorld("world"), 100, 200, 0, 100, 100, 200));
+        areaAdapter = new AreaAdapter();
 
         try {
             config = new Config(this);
@@ -28,6 +29,9 @@ public final class FishyBusiness extends JavaPlugin {
             getPluginLoader().disablePlugin(this);
             throw new RuntimeException(ex);
         }
+
+        areaManager = new AreaManager(this);
+        areaManager.addArea(new FishyArea(Bukkit.getWorld("world"), 100, 200, 0, 100, 100, 200));
 
         getServer().getPluginManager().registerEvents(new AreaEventListener(this), this);
     }
@@ -43,6 +47,10 @@ public final class FishyBusiness extends JavaPlugin {
 
     public AreaManager getAreaManager() {
         return areaManager;
+    }
+
+    public AreaAdapter getAreaAdapter() {
+        return areaAdapter;
     }
 
 }

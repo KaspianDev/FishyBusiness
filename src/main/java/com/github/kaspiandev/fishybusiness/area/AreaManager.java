@@ -5,7 +5,6 @@ import com.github.kaspiandev.fishybusiness.area.adapter.AreaAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 import java.io.File;
@@ -20,32 +19,27 @@ import java.util.logging.Logger;
 public class AreaManager {
 
     private static final Logger LOGGER = Logger.getLogger(AreaManager.class.getSimpleName());
-    private static final Gson GSON;
-
-    static {
-        GSON = new GsonBuilder()
-                .setPrettyPrinting()
-                .registerTypeAdapter(Area.class, new AreaAdapter())
-                .create();
-    }
 
     private final AreaAdapter areaAdapter;
+    private final Gson gson;
     private final FishyBusiness plugin;
     private final File areaFile;
     private final List<Area> areas;
 
     public AreaManager(FishyBusiness plugin) {
         this.plugin = plugin;
-        this.areaAdapter = new AreaAdapter();
+        this.gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(Area.class, plugin.getAreaAdapter())
+                .create();
+        this.areaAdapter = plugin.getAreaAdapter();
         this.areaFile = new File(plugin.getDataFolder(), "areas.json");
         this.areas = new ArrayList<>();
         load();
-        addArea(new FishyArea(Bukkit.getWorld("world"), 10, 20, 30, 20, 30, 40));
-        System.out.println(areas);
-        save();
     }
 
     public void addArea(Area area) {
+        // TODO: Do checking for overlapping
         areas.add(area);
     }
 
@@ -64,7 +58,7 @@ public class AreaManager {
         }
 
         try (FileReader reader = new FileReader(areaFile)) {
-            List<Area> loadedAreas = GSON.fromJson(reader, new TypeToken<List<Area>>() {}.getType());
+            List<Area> loadedAreas = gson.fromJson(reader, new TypeToken<List<Area>>() {}.getType());
             if (loadedAreas != null) areas.addAll(loadedAreas);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -73,15 +67,11 @@ public class AreaManager {
 
     public void save() {
         try (FileWriter writer = new FileWriter(areaFile)) {
-            writer.write(GSON.toJson(areas, new TypeToken<List<Area>>() {}.getType()));
+            writer.write(gson.toJson(areas, new TypeToken<List<Area>>() {}.getType()));
         } catch (IOException ex) {
             LOGGER.severe(ex.getMessage());
         }
 
-    }
-
-    public AreaAdapter getAreaAdapter() {
-        return areaAdapter;
     }
 
 }
