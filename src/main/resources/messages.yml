@@ -1,0 +1,11 @@
+command:
+  no-permissions: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#d42c2f&You don't have the required permission to run this command."
+  no-arguments: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#d42c2f&You need to provide arguments to use this command."
+area:
+  saved: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&Area '${area}' was saved successfully."
+  overlap: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#d42c2f&This area overlaps anther area and cannot be saved."
+  already-exists: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#d42c2f&Area with name '${area}' already exists."
+  not-set: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#d42c2f&Area cannot be set because two corners aren't selected."
+  unknown-adapter: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#d42c2f&Area adapter with this name isn't registered."
+
+version: 1
