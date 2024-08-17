@@ -6,3 +6,6 @@ author: KaspianDev
 softdepend: [ Vault, WorldGuard, PlaceholderAPI ]
 libraries:
   - dev.dejvokep:boosted-yaml:1.3.5
+commands:
+  fishybusiness:
+    aliases: [ fbs ]

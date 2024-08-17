@@ -3,6 +3,8 @@ package com.github.kaspiandev.fishybusiness;
 import com.github.kaspiandev.fishybusiness.area.AreaManager;
 import com.github.kaspiandev.fishybusiness.area.FishyArea;
 import com.github.kaspiandev.fishybusiness.area.adapter.AreaAdapter;
+import com.github.kaspiandev.fishybusiness.command.FishyBusinessCommand;
+import com.github.kaspiandev.fishybusiness.command.SubCommandRegistry;
 import com.github.kaspiandev.fishybusiness.config.Config;
 import com.github.kaspiandev.fishybusiness.config.Messages;
 import com.github.kaspiandev.fishybusiness.data.Database;
@@ -11,6 +13,7 @@ import com.github.kaspiandev.fishybusiness.exception.PluginLoadFailureException;
 import com.github.kaspiandev.fishybusiness.hook.HookManager;
 import com.github.kaspiandev.fishybusiness.listener.AreaEventListener;
 import org.bukkit.Bukkit;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class FishyBusiness extends JavaPlugin {
@@ -45,6 +48,14 @@ public final class FishyBusiness extends JavaPlugin {
         database.load();
 
         getServer().getPluginManager().registerEvents(new AreaEventListener(this), this);
+
+        PluginCommand command = getCommand("fishybusiness");
+        if (command != null) {
+            SubCommandRegistry subCommandRegistry = new SubCommandRegistry(this);
+            FishyBusinessCommand fishyBusinessCommand = new FishyBusinessCommand(this, subCommandRegistry);
+            command.setExecutor(fishyBusinessCommand);
+            command.setTabCompleter(fishyBusinessCommand);
+        }
     }
 
     @Override

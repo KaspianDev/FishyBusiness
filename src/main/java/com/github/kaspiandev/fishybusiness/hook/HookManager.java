@@ -32,7 +32,7 @@ public class HookManager {
     public Collection<Hook<?>> getHooks() {
         return hooks.values();
     }
-    
+
     public <T extends Hook<?>> Optional<T> findHook(Class<? extends T> hookClass) {
         return Optional.ofNullable(hookClass.cast(hooks.get(hookClass)));
     }
