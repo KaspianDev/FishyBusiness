@@ -1,6 +1,7 @@
 hooks:
   # Available:
   # - WorldGuard - provides worldguard area adapter
+  # - PlaceholderAPI - support for messages and whatnot
   enabled:
     - "WorldGuard"
 

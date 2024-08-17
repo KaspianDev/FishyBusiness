@@ -4,6 +4,7 @@ import com.github.kaspiandev.fishybusiness.area.AreaManager;
 import com.github.kaspiandev.fishybusiness.area.FishyArea;
 import com.github.kaspiandev.fishybusiness.area.adapter.AreaAdapter;
 import com.github.kaspiandev.fishybusiness.config.Config;
+import com.github.kaspiandev.fishybusiness.config.Messages;
 import com.github.kaspiandev.fishybusiness.data.Database;
 import com.github.kaspiandev.fishybusiness.data.InventoryTable;
 import com.github.kaspiandev.fishybusiness.exception.PluginLoadFailureException;
@@ -15,6 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class FishyBusiness extends JavaPlugin {
 
     private Config config;
+    private Messages messages;
     private Database database;
     private AreaAdapter areaAdapter;
     private AreaManager areaManager;
@@ -28,6 +30,7 @@ public final class FishyBusiness extends JavaPlugin {
 
         try {
             config = new Config(this);
+            messages = new Messages(this);
         } catch (PluginLoadFailureException ex) {
             getPluginLoader().disablePlugin(this);
             throw new RuntimeException(ex);
@@ -61,8 +64,12 @@ public final class FishyBusiness extends JavaPlugin {
         return areaAdapter;
     }
 
+    public Messages getMessages() {
+        return messages;
+    }
+
     public Database getDatabase() {
         return database;
     }
-    
+
 }

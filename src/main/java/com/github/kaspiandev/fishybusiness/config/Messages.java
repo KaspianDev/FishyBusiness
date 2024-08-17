@@ -2,6 +2,7 @@ package com.github.kaspiandev.fishybusiness.config;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.exception.PluginLoadFailureException;
+import com.github.kaspiandev.fishybusiness.hook.worldguard.PlaceholderAPIHook;
 import com.github.kaspiandev.fishybusiness.util.ColorUtil;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.dvs.versioning.BasicVersioning;
@@ -9,10 +10,12 @@ import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;
 import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
 import dev.dejvokep.boostedyaml.settings.updater.UpdaterSettings;
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.function.UnaryOperator;
 
 public class Messages {
 
@@ -40,6 +43,24 @@ public class Messages {
 
     public BaseComponent[] get(Message message) {
         return ColorUtil.component(document.getString(message.getPath()));
+    }
+
+    public BaseComponent[] get(Message message, Player player) {
+        String configMessage = document.getString(message.getPath());
+        return ColorUtil.component(plugin.getHookManager().findHook(PlaceholderAPIHook.class)
+                                         .map((hook) -> hook.applyPlaceholders(player, configMessage))
+                                         .orElse(configMessage));
+    }
+
+    public BaseComponent[] get(Message message, UnaryOperator<String> function) {
+        return ColorUtil.component(function.apply(document.getString(message.getPath())));
+    }
+
+    public BaseComponent[] get(Message message, UnaryOperator<String> function, Player player) {
+        String configMessage = function.apply(document.getString(message.getPath()));
+        return ColorUtil.component(plugin.getHookManager().findHook(PlaceholderAPIHook.class)
+                                         .map((hook) -> hook.applyPlaceholders(player, configMessage))
+                                         .orElse(configMessage));
     }
 
 }
