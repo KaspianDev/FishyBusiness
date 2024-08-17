@@ -79,6 +79,10 @@ public final class FishyBusiness extends JavaPlugin {
         return messages;
     }
 
+    public Config getConf() {
+        return config;
+    }
+
     public Database getDatabase() {
         return database;
     }

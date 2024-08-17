@@ -63,4 +63,8 @@ public class Messages {
                                          .orElse(configMessage));
     }
 
+    public YamlDocument getDocument() {
+        return document;
+    }
+
 }

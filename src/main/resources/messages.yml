@@ -1,12 +1,19 @@
 command:
-  no-permissions: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#d42c2f&You don't have the required permission to run this command."
-  no-arguments: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#d42c2f&You need to provide arguments to use this command."
-  invalid-subcommand: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#d42c2f&Specified subcommand doesn't exist."
+  no-permissions: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&You don't have the required permission to run this command."
+  no-arguments: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&You need to provide arguments to use this command."
+  invalid-subcommand: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Specified subcommand doesn't exist."
 area:
   saved: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&Area '${area}' was saved successfully."
-  overlap: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#d42c2f&This area overlaps anther area and cannot be saved."
-  already-exists: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#d42c2f&Area with name '${area}' already exists."
-  not-set: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#d42c2f&Area cannot be set because two corners aren't selected."
-  unknown-adapter: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#d42c2f&Area adapter with this name isn't registered."
+  overlap: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&This area overlaps anther area and cannot be saved."
+  already-exists: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Area with name '${area}' already exists."
+  not-set: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Area cannot be set because two corners aren't selected."
+  unknown-adapter: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Area adapter with this name isn't registered."
+reload:
+  reloaded-all: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&Plugin was reloaded successfully."
+  reloaded: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&File '${file}' was reloaded successfully."
+  error-all: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&There was an error while reloading the plugin."
+  error: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&There was an error while reloading '${file}'."
+  unknown-type: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Specified component doesn't exist."
 
+# todo: better green and red colors (less vibrant red)
 version: 1
