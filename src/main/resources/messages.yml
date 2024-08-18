@@ -7,6 +7,7 @@ area:
   saved: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&Area was saved successfully."
   overlap: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&This area overlaps anther area and cannot be saved."
   no-name: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&You need to specifiy a name for the area."
+  world-mismatch: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Area corner worlds don't match."
   cannot-set: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Area cannot be set because two corners aren't selected."
   unknown-adapter: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Area adapter with this name isn't registered."
   tool-given: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&You received an area selector tool. Select first corner with left-click and second corner with right-click."

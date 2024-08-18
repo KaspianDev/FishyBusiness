@@ -5,6 +5,7 @@ import com.github.kaspiandev.fishybusiness.area.Area;
 import com.github.kaspiandev.fishybusiness.area.AreaTypeRegistry;
 import com.github.kaspiandev.fishybusiness.area.FishyArea;
 import com.github.kaspiandev.fishybusiness.area.exception.AreaOverlapException;
+import com.github.kaspiandev.fishybusiness.area.exception.AreaWorldMismatchException;
 import com.github.kaspiandev.fishybusiness.command.SubCommand;
 import com.github.kaspiandev.fishybusiness.command.SubCommands;
 import com.github.kaspiandev.fishybusiness.config.Message;
@@ -82,9 +83,8 @@ public class AreaSubcommand extends SubCommand {
             return;
         }
 
-        System.out.println(args[3]);
         switch (args[3]) {
-            case "tool" -> {
+            case "selector" -> {
                 player.getInventory().addItem(plugin.getFishyAreaSelectorFactory().getSelector());
                 player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_TOOL_GIVEN));
             }
@@ -107,12 +107,14 @@ public class AreaSubcommand extends SubCommand {
                     return;
                 }
 
-                Area area = new FishyArea(corner1, corner2);
                 try {
+                    Area area = new FishyArea(corner1, corner2);
                     plugin.getAreaManager().addArea(area);
                     player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_SAVED));
                 } catch (AreaOverlapException ex) {
                     player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_OVERLAP));
+                } catch (AreaWorldMismatchException ex) {
+                    player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_WORLD_MISMATCH));
                 }
             }
         }
@@ -122,8 +124,13 @@ public class AreaSubcommand extends SubCommand {
     public List<String> suggestions(CommandSender sender, String[] args) {
         if (args.length == 2) {
             return List.of("add");
-        } else if (args.length == 3 && args[1].equals("add")) {
-            return AREA_TYPE_NAME_CACHE.get();
+        }
+        if (args[1].equals("add")) {
+            if (args.length == 3) {
+                return AREA_TYPE_NAME_CACHE.get();
+            } else if (args.length == 4) {
+                return List.of("selector", "save");
+            }
         }
         return List.of();
     }

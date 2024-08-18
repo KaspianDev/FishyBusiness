@@ -1,5 +1,6 @@
 package com.github.kaspiandev.fishybusiness.area;
 
+import com.github.kaspiandev.fishybusiness.area.exception.AreaWorldMismatchException;
 import org.bukkit.Location;
 import org.bukkit.World;
 
@@ -18,13 +19,16 @@ public class FishyArea implements Area {
 
     public FishyArea(Location corner1, Location corner2) {
         this.world = corner1.getWorld();
-        // Check if worlds match
-        this.minX = corner1.getX();
-        this.maxX = corner2.getX();
-        this.minY = corner1.getY();
-        this.maxY = corner2.getY();
-        this.minZ = corner1.getZ();
-        this.maxZ = corner2.getZ();
+        assert world != null;
+        if (!world.equals(corner2.getWorld())) {
+            throw new AreaWorldMismatchException();
+        }
+        this.minX = Math.min(corner1.getX(), corner2.getX());
+        this.maxX = Math.max(corner1.getX(), corner2.getX());
+        this.minY = Math.min(corner1.getY(), corner2.getY());
+        this.maxY = Math.max(corner1.getY(), corner2.getY());
+        this.minZ = Math.min(corner1.getZ(), corner2.getZ());
+        this.maxZ = Math.max(corner1.getZ(), corner2.getZ());
     }
 
     public FishyArea(World world,

@@ -1,7 +1,6 @@
 package com.github.kaspiandev.fishybusiness.area;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
-import com.github.kaspiandev.fishybusiness.area.adapter.AreaAdapter;
 import com.github.kaspiandev.fishybusiness.area.exception.AreaOverlapException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,7 +20,6 @@ public class AreaManager {
 
     private static final Logger LOGGER = Logger.getLogger(AreaManager.class.getSimpleName());
 
-    private final AreaAdapter areaAdapter;
     private final Gson gson;
     private final FishyBusiness plugin;
     private final File areaFile;
@@ -33,7 +31,6 @@ public class AreaManager {
                 .setPrettyPrinting()
                 .registerTypeAdapter(Area.class, plugin.getAreaAdapter())
                 .create();
-        this.areaAdapter = plugin.getAreaAdapter();
         this.areaFile = new File(plugin.getDataFolder(), "areas.json");
         this.areas = new ArrayList<>();
         load();
