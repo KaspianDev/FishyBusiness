@@ -5,6 +5,8 @@ command:
   only-players: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Only players can use this command."
 area:
   saved: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&Area was saved successfully."
+  removed: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&Area was removed successfully."
+  no-area: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&There is no area at given location."
   overlap: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&This area overlaps anther area and cannot be saved."
   no-name: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&You need to specifiy a name for the area."
   world-mismatch: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Area corner worlds don't match."
@@ -19,4 +21,4 @@ reload:
   unknown-type: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Specified component doesn't exist."
 
 # todo: better green and red colors (less vibrant red)
-version: 2
+version: 3

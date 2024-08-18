@@ -8,6 +8,8 @@ public enum Message {
     COMMAND_ONLY_PLAYERS("command.only-players"),
 
     AREA_SAVED("area.saved"),
+    AREA_REMOVED("area.removed"),
+    AREA_NO_AREA("area.no-area"),
     AREA_OVERLAP("area.overlap"),
     AREA_NO_NAME("area.no-name"),
     AREA_WORLD_MISMATCH("area.world-mismatch"),

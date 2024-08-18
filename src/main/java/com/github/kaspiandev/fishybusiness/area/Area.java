@@ -4,7 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 
 public interface Area {
-
+    
     boolean isInside(World world, double x, double y, double z);
 
     default boolean isInside(Location location) {

@@ -12,7 +12,9 @@ import com.github.kaspiandev.fishybusiness.config.Message;
 import com.github.kaspiandev.fishybusiness.pdc.LocationPersistentDataType;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -23,13 +25,20 @@ import java.util.concurrent.TimeUnit;
 public class AreaSubcommand extends SubCommand {
 
     private static final Supplier<List<String>> AREA_TYPE_NAME_CACHE;
+    private static final Supplier<List<String>> WORLD_NAME_CACHE;
 
     static {
         AREA_TYPE_NAME_CACHE = Suppliers.memoizeWithExpiration(() -> {
-            return AreaTypeRegistry.getRegisteredTypeNames()
-                                   .stream()
+            return AreaTypeRegistry.getRegisteredTypeNames().stream()
                                    .sorted()
                                    .toList();
+        }, 30, TimeUnit.SECONDS);
+
+        WORLD_NAME_CACHE = Suppliers.memoizeWithExpiration(() -> {
+            return Bukkit.getWorlds().stream()
+                         .map(World::getName)
+                         .sorted()
+                         .toList();
         }, 30, TimeUnit.SECONDS);
     }
 
@@ -49,8 +58,45 @@ public class AreaSubcommand extends SubCommand {
 
         switch (args[1]) {
             case "add" -> handleAdd(sender, args);
-            // TODO: Remove etc.
+            case "remove" -> handleRemove(sender, args);
             default -> sender.spigot().sendMessage(plugin.getMessages().get(Message.COMMAND_INVALID_SUBCOMMAND));
+        }
+    }
+
+    private void handleRemove(CommandSender sender, String[] args) {
+        if (args.length <= 2) {
+            if (!(sender instanceof Player player)) {
+                sender.spigot().sendMessage(plugin.getMessages().get(Message.COMMAND_ONLY_PLAYERS));
+                return;
+            }
+
+            plugin.getAreaManager().findArea(player.getLocation()).ifPresentOrElse((area) -> {
+                plugin.getAreaManager().removeArea(area);
+                player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_REMOVED));
+            }, () -> {
+                player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_NO_AREA));
+            });
+        } else {
+            if (args.length <= 5) {
+                sender.spigot().sendMessage(plugin.getMessages().get(Message.COMMAND_NO_ARGUMENTS));
+                return;
+            }
+
+            try {
+                World world = Bukkit.getWorld(args[2]);
+                double x = Double.parseDouble(args[3]);
+                double y = Double.parseDouble(args[4]);
+                double z = Double.parseDouble(args[5]);
+
+                plugin.getAreaManager().findArea(new Location(world, x, y, z)).ifPresentOrElse((area) -> {
+                    plugin.getAreaManager().removeArea(area);
+                    sender.spigot().sendMessage(plugin.getMessages().get(Message.AREA_REMOVED));
+                }, () -> {
+                    sender.spigot().sendMessage(plugin.getMessages().get(Message.AREA_NO_AREA));
+                });
+            } catch (NumberFormatException ex) {
+                sender.spigot().sendMessage(plugin.getMessages().get(Message.AREA_NO_AREA));
+            }
         }
     }
 
@@ -123,14 +169,19 @@ public class AreaSubcommand extends SubCommand {
     @Override
     public List<String> suggestions(CommandSender sender, String[] args) {
         if (args.length == 2) {
-            return List.of("add");
-        }
-        if (args[1].equals("add")) {
+            return List.of("add", "remove");
+        } else if (args[1].equals("add")) {
             if (args.length == 3) {
                 return AREA_TYPE_NAME_CACHE.get();
             } else if (args.length == 4) {
                 return List.of("selector", "save");
             }
+        } else if (args[1].equals("remove")) {
+            if (args.length == 3) {
+                return WORLD_NAME_CACHE.get();
+            }
+            double
+            if (args)
         }
         return List.of();
     }

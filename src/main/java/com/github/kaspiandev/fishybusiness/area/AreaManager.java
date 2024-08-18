@@ -51,6 +51,11 @@ public class AreaManager {
         save();
     }
 
+    public void removeArea(Area area) {
+        areas.remove(area);
+        save();
+    }
+
     public Optional<Area> findArea(Location location) {
         return areas.stream()
                     .filter((area) -> area.isInside(location))
