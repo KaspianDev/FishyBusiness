@@ -10,18 +10,14 @@ import org.bukkit.Location;
 import org.bukkit.World;
 
 import java.util.Optional;
-import java.util.UUID;
 
 public class WorldGuardArea implements Area {
 
     private final World world;
     private final ProtectedRegion protectedRegion;
 
-    public WorldGuardArea(UUID world, String id) {
-        this.world = Bukkit.getWorld(world);
-        if (this.world == null) {
-            throw new IllegalStateException("World was not found");
-        }
+    public WorldGuardArea(World world, String id) {
+        this.world = world;
 
         Optional<ProtectedRegion> optProtectedRegion = WorldGuardArea.find(this.world, id);
         if (optProtectedRegion.isEmpty()) {

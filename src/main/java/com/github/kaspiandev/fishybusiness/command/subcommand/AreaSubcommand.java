@@ -4,11 +4,13 @@ import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.area.Area;
 import com.github.kaspiandev.fishybusiness.area.AreaTypeRegistry;
 import com.github.kaspiandev.fishybusiness.area.FishyArea;
+import com.github.kaspiandev.fishybusiness.area.WorldGuardArea;
 import com.github.kaspiandev.fishybusiness.area.exception.AreaOverlapException;
 import com.github.kaspiandev.fishybusiness.area.exception.AreaWorldMismatchException;
 import com.github.kaspiandev.fishybusiness.command.SubCommand;
 import com.github.kaspiandev.fishybusiness.command.SubCommands;
 import com.github.kaspiandev.fishybusiness.config.Message;
+import com.github.kaspiandev.fishybusiness.cooldown.Cooldown;
 import com.github.kaspiandev.fishybusiness.pdc.LocationPersistentDataType;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
@@ -19,6 +21,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -27,6 +30,7 @@ public class AreaSubcommand extends SubCommand {
 
     private static final Supplier<List<String>> AREA_TYPE_NAME_CACHE;
     private static final Supplier<List<String>> WORLD_NAME_CACHE;
+    private static final Cooldown<String> COORDINATE_COMPLETION_COOLDOWN;
 
     static {
         AREA_TYPE_NAME_CACHE = Suppliers.memoizeWithExpiration(() -> {
@@ -41,6 +45,8 @@ public class AreaSubcommand extends SubCommand {
                          .sorted()
                          .toList();
         }, 30, TimeUnit.SECONDS);
+
+        COORDINATE_COMPLETION_COOLDOWN = new Cooldown<>();
     }
 
     private final FishyBusiness plugin;
@@ -114,8 +120,11 @@ public class AreaSubcommand extends SubCommand {
 
         AreaTypeRegistry.findByName(args[2])
                         .ifPresentOrElse((areaType) -> {
-                            if (areaType.getAreaClass() == FishyArea.class) {
+                            Class<? extends Area> areaClass = areaType.getAreaClass();
+                            if (areaClass == FishyArea.class) {
                                 handleAddFishy(player, args);
+                            } else if (areaClass == WorldGuardArea.class) {
+                                handleAddWorldGuard(player, args);
                             } else {
                                 player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_UNKNOWN_ADAPTER));
                             }
@@ -124,9 +133,20 @@ public class AreaSubcommand extends SubCommand {
                         });
     }
 
+    private void handleAddWorldGuard(Player player, String[] args) {
+        if (args.length <= 4) {
+            player.spigot().sendMessage(plugin.getMessages().get(Message.COMMAND_NO_ARGUMENTS));
+            return;
+        }
+
+        World world = Bukkit.getWorld(args[3]);
+        String id = args[4];
+        plugin.getAreaManager().addArea(new WorldGuardArea(world, id));
+    }
+
     private void handleAddFishy(Player player, String[] args) {
         if (args.length <= 3) {
-            player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_NO_NAME));
+            player.spigot().sendMessage(plugin.getMessages().get(Message.COMMAND_NO_ARGUMENTS));
             return;
         }
 
@@ -171,7 +191,7 @@ public class AreaSubcommand extends SubCommand {
     public List<String> suggestions(CommandSender sender, String[] args) {
         if (args.length == 2) {
             return List.of("add", "remove");
-        } else if (args[1].equals("add")) {
+        } else if (args[2].equals("fishy")) {
             if (args.length == 3) {
                 return AREA_TYPE_NAME_CACHE.get();
             } else if (args.length == 4) {
@@ -180,7 +200,15 @@ public class AreaSubcommand extends SubCommand {
         } else if (args[1].equals("remove")) {
             if (args.length == 3) {
                 return WORLD_NAME_CACHE.get();
-            } else if (args.length == 4) {
+            }
+
+            String senderName = sender.getName();
+            if (COORDINATE_COMPLETION_COOLDOWN.isOnCooldown(senderName)) {
+                return List.of();
+            } else {
+                COORDINATE_COMPLETION_COOLDOWN.putOnCooldown(senderName, 250, ChronoUnit.MILLIS);
+            }
+            if (args.length == 4) {
                 return getCoordinateSuggestions(args[3]);
             } else if (args.length == 5) {
                 return getCoordinateSuggestions(args[4]);

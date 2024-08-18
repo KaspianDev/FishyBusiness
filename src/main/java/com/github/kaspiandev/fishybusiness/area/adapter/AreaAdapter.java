@@ -22,7 +22,6 @@ public class AreaAdapter implements JsonDeserializer<Area>, JsonSerializer<Area>
         this.areaRegistry = new HashMap<>();
     }
 
-    // TODO
     public void register(AreaType areaType) {
         for (PropertyAdapter<?> adapter : areaType.getPropertyAdapters()) {
             gsonBuilder.registerTypeHierarchyAdapter(adapter.getAdapterClass(), adapter);
@@ -41,6 +40,8 @@ public class AreaAdapter implements JsonDeserializer<Area>, JsonSerializer<Area>
         JsonElement typeElement = areaObject.get("type");
 
         Class<? extends Area> areaType = areaRegistry.get(typeElement.getAsString());
+        if (areaType == null) return null;
+        
         return gson.fromJson(areaObject, areaType);
     }
 

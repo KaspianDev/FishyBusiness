@@ -1,6 +1,7 @@
 package com.github.kaspiandev.fishybusiness.area;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
+import com.github.kaspiandev.fishybusiness.area.adapter.AreaListAdapter;
 import com.github.kaspiandev.fishybusiness.area.exception.AreaOverlapException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +21,7 @@ import java.util.logging.Logger;
 public class AreaManager {
 
     private static final Logger LOGGER = Logger.getLogger(AreaManager.class.getSimpleName());
+    private static final Type AREA_LIST_TYPE = new TypeToken<List<Area>>() {}.getType();
 
     private final Gson gson;
     private final FishyBusiness plugin;
@@ -30,6 +33,7 @@ public class AreaManager {
         this.gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .registerTypeAdapter(Area.class, plugin.getAreaAdapter())
+                .registerTypeAdapter(AREA_LIST_TYPE, new AreaListAdapter())
                 .create();
         this.areaFile = new File(plugin.getDataFolder(), "areas.json");
         this.areas = new ArrayList<>();
@@ -71,8 +75,9 @@ public class AreaManager {
         }
 
         try (FileReader reader = new FileReader(areaFile)) {
-            List<Area> loadedAreas = gson.fromJson(reader, new TypeToken<List<Area>>() {}.getType());
+            List<Area> loadedAreas = gson.fromJson(reader, AREA_LIST_TYPE);
             if (loadedAreas != null) areas.addAll(loadedAreas);
+            save();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -80,7 +85,7 @@ public class AreaManager {
 
     public void save() {
         try (FileWriter writer = new FileWriter(areaFile)) {
-            writer.write(gson.toJson(areas, new TypeToken<List<Area>>() {}.getType()));
+            writer.write(gson.toJson(areas, AREA_LIST_TYPE));
         } catch (IOException ex) {
             LOGGER.severe(ex.getMessage());
         }
