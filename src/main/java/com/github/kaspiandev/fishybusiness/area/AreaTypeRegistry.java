@@ -3,6 +3,7 @@ package com.github.kaspiandev.fishybusiness.area;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public class AreaTypeRegistry {
 
@@ -20,6 +21,10 @@ public class AreaTypeRegistry {
 
     public static Optional<AreaType> findByName(String name) {
         return Optional.ofNullable(registry.get(name));
+    }
+
+    public static Set<String> getRegisteredTypeNames() {
+        return registry.keySet();
     }
 
 }

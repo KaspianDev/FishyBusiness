@@ -2,7 +2,8 @@ package com.github.kaspiandev.fishybusiness.command;
 
 public enum SubCommands {
 
-    RELOAD("reload", "fishybusiness.command.reload");
+    RELOAD("reload", "fishybusiness.command.reload"),
+    AREA("area", "fishybusiness.command.area");
 
     private final String key;
     private final String permission;

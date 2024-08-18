@@ -2,12 +2,15 @@ command:
   no-permissions: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&You don't have the required permission to run this command."
   no-arguments: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&You need to provide arguments to use this command."
   invalid-subcommand: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Specified subcommand doesn't exist."
+  only-players: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Only players can use this command."
 area:
   saved: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&Area '${area}' was saved successfully."
   overlap: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&This area overlaps anther area and cannot be saved."
+  no-name: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&You need to specifiy a name for the area."
   already-exists: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Area with name '${area}' already exists."
-  not-set: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Area cannot be set because two corners aren't selected."
+  cannot-set: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Area cannot be set because two corners aren't selected."
   unknown-adapter: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Area adapter with this name isn't registered."
+  tool-given: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&You received an area selector tool. Select first corner with left-click and second corner with right-click."
 reload:
   reloaded-all: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&Plugin was reloaded successfully."
   reloaded: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&File '${file}' was reloaded successfully."
@@ -16,4 +19,4 @@ reload:
   unknown-type: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Specified component doesn't exist."
 
 # todo: better green and red colors (less vibrant red)
-version: 1
+version: 2

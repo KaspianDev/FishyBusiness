@@ -2,6 +2,7 @@ package com.github.kaspiandev.fishybusiness.area;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.area.adapter.AreaAdapter;
+import com.github.kaspiandev.fishybusiness.area.exception.AreaOverlapException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -40,6 +41,16 @@ public class AreaManager {
 
     public void addArea(Area area) {
         // TODO: Do checking for overlapping
+        Optional<Area> minCornerArea = findArea(area.getMinCorner());
+        if (minCornerArea.isPresent()) {
+            throw new AreaOverlapException();
+        }
+
+        Optional<Area> maxCornerArea = findArea(area.getMaxCorner());
+        if (maxCornerArea.isPresent()) {
+            throw new AreaOverlapException();
+        }
+
         areas.add(area);
     }
 
