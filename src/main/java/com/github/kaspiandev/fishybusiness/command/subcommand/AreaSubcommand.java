@@ -19,6 +19,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -179,11 +180,32 @@ public class AreaSubcommand extends SubCommand {
         } else if (args[1].equals("remove")) {
             if (args.length == 3) {
                 return WORLD_NAME_CACHE.get();
+            } else if (args.length == 4) {
+                return getCoordinateSuggestions(args[3]);
+            } else if (args.length == 5) {
+                return getCoordinateSuggestions(args[4]);
+            } else if (args.length == 6) {
+                return getCoordinateSuggestions(args[5]);
             }
-            double
-            if (args)
         }
         return List.of();
+    }
+
+    private List<String> getCoordinateSuggestions(String arg) {
+        try {
+            double coordinate = Double.parseDouble(arg);
+            return getSurroundingCoordinates((int) coordinate);
+        } catch (NumberFormatException ex) {
+            return getSurroundingCoordinates(0);
+        }
+    }
+
+    private List<String> getSurroundingCoordinates(int coordinate) {
+        List<String> surroundingCoordinates = new ArrayList<>();
+        for (int i = -50; i <= 50; i++) {
+            surroundingCoordinates.add(String.valueOf(coordinate + i));
+        }
+        return surroundingCoordinates;
     }
 
 }
