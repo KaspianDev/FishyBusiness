@@ -10,7 +10,6 @@ public enum Message {
     AREA_SAVED("area.saved"),
     AREA_OVERLAP("area.overlap"),
     AREA_NO_NAME("area.no-name"),
-    AREA_ALREADY_EXISTS("area.already-exists"),
     AREA_CANNOT_SET("area.cannot-set"),
     AREA_UNKNOWN_ADAPTER("area.unknown-adapter"),
     AREA_TOOL_GIVEN("area.tool-given"),

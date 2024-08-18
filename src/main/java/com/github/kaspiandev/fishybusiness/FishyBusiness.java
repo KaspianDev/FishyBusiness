@@ -1,7 +1,6 @@
 package com.github.kaspiandev.fishybusiness;
 
 import com.github.kaspiandev.fishybusiness.area.AreaManager;
-import com.github.kaspiandev.fishybusiness.area.FishyArea;
 import com.github.kaspiandev.fishybusiness.area.adapter.AreaAdapter;
 import com.github.kaspiandev.fishybusiness.command.FishyBusinessCommand;
 import com.github.kaspiandev.fishybusiness.command.SubCommandRegistry;
@@ -12,7 +11,7 @@ import com.github.kaspiandev.fishybusiness.data.InventoryTable;
 import com.github.kaspiandev.fishybusiness.exception.PluginLoadFailureException;
 import com.github.kaspiandev.fishybusiness.hook.HookManager;
 import com.github.kaspiandev.fishybusiness.listener.AreaEventListener;
-import org.bukkit.Bukkit;
+import com.github.kaspiandev.fishybusiness.selector.FishyAreaSelectorFactory;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -24,6 +23,7 @@ public final class FishyBusiness extends JavaPlugin {
     private AreaAdapter areaAdapter;
     private AreaManager areaManager;
     private HookManager hookManager;
+    private FishyAreaSelectorFactory fishyAreaSelectorFactory;
 
     @Override
     public void onEnable() {
@@ -40,7 +40,6 @@ public final class FishyBusiness extends JavaPlugin {
         }
 
         areaManager = new AreaManager(this);
-        areaManager.addArea(new FishyArea(Bukkit.getWorld("world"), 100, 200, 0, 100, 100, 200));
 
         database = new Database(this);
         InventoryTable inventoryTable = new InventoryTable(database);
@@ -48,6 +47,8 @@ public final class FishyBusiness extends JavaPlugin {
         database.load();
 
         getServer().getPluginManager().registerEvents(new AreaEventListener(this), this);
+
+        fishyAreaSelectorFactory = new FishyAreaSelectorFactory(this);
 
         PluginCommand command = getCommand("fishybusiness");
         if (command != null) {
@@ -81,6 +82,10 @@ public final class FishyBusiness extends JavaPlugin {
 
     public Config getConf() {
         return config;
+    }
+
+    public FishyAreaSelectorFactory getFishyAreaSelectorFactory() {
+        return fishyAreaSelectorFactory;
     }
 
     public Database getDatabase() {

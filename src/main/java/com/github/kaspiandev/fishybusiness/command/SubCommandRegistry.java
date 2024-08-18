@@ -1,6 +1,7 @@
 package com.github.kaspiandev.fishybusiness.command;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
+import com.github.kaspiandev.fishybusiness.command.subcommand.AreaSubcommand;
 import com.github.kaspiandev.fishybusiness.command.subcommand.ReloadSubcommand;
 
 import java.util.HashMap;
@@ -20,6 +21,8 @@ public class SubCommandRegistry {
     private void load() {
         ReloadSubcommand reloadSubcommand = new ReloadSubcommand(plugin);
         registry.put(reloadSubcommand.getType().getKey(), reloadSubcommand);
+        AreaSubcommand areaSubcommand = new AreaSubcommand(plugin);
+        registry.put(areaSubcommand.getType().getKey(), areaSubcommand);
     }
 
     public Map<String, SubCommand> getRegistry() {

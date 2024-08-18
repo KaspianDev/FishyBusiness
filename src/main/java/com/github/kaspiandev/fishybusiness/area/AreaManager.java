@@ -40,7 +40,6 @@ public class AreaManager {
     }
 
     public void addArea(Area area) {
-        // TODO: Do checking for overlapping
         Optional<Area> minCornerArea = findArea(area.getMinCorner());
         if (minCornerArea.isPresent()) {
             throw new AreaOverlapException();
@@ -52,6 +51,7 @@ public class AreaManager {
         }
 
         areas.add(area);
+        save();
     }
 
     public Optional<Area> findArea(Location location) {

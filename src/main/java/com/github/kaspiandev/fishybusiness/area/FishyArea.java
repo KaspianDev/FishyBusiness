@@ -16,6 +16,17 @@ public class FishyArea implements Area {
     private final double minZ;
     private final double maxZ;
 
+    public FishyArea(Location corner1, Location corner2) {
+        this.world = corner1.getWorld();
+        // Check if worlds match
+        this.minX = corner1.getX();
+        this.maxX = corner2.getX();
+        this.minY = corner1.getY();
+        this.maxY = corner2.getY();
+        this.minZ = corner1.getZ();
+        this.maxZ = corner2.getZ();
+    }
+
     public FishyArea(World world,
                      double minX, double maxX,
                      double minY, double maxY,
