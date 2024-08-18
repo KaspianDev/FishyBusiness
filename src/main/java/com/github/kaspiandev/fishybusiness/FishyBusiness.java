@@ -20,6 +20,7 @@ public final class FishyBusiness extends JavaPlugin {
     private Config config;
     private Messages messages;
     private Database database;
+    private InventoryTable inventoryTable;
     private AreaAdapter areaAdapter;
     private AreaManager areaManager;
     private HookManager hookManager;
@@ -42,7 +43,7 @@ public final class FishyBusiness extends JavaPlugin {
         areaManager = new AreaManager(this);
 
         database = new Database(this);
-        InventoryTable inventoryTable = new InventoryTable(database);
+        inventoryTable = new InventoryTable(database);
         database.registerTable(inventoryTable);
         database.load();
 
@@ -90,6 +91,10 @@ public final class FishyBusiness extends JavaPlugin {
 
     public Database getDatabase() {
         return database;
+    }
+
+    public InventoryTable getInventoryTable() {
+        return inventoryTable;
     }
 
 }
