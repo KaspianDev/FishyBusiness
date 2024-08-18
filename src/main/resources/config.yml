@@ -12,4 +12,27 @@ area:
   enabled-adapters:
     - "fishy"
 
+inventory:
+  mask:
+    - "xxxxxxxxx"
+    - "xxxxxxxxx"
+    - "xxxxxxxxx"
+    - "xxxxrxxxx"
+  items:
+    x:
+      type: AIR
+    r:
+      type: FISHING_ROD
+      name: "&e&lFishy Rod"
+      lore:
+        - "&7Use it to fish for amazing rewards!"
+      unbreakable: true
+      flags:
+        - HIDE_ATTRIBUTES
+        - HIDE_UNBREAKABLE
+        - HIDE_ENCHANTS
+      enchants:
+        - type: "unbreaking"
+          level: 1
+
 version: 1
