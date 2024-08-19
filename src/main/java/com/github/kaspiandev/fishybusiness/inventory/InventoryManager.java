@@ -37,11 +37,25 @@ public class InventoryManager {
 
     private List<ItemStack> buildInventory() {
         YamlDocument document = plugin.getConf().getDocument();
-        List<String> mask = document.getStringList("inventory.mask");
-        if (mask.size() != 4) {
-            throw new InventoryInvalidMaskException("There must be exactly 4 lines of mask in configuration.");
+        List<String> storageMask = document.getStringList("inventory.mask.storage");
+        if (storageMask.size() != 3) {
+            throw new InventoryInvalidMaskException("There must be exactly 3 lines of storage mask in configuration.");
         }
 
+        List<String> hotbarMask = document.getStringList("inventory.mask.hotbar");
+        if (hotbarMask.size() != 1) {
+            throw new InventoryInvalidMaskException("There must be exactly 1 line of hotbar mask in configuration.");
+        }
+
+        List<ItemStack> items = new ArrayList<>();
+        items.addAll(parseMask(hotbarMask, document));
+        items.addAll(parseMask(storageMask, document));
+
+        return items;
+    }
+
+
+    private List<ItemStack> parseMask(List<String> mask, YamlDocument document) {
         List<ItemStack> items = new ArrayList<>();
         for (String maskLine : mask) {
             if (maskLine.length() != 9) {
@@ -54,7 +68,6 @@ public class InventoryManager {
                 items.add(item);
             }
         }
-
         return items;
     }
 
@@ -64,8 +77,9 @@ public class InventoryManager {
 
         plugin.getInventoryTable().saveInventory(player).thenRun(() -> {
             Bukkit.getScheduler().runTask(plugin, () -> {
+                inventory.clear(); // TODO: Make this configurable (let players use their own armor)
                 for (int i = 0; i < 9 * 4; i++) {
-                    inventory.setItem(i, fishyInventory.get(i));
+                    inventory.setItem(i + 9, fishyInventory.get(i));
                 }
             });
         });

@@ -14,10 +14,12 @@ area:
 
 inventory:
   mask:
-    - "xxxxxxxxx"
-    - "xxxxxxxxx"
-    - "xxxxxxxxx"
-    - "xxxxrxxxx"
+    storage:
+      - "xxxxxxxxx"
+      - "xxxxxxxxx"
+      - "xxxxxxxxx"
+    hotbar:
+      - "xxxxrxxxx"
   items:
     x:
       type: AIR
