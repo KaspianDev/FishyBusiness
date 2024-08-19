@@ -9,10 +9,17 @@ public class CommandReward implements Reward {
 
     private transient final FishyBusiness plugin;
     private final String command;
+    private final double weight;
 
-    public CommandReward(FishyBusiness plugin, String command) {
+    public CommandReward(FishyBusiness plugin, String command, double weight) {
         this.plugin = plugin;
         this.command = command;
+        this.weight = weight;
+    }
+
+    @Override
+    public double getWeight() {
+        return weight;
     }
 
     @Override

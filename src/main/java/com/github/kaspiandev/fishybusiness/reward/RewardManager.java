@@ -12,18 +12,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Logger;
 
 public class RewardManager {
 
     private static final Logger LOGGER = Logger.getLogger(RewardManager.class.getSimpleName());
     private static final Type REWARD_LIST_TYPE = new TypeToken<List<Reward>>() {}.getType();
+    private static final Random RANDOM = new Random();
 
     private final Gson gson;
     private final FishyBusiness plugin;
     private final File rewardFile;
     private final List<Reward> rewards;
+    private double totalWeight = 0;
 
     public RewardManager(FishyBusiness plugin) {
         this.plugin = plugin;
@@ -39,12 +43,29 @@ public class RewardManager {
 
     public void addReward(Reward reward) {
         rewards.add(reward);
+        totalWeight += reward.getWeight();
         save();
     }
 
     public void removeReward(Reward reward) {
         rewards.remove(reward);
+        totalWeight -= reward.getWeight();
         save();
+    }
+
+    public Reward chooseRandomReward() {
+        double randomNumber = RANDOM.nextDouble() * totalWeight;
+        double cumulativeWeight = 0;
+
+        for (Reward reward : rewards) {
+            cumulativeWeight += reward.getWeight();
+            if (randomNumber < cumulativeWeight) {
+                return reward;
+            }
+        }
+        return rewards.stream()
+                      .min(Comparator.comparingDouble(Reward::getWeight))
+                      .orElse(rewards.get(0));
     }
 
     private void load() {
