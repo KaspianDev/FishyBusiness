@@ -1,15 +1,13 @@
 package com.github.kaspiandev.fishybusiness.reward.adapter;
 
 import com.github.kaspiandev.fishybusiness.gson.PropertyAdapter;
+import com.github.kaspiandev.fishybusiness.reward.MessageReward;
 import com.github.kaspiandev.fishybusiness.reward.Reward;
 import com.github.kaspiandev.fishybusiness.reward.RewardType;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class RewardAdapter implements JsonDeserializer<Reward>, JsonSerializer<Reward> {
 
@@ -19,7 +17,8 @@ public class RewardAdapter implements JsonDeserializer<Reward>, JsonSerializer<R
     private Gson gson;
 
     public RewardAdapter() {
-        this.gsonBuilder = new GsonBuilder();
+        this.gsonBuilder = new GsonBuilder()
+                .registerTypeHierarchyAdapter(MessageReward.Type.class, new MessageTypeAdapter());
         this.gson = gsonBuilder.create();
         this.rewardRegistry = new HashMap<>();
         this.registeredAdapters = new ArrayList<>();
@@ -33,6 +32,8 @@ public class RewardAdapter implements JsonDeserializer<Reward>, JsonSerializer<R
         }
         rewardRegistry.put(rewardType.getAreaClass().getSimpleName(), rewardType.getAreaClass());
         rebuildGson();
+        System.out.println(rewardType.getAreaClass().getName());
+        System.out.println(Arrays.toString(rewardType.getPropertyAdapters()));
     }
 
     private void rebuildGson() {
@@ -53,6 +54,7 @@ public class RewardAdapter implements JsonDeserializer<Reward>, JsonSerializer<R
     @Override
     public JsonElement serialize(Reward src, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject areaObject = gson.toJsonTree(src).getAsJsonObject();
+        System.out.println(areaObject.asMap() + " aa ");
         areaObject.addProperty("type", src.getClass().getSimpleName());
 
         return areaObject;

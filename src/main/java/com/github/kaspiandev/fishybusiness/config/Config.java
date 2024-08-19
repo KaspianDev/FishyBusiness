@@ -51,7 +51,11 @@ public class Config {
 
     public void loadRewardEnabledAdapters() {
         document.getStringList("rewards.enabled-adapters").forEach((adapterName) -> {
-            RewardTypeRegistry.findByName(adapterName).ifPresent(plugin.getRewardAdapter()::register);
+            System.out.println(adapterName);
+            RewardTypeRegistry.findByName(adapterName).ifPresent((a) -> {
+                plugin.getRewardAdapter().register(a);
+                System.out.println(a);
+            });
         });
     }
 
