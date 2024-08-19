@@ -13,6 +13,9 @@ import com.github.kaspiandev.fishybusiness.hook.HookManager;
 import com.github.kaspiandev.fishybusiness.inventory.InventoryManager;
 import com.github.kaspiandev.fishybusiness.listener.AreaActionListener;
 import com.github.kaspiandev.fishybusiness.listener.AreaEventListener;
+import com.github.kaspiandev.fishybusiness.reward.*;
+import com.github.kaspiandev.fishybusiness.reward.adapter.FishyBusinessAdapter;
+import com.github.kaspiandev.fishybusiness.reward.adapter.RewardAdapter;
 import com.github.kaspiandev.fishybusiness.selector.FishyAreaSelectorFactory;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,6 +27,8 @@ public final class FishyBusiness extends JavaPlugin {
     private Database database;
     private InventoryTable inventoryTable;
     private AreaAdapter areaAdapter;
+    private RewardAdapter rewardAdapter;
+    private RewardManager rewardManager;
     private AreaManager areaManager;
     private HookManager hookManager;
     private FishyAreaSelectorFactory fishyAreaSelectorFactory;
@@ -33,7 +38,11 @@ public final class FishyBusiness extends JavaPlugin {
     public void onEnable() {
         hookManager = new HookManager(this);
 
+        RewardTypeRegistry.register("command", new RewardType(Reward.class, new FishyBusinessAdapter(this)));
+
         areaAdapter = new AreaAdapter();
+        rewardAdapter = new RewardAdapter();
+        rewardAdapter.register(new RewardType(CommandReward.class, new FishyBusinessAdapter(this)));
 
         try {
             config = new Config(this);
@@ -44,6 +53,7 @@ public final class FishyBusiness extends JavaPlugin {
         }
 
         areaManager = new AreaManager(this);
+        rewardManager = new RewardManager(this);
 
         database = new Database(this);
         inventoryTable = new InventoryTable(database);
@@ -83,6 +93,10 @@ public final class FishyBusiness extends JavaPlugin {
         return areaAdapter;
     }
 
+    public RewardManager getRewardManager() {
+        return rewardManager;
+    }
+
     public Messages getMessages() {
         return messages;
     }
@@ -97,6 +111,10 @@ public final class FishyBusiness extends JavaPlugin {
 
     public FishyAreaSelectorFactory getFishyAreaSelectorFactory() {
         return fishyAreaSelectorFactory;
+    }
+
+    public RewardAdapter getRewardAdapter() {
+        return rewardAdapter;
     }
 
     public Database getDatabase() {

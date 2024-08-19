@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 public class CommandReward implements Reward {
 
-    private final FishyBusiness plugin;
+    private transient final FishyBusiness plugin;
     private final String command;
 
     public CommandReward(FishyBusiness plugin, String command) {

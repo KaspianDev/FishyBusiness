@@ -23,7 +23,7 @@ public class RewardAdapter implements JsonDeserializer<Reward>, JsonSerializer<R
 
     public void register(RewardType rewardType) {
         for (PropertyAdapter<?> adapter : rewardType.getPropertyAdapters()) {
-            gsonBuilder.registerTypeHierarchyAdapter(adapter.getAdapterClass(), adapter);
+            adapter.inject(gsonBuilder);
         }
         rewardRegistry.put(rewardType.getAreaClass().getSimpleName(), rewardType.getAreaClass());
         rebuildGson();

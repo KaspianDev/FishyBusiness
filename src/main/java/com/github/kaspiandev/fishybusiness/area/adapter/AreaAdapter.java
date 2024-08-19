@@ -25,7 +25,7 @@ public class AreaAdapter implements JsonDeserializer<Area>, JsonSerializer<Area>
 
     public void register(AreaType areaType) {
         for (PropertyAdapter<?> adapter : areaType.getPropertyAdapters()) {
-            gsonBuilder.registerTypeHierarchyAdapter(adapter.getAdapterClass(), adapter);
+            adapter.inject(gsonBuilder);
         }
         areaRegistry.put(areaType.getAreaClass().getSimpleName(), areaType.getAreaClass());
         rebuildGson();

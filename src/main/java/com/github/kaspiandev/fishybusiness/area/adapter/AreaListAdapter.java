@@ -1,26 +1,13 @@
 package com.github.kaspiandev.fishybusiness.area.adapter;
 
 import com.github.kaspiandev.fishybusiness.area.Area;
-import com.google.gson.*;
+import com.github.kaspiandev.fishybusiness.gson.ListAdapter;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
-public class AreaListAdapter implements JsonDeserializer<List<Area>> {
+public class AreaListAdapter extends ListAdapter<Area> {
 
     @Override
-    public List<Area> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        List<Area> result = new ArrayList<>();
-        if (json.isJsonArray()) {
-            JsonArray array = json.getAsJsonArray();
-            for (JsonElement element : array) {
-                Area item = context.deserialize(element, Area.class);
-                if (item != null) {
-                    result.add(item);
-                }
-            }
-        }
-        return result;
+    public Class<Area> getItemClass() {
+        return Area.class;
     }
+
 }
