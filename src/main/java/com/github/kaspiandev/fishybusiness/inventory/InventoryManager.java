@@ -79,7 +79,7 @@ public class InventoryManager {
             Bukkit.getScheduler().runTask(plugin, () -> {
                 inventory.clear(); // TODO: Make this configurable (let players use their own armor)
                 for (int i = 0; i < 9 * 4; i++) {
-                    inventory.setItem(i + 9, fishyInventory.get(i));
+                    inventory.setItem(i, fishyInventory.get(i));
                 }
             });
         });

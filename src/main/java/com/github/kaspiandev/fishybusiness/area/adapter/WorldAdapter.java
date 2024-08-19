@@ -1,5 +1,6 @@
 package com.github.kaspiandev.fishybusiness.area.adapter;
 
+import com.github.kaspiandev.fishybusiness.gson.SerializingPropertyAdapter;
 import com.google.gson.*;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -7,7 +8,7 @@ import org.bukkit.World;
 import java.lang.reflect.Type;
 import java.util.UUID;
 
-public class WorldAdapter implements PropertyAdapter<World> {
+public class WorldAdapter implements SerializingPropertyAdapter<World> {
 
     @Override
     public World deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

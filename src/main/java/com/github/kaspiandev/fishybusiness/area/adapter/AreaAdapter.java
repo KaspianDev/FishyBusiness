@@ -2,6 +2,7 @@ package com.github.kaspiandev.fishybusiness.area.adapter;
 
 import com.github.kaspiandev.fishybusiness.area.Area;
 import com.github.kaspiandev.fishybusiness.area.AreaType;
+import com.github.kaspiandev.fishybusiness.gson.PropertyAdapter;
 import com.google.gson.*;
 import org.bukkit.World;
 
@@ -41,7 +42,7 @@ public class AreaAdapter implements JsonDeserializer<Area>, JsonSerializer<Area>
 
         Class<? extends Area> areaType = areaRegistry.get(typeElement.getAsString());
         if (areaType == null) return null;
-        
+
         return gson.fromJson(areaObject, areaType);
     }
 

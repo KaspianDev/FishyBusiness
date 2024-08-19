@@ -1,13 +1,14 @@
 package com.github.kaspiandev.fishybusiness.area.adapter;
 
 import com.github.kaspiandev.fishybusiness.area.WorldGuardArea;
+import com.github.kaspiandev.fishybusiness.gson.SerializingPropertyAdapter;
 import com.google.gson.*;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 import java.lang.reflect.Type;
 import java.util.Optional;
 
-public class ProtectedRegionAdapter implements PropertyAdapter<ProtectedRegion> {
+public class ProtectedRegionAdapter implements SerializingPropertyAdapter<ProtectedRegion> {
 
     @Override
     public ProtectedRegion deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

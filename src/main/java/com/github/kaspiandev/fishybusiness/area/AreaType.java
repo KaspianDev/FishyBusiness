@@ -1,6 +1,6 @@
 package com.github.kaspiandev.fishybusiness.area;
 
-import com.github.kaspiandev.fishybusiness.area.adapter.PropertyAdapter;
+import com.github.kaspiandev.fishybusiness.gson.PropertyAdapter;
 
 public class AreaType {
 
