@@ -7,15 +7,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class AreaManager {
@@ -27,6 +26,7 @@ public class AreaManager {
     private final FishyBusiness plugin;
     private final File areaFile;
     private final List<Area> areas;
+    private final Map<UUID, Area> playerAreas;
 
     public AreaManager(FishyBusiness plugin) {
         this.plugin = plugin;
@@ -37,6 +37,7 @@ public class AreaManager {
                 .create();
         this.areaFile = new File(plugin.getDataFolder(), "areas.json");
         this.areas = new ArrayList<>();
+        this.playerAreas = new HashMap<>();
         load();
     }
 
@@ -89,7 +90,18 @@ public class AreaManager {
         } catch (IOException ex) {
             LOGGER.severe(ex.getMessage());
         }
+    }
 
+    public void putPlayerArea(Player player, Area area) {
+        playerAreas.put(player.getUniqueId(), area);
+    }
+
+    public Optional<Area> getPlayerArea(Player player) {
+        return Optional.ofNullable(playerAreas.get(player.getUniqueId()));
+    }
+
+    public void clearPlayerArea(Player player) {
+        playerAreas.remove(player.getUniqueId());
     }
 
 }

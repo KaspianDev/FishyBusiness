@@ -6,9 +6,12 @@ import com.github.kaspiandev.fishybusiness.event.AreaEnterEvent;
 import com.github.kaspiandev.fishybusiness.event.AreaLeaveEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.Optional;
 
@@ -28,9 +31,11 @@ public class AreaEventListener implements Listener {
         Location from = event.getFrom();
         Optional<Area> previousArea = plugin.getAreaManager().findArea(from);
         Optional<Area> newArea = plugin.getAreaManager().findArea(to);
+        Player player = event.getPlayer();
         if (newArea.isEmpty()) {
             if (previousArea.isPresent()) {
-                Bukkit.getServer().getPluginManager().callEvent(new AreaLeaveEvent(event.getPlayer(), previousArea.get()));
+                plugin.getAreaManager().clearPlayerArea(player);
+                Bukkit.getServer().getPluginManager().callEvent(new AreaLeaveEvent(player, previousArea.get()));
             }
             return;
         }
@@ -39,7 +44,27 @@ public class AreaEventListener implements Listener {
             return;
         }
 
-        Bukkit.getServer().getPluginManager().callEvent(new AreaEnterEvent(event.getPlayer(), newArea.get()));
+        plugin.getAreaManager().putPlayerArea(player, newArea.get());
+        Bukkit.getServer().getPluginManager().callEvent(new AreaEnterEvent(player, newArea.get()));
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        Player player = event.getPlayer();
+        plugin.getAreaManager().findArea(player.getLocation()).ifPresent((area) -> {
+            plugin.getAreaManager().putPlayerArea(player, area);
+            Bukkit.getServer().getPluginManager().callEvent(new AreaEnterEvent(player, area));
+        });
+    }
+
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+        plugin.getAreaManager().getPlayerArea(player).ifPresent((area) -> {
+            plugin.getAreaManager().clearPlayerArea(event.getPlayer());
+            Bukkit.getServer().getPluginManager().callEvent(new AreaLeaveEvent(player, area));
+        });
     }
 
 }

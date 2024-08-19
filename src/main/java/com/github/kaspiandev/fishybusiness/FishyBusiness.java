@@ -11,7 +11,7 @@ import com.github.kaspiandev.fishybusiness.data.InventoryTable;
 import com.github.kaspiandev.fishybusiness.exception.PluginLoadFailureException;
 import com.github.kaspiandev.fishybusiness.hook.HookManager;
 import com.github.kaspiandev.fishybusiness.inventory.InventoryManager;
-import com.github.kaspiandev.fishybusiness.listener.AreaEnterLeaveListener;
+import com.github.kaspiandev.fishybusiness.listener.AreaActionListener;
 import com.github.kaspiandev.fishybusiness.listener.AreaEventListener;
 import com.github.kaspiandev.fishybusiness.selector.FishyAreaSelectorFactory;
 import org.bukkit.command.PluginCommand;
@@ -53,7 +53,7 @@ public final class FishyBusiness extends JavaPlugin {
         inventoryManager = new InventoryManager(this);
 
         getServer().getPluginManager().registerEvents(new AreaEventListener(this), this);
-        getServer().getPluginManager().registerEvents(new AreaEnterLeaveListener(this), this);
+        getServer().getPluginManager().registerEvents(new AreaActionListener(this), this);
 
         fishyAreaSelectorFactory = new FishyAreaSelectorFactory(this);
 
