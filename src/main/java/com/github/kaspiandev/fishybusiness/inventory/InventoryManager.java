@@ -3,6 +3,8 @@ package com.github.kaspiandev.fishybusiness.inventory;
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.inventory.exception.InventoryInvalidMaskException;
 import com.github.kaspiandev.fishybusiness.util.ItemLoader;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -11,8 +13,19 @@ import org.bukkit.inventory.PlayerInventory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class InventoryManager {
+
+    private static final Cache<UUID, ItemStack[]> INVENTORY_CACHE;
+
+    static {
+        INVENTORY_CACHE = CacheBuilder.newBuilder()
+                                      .expireAfterWrite(30, TimeUnit.SECONDS)
+                                      .maximumSize(100)
+                                      .build();
+    }
 
     private final FishyBusiness plugin;
     private final List<ItemStack> fishyInventory;
@@ -46,10 +59,11 @@ public class InventoryManager {
     }
 
     public void apply(Player player) {
+        PlayerInventory inventory = player.getInventory();
+        INVENTORY_CACHE.put(player.getUniqueId(), inventory.getContents());
+
         plugin.getInventoryTable().saveInventory(player).thenRun(() -> {
             Bukkit.getScheduler().runTask(plugin, () -> {
-                PlayerInventory inventory = player.getInventory();
-
                 for (int i = 0; i < 9 * 4; i++) {
                     inventory.setItem(i, fishyInventory.get(i));
                 }
@@ -59,10 +73,17 @@ public class InventoryManager {
 
     // TODO: modify database to only load 4 storage rows
     public void loadSaved(Player player) {
+        PlayerInventory inventory = player.getInventory();
+        ItemStack[] cachedInventory = INVENTORY_CACHE.getIfPresent(player.getUniqueId());
+        if (cachedInventory != null) {
+            inventory.setContents(cachedInventory);
+            return;
+        }
+
         plugin.getInventoryTable().loadInventory(player).thenAccept((optItems) -> {
             optItems.ifPresent((items) -> {
                 Bukkit.getScheduler().runTask(plugin, () -> {
-                    player.getInventory().setContents(items);
+                    inventory.setContents(items);
                 });
             });
         });
