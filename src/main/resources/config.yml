@@ -1,9 +1,19 @@
 hooks:
   # Available:
-  # - WorldGuard - provides worldguard area adapter
-  # - PlaceholderAPI - support for messages and whatnot
+  # - WorldGuard - Provides worldguard area adapter
+  # - PlaceholderAPI - Support for messages and whatnot
+  # - Vault - Provides vault reward adapter
   enabled:
     - "WorldGuard"
+
+rewards:
+  # Available:
+  # - command - Allows executing commands as form of reward (can be used with PlaceholderAPI hook for placeholder support)
+  # - vault - Allows you to give players currency (Vault hook needs to be enabled as well as a plugin that provider Vault economy)
+  # - message - Allows you to send a message to player or everyone as a form of reward (supports PlaceholderAPI hook)
+  enabled-adapters:
+    - "command"
+    - "message"
 
 area:
   # Available:

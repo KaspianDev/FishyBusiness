@@ -42,22 +42,37 @@ public class Messages {
     }
 
     public BaseComponent[] get(Message message) {
-        return ColorUtil.component(document.getString(message.getPath()));
+        return get(document.getString(message.getPath()));
     }
 
     public BaseComponent[] get(Message message, Player player) {
-        String configMessage = document.getString(message.getPath());
-        return ColorUtil.component(plugin.getHookManager().findHook(PlaceholderAPIHook.class)
-                                         .map((hook) -> hook.applyPlaceholders(player, configMessage))
-                                         .orElse(configMessage));
+        return get(document.getString(message.getPath()), player);
     }
 
     public BaseComponent[] get(Message message, UnaryOperator<String> function) {
-        return ColorUtil.component(function.apply(document.getString(message.getPath())));
+        return get(document.getString(message.getPath()), function);
     }
 
     public BaseComponent[] get(Message message, UnaryOperator<String> function, Player player) {
-        String configMessage = function.apply(document.getString(message.getPath()));
+        return get(document.getString(message.getPath()), function, player);
+    }
+
+    public BaseComponent[] get(String message) {
+        return ColorUtil.component(message);
+    }
+
+    public BaseComponent[] get(String message, Player player) {
+        return ColorUtil.component(plugin.getHookManager().findHook(PlaceholderAPIHook.class)
+                                         .map((hook) -> hook.applyPlaceholders(player, message))
+                                         .orElse(message));
+    }
+
+    public BaseComponent[] get(String message, UnaryOperator<String> function) {
+        return ColorUtil.component(function.apply(message));
+    }
+
+    public BaseComponent[] get(String message, UnaryOperator<String> function, Player player) {
+        String configMessage = function.apply(message);
         return ColorUtil.component(plugin.getHookManager().findHook(PlaceholderAPIHook.class)
                                          .map((hook) -> hook.applyPlaceholders(player, configMessage))
                                          .orElse(configMessage));

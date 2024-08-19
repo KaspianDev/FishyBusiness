@@ -6,12 +6,15 @@ import com.github.kaspiandev.fishybusiness.reward.RewardType;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RewardAdapter implements JsonDeserializer<Reward>, JsonSerializer<Reward> {
 
     private final Map<String, Class<? extends Reward>> rewardRegistry;
+    private final List<PropertyAdapter<?>> registeredAdapters;
     private final GsonBuilder gsonBuilder;
     private Gson gson;
 
@@ -19,11 +22,14 @@ public class RewardAdapter implements JsonDeserializer<Reward>, JsonSerializer<R
         this.gsonBuilder = new GsonBuilder();
         this.gson = gsonBuilder.create();
         this.rewardRegistry = new HashMap<>();
+        this.registeredAdapters = new ArrayList<>();
     }
 
     public void register(RewardType rewardType) {
         for (PropertyAdapter<?> adapter : rewardType.getPropertyAdapters()) {
+            if (registeredAdapters.contains(adapter)) continue;
             adapter.inject(gsonBuilder);
+            registeredAdapters.add(adapter);
         }
         rewardRegistry.put(rewardType.getAreaClass().getSimpleName(), rewardType.getAreaClass());
         rebuildGson();

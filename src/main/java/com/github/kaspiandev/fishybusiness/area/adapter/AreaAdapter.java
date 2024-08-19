@@ -7,12 +7,15 @@ import com.google.gson.*;
 import org.bukkit.World;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AreaAdapter implements JsonDeserializer<Area>, JsonSerializer<Area> {
 
     private final Map<String, Class<? extends Area>> areaRegistry;
+    private final List<PropertyAdapter<?>> registeredAdapters;
     private final GsonBuilder gsonBuilder;
     private Gson gson;
 
@@ -21,11 +24,14 @@ public class AreaAdapter implements JsonDeserializer<Area>, JsonSerializer<Area>
                 .registerTypeHierarchyAdapter(World.class, new WorldAdapter());
         this.gson = gsonBuilder.create();
         this.areaRegistry = new HashMap<>();
+        this.registeredAdapters = new ArrayList<>();
     }
 
     public void register(AreaType areaType) {
         for (PropertyAdapter<?> adapter : areaType.getPropertyAdapters()) {
+            if (registeredAdapters.contains(adapter)) continue;
             adapter.inject(gsonBuilder);
+            registeredAdapters.add(adapter);
         }
         areaRegistry.put(areaType.getAreaClass().getSimpleName(), areaType.getAreaClass());
         rebuildGson();

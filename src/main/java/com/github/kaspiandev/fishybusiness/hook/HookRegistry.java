@@ -2,6 +2,7 @@ package com.github.kaspiandev.fishybusiness.hook;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.hook.worldguard.PlaceholderAPIHook;
+import com.github.kaspiandev.fishybusiness.hook.worldguard.VaultHook;
 import com.github.kaspiandev.fishybusiness.hook.worldguard.WorldGuardHook;
 
 import java.util.HashMap;
@@ -16,6 +17,7 @@ public class HookRegistry {
     static {
         registry.put("WorldGuard", WorldGuardHook::new);
         registry.put("PlaceholderAPI", PlaceholderAPIHook::new);
+        registry.put("Vault", VaultHook::new);
     }
 
     private HookRegistry() {}

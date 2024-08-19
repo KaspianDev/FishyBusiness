@@ -38,11 +38,12 @@ public final class FishyBusiness extends JavaPlugin {
     public void onEnable() {
         hookManager = new HookManager(this);
 
-        RewardTypeRegistry.register("command", new RewardType(Reward.class, new FishyBusinessAdapter(this)));
+        FishyBusinessAdapter fishyBusinessAdapter = new FishyBusinessAdapter(this);
+        RewardTypeRegistry.register("command", new RewardType(CommandReward.class, fishyBusinessAdapter));
+        RewardTypeRegistry.register("message", new RewardType(MessageReward.class, fishyBusinessAdapter));
 
         areaAdapter = new AreaAdapter();
         rewardAdapter = new RewardAdapter();
-        rewardAdapter.register(new RewardType(CommandReward.class, new FishyBusinessAdapter(this)));
 
         try {
             config = new Config(this);

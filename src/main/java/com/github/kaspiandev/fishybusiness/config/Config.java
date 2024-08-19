@@ -4,6 +4,7 @@ import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.area.AreaTypeRegistry;
 import com.github.kaspiandev.fishybusiness.exception.PluginLoadFailureException;
 import com.github.kaspiandev.fishybusiness.hook.HookRegistry;
+import com.github.kaspiandev.fishybusiness.reward.RewardTypeRegistry;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.dvs.versioning.BasicVersioning;
 import dev.dejvokep.boostedyaml.settings.general.GeneralSettings;
@@ -37,13 +38,20 @@ public class Config {
             throw new PluginLoadFailureException("Config could not be loaded.", ex);
         }
 
-        loadAreaEnabledAdapters();
         loadEnabledHooks();
+        loadAreaEnabledAdapters();
+        loadRewardEnabledAdapters();
     }
 
     public void loadAreaEnabledAdapters() {
         document.getStringList("area.enabled-adapters").forEach((adapterName) -> {
             AreaTypeRegistry.findByName(adapterName).ifPresent(plugin.getAreaAdapter()::register);
+        });
+    }
+
+    public void loadRewardEnabledAdapters() {
+        document.getStringList("rewards.enabled-adapters").forEach((adapterName) -> {
+            RewardTypeRegistry.findByName(adapterName).ifPresent(plugin.getRewardAdapter()::register);
         });
     }
 

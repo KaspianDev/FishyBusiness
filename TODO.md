@@ -24,6 +24,7 @@ Plugin will have different kinds of awards, including:
 - Builtin points
 - Vault (Economy)
 - Commands
+- Messages
 - Items (for later)
 
 Physical rewards (items) are stashed and given upon leaving the area.
