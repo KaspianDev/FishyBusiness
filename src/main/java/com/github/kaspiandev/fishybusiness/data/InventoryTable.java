@@ -16,11 +16,12 @@ public class InventoryTable extends Table {
     private static final String CREATE_INVENTORY_TABLE = """
             CREATE TABLE IF NOT EXISTS inventory_backup (
                 player_uuid CHAR(36),
-                inventory BLOB
+                inventory BLOB,
+                PRIMARY KEY(player_uuid)
             );
             """;
     private static final String SAVE_INVENTORY = """
-            INSERT INTO inventory_backup (player_uuid, inventory)
+            INSERT OR REPLACE INTO inventory_backup (player_uuid, inventory)
             VALUES (?, ?)
             """;
     private static final String GET_INVENTORY = """

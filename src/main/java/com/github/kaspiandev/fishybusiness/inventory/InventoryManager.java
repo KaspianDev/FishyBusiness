@@ -58,9 +58,13 @@ public class InventoryManager {
     }
 
     // TODO: modify database to only load 4 storage rows
-    public void load(Player player) {
+    public void loadSaved(Player player) {
         plugin.getInventoryTable().loadInventory(player).thenAccept((optItems) -> {
-            optItems.ifPresent(player.getInventory()::setContents);
+            optItems.ifPresent((items) -> {
+                Bukkit.getScheduler().runTask(plugin, () -> {
+                    player.getInventory().setContents(items);
+                });
+            });
         });
     }
 

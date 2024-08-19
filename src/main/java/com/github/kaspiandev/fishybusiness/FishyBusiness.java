@@ -10,6 +10,8 @@ import com.github.kaspiandev.fishybusiness.data.Database;
 import com.github.kaspiandev.fishybusiness.data.InventoryTable;
 import com.github.kaspiandev.fishybusiness.exception.PluginLoadFailureException;
 import com.github.kaspiandev.fishybusiness.hook.HookManager;
+import com.github.kaspiandev.fishybusiness.inventory.InventoryManager;
+import com.github.kaspiandev.fishybusiness.listener.AreaEnterLeaveListener;
 import com.github.kaspiandev.fishybusiness.listener.AreaEventListener;
 import com.github.kaspiandev.fishybusiness.selector.FishyAreaSelectorFactory;
 import org.bukkit.command.PluginCommand;
@@ -25,6 +27,7 @@ public final class FishyBusiness extends JavaPlugin {
     private AreaManager areaManager;
     private HookManager hookManager;
     private FishyAreaSelectorFactory fishyAreaSelectorFactory;
+    private InventoryManager inventoryManager;
 
     @Override
     public void onEnable() {
@@ -47,7 +50,10 @@ public final class FishyBusiness extends JavaPlugin {
         database.registerTable(inventoryTable);
         database.load();
 
+        inventoryManager = new InventoryManager(this);
+
         getServer().getPluginManager().registerEvents(new AreaEventListener(this), this);
+        getServer().getPluginManager().registerEvents(new AreaEnterLeaveListener(this), this);
 
         fishyAreaSelectorFactory = new FishyAreaSelectorFactory(this);
 
@@ -79,6 +85,10 @@ public final class FishyBusiness extends JavaPlugin {
 
     public Messages getMessages() {
         return messages;
+    }
+
+    public InventoryManager getInventoryManager() {
+        return inventoryManager;
     }
 
     public Config getConf() {
