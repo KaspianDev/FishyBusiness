@@ -15,6 +15,7 @@ import com.github.kaspiandev.fishybusiness.listener.AreaActionListener;
 import com.github.kaspiandev.fishybusiness.listener.AreaEventListener;
 import com.github.kaspiandev.fishybusiness.reward.*;
 import com.github.kaspiandev.fishybusiness.reward.adapter.FishyBusinessAdapter;
+import com.github.kaspiandev.fishybusiness.reward.adapter.MessageTypeAdapter;
 import com.github.kaspiandev.fishybusiness.reward.adapter.RewardAdapter;
 import com.github.kaspiandev.fishybusiness.selector.FishyAreaSelectorFactory;
 import org.bukkit.command.PluginCommand;
@@ -40,6 +41,7 @@ public final class FishyBusiness extends JavaPlugin {
 
         FishyBusinessAdapter fishyBusinessAdapter = new FishyBusinessAdapter(this);
         RewardTypeRegistry.register("command", new RewardType(CommandReward.class, fishyBusinessAdapter));
+        RewardTypeRegistry.register("message", new RewardType(MessageReward.class, new MessageTypeAdapter(), fishyBusinessAdapter));
 
         areaAdapter = new AreaAdapter();
         rewardAdapter = new RewardAdapter();
@@ -54,9 +56,6 @@ public final class FishyBusiness extends JavaPlugin {
 
         areaManager = new AreaManager(this);
         rewardManager = new RewardManager(this);
-        rewardManager.addReward(new CommandReward(this, "say hi, %player_name%", 50));
-        rewardManager.addReward(new MessageReward(this, "%player_name% won something!", MessageReward.Type.BROADCAST, 30));
-        rewardManager.addReward(new MessageReward(this, "%player_name%, wow you won!", MessageReward.Type.BROADCAST, 20));
 
         database = new Database(this);
         inventoryTable = new InventoryTable(database);

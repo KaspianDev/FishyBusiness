@@ -9,13 +9,13 @@ public class MessageReward implements Reward {
 
     private transient final FishyBusiness plugin;
     private final String message;
-    private final Type type;
+    private final Type messageType;
     private final double weight;
 
-    public MessageReward(FishyBusiness plugin, String message, Type type, double weight) {
+    public MessageReward(FishyBusiness plugin, String message, Type messageType, double weight) {
         this.plugin = plugin;
         this.message = message;
-        this.type = type;
+        this.messageType = messageType;
         this.weight = weight;
     }
 
@@ -27,7 +27,7 @@ public class MessageReward implements Reward {
     @Override
     public void reward(Player player) {
         BaseComponent[] message = plugin.getMessages().get(this.message, player);
-        switch (type) {
+        switch (messageType) {
             case BROADCAST -> Bukkit.spigot().broadcast(message);
             case PLAYER -> player.spigot().sendMessage(message);
         }

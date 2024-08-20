@@ -17,7 +17,6 @@ public class MessageTypeAdapter implements SerializingPropertyAdapter<MessageRew
 
     @Override
     public JsonElement serialize(MessageReward.Type src, Type typeOfSrc, JsonSerializationContext context) {
-        System.out.println("aaaa");
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("message-type", src.name());
 
