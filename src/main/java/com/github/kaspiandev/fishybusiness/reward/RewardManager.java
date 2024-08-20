@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -50,6 +51,12 @@ public class RewardManager {
         rewards.remove(reward);
         totalWeight -= reward.getWeight();
         save();
+    }
+
+    public Optional<Reward> findReward(String name) {
+        return rewards.stream()
+                      .filter((reward) -> reward.getName().equals(name))
+                      .findFirst();
     }
 
     public Reward chooseRandomReward() {

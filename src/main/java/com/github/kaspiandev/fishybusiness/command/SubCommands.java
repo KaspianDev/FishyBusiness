@@ -3,7 +3,8 @@ package com.github.kaspiandev.fishybusiness.command;
 public enum SubCommands {
 
     RELOAD("reload", "fishybusiness.command.reload"),
-    AREA("area", "fishybusiness.command.area");
+    AREA("area", "fishybusiness.command.area"),
+    REWARD("reward", "fishybusiness.command.reward");
 
     private final String key;
     private final String permission;

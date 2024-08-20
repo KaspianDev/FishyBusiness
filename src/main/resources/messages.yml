@@ -8,11 +8,18 @@ area:
   removed: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&Area was removed successfully."
   no-area: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&There is no area at given location."
   overlap: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&This area overlaps anther area and cannot be saved."
-  no-name: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specifiy a name for the area."
   world-mismatch: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Area corner worlds don't match."
   cannot-set: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Area cannot be set because two corners aren't selected."
   unknown-adapter: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Area adapter with this name isn't registered."
   tool-given: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&You received an area selector tool. Select first corner with left-click and second corner with right-click."
+reward:
+  added: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&Reward was added successfully."
+  removed: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&Reward was removed successfully."
+  no-name: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specifiy the reward name."
+  not-found: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&There is no reward with this name."
+  no-command: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the command."
+  no-weight: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify reward weight."
+  unknown-adapter: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Reward adapter with this name isn't registered."
 reload:
   reloaded-all: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&Plugin was reloaded successfully."
   reloaded: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&File '${file}' was reloaded successfully."
@@ -20,4 +27,4 @@ reload:
   error: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&There was an error while reloading '${file}'."
   unknown-type: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Specified component doesn't exist."
 
-version: 1
+version: 2

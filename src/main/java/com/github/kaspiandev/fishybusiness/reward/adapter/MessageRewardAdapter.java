@@ -16,7 +16,7 @@ public class MessageRewardAdapter implements InstancePropertyAdapter<MessageRewa
 
     @Override
     public MessageReward createInstance(Type type) {
-        return new MessageReward(plugin, null, null, 0);
+        return new MessageReward(plugin, null, null, null, 0);
     }
 
     @Override

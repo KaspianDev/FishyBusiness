@@ -8,15 +8,22 @@ import org.bukkit.entity.Player;
 public class MessageReward implements Reward {
 
     private final transient FishyBusiness plugin;
+    private final String name;
     private final String message;
     private final Type messageType;
     private final double weight;
 
-    public MessageReward(FishyBusiness plugin, String message, Type messageType, double weight) {
+    public MessageReward(FishyBusiness plugin, String name, String message, Type messageType, double weight) {
         this.plugin = plugin;
+        this.name = name;
         this.message = message;
         this.messageType = messageType;
         this.weight = weight;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override

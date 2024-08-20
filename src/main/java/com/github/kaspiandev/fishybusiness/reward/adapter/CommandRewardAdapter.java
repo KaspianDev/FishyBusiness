@@ -16,7 +16,7 @@ public class CommandRewardAdapter implements InstancePropertyAdapter<CommandRewa
 
     @Override
     public CommandReward createInstance(Type type) {
-        return new CommandReward(plugin, null, 0);
+        return new CommandReward(plugin, null, null, 0);
     }
 
     @Override

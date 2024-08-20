@@ -114,7 +114,7 @@ public class AreaSubcommand extends SubCommand {
         }
 
         if (args.length <= 2) {
-            player.spigot().sendMessage(plugin.getMessages().get(Message.COMMAND_NO_ARGUMENTS));
+            player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_UNKNOWN_ADAPTER));
             return;
         }
 
@@ -191,7 +191,7 @@ public class AreaSubcommand extends SubCommand {
     public List<String> suggestions(CommandSender sender, String[] args) {
         if (args.length == 2) {
             return List.of("add", "remove");
-        } else if (args[2].equals("fishy")) {
+        } else if (args[1].equals("add")) {
             if (args.length == 3) {
                 return AREA_TYPE_NAME_CACHE.get();
             } else if (args.length == 4) {
