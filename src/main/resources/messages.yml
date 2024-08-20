@@ -1,24 +1,23 @@
 command:
-  no-permissions: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&You don't have the required permission to run this command."
-  no-arguments: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&You need to provide arguments to use this command."
-  invalid-subcommand: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Specified subcommand doesn't exist."
-  only-players: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Only players can use this command."
+  no-permissions: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You don't have the required permission to run this command."
+  no-arguments: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to provide arguments to use this command."
+  invalid-subcommand: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Specified subcommand doesn't exist."
+  only-players: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Only players can use this command."
 area:
-  saved: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&Area was saved successfully."
-  removed: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&Area was removed successfully."
-  no-area: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&There is no area at given location."
-  overlap: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&This area overlaps anther area and cannot be saved."
-  no-name: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&You need to specifiy a name for the area."
-  world-mismatch: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Area corner worlds don't match."
-  cannot-set: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Area cannot be set because two corners aren't selected."
-  unknown-adapter: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Area adapter with this name isn't registered."
-  tool-given: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&You received an area selector tool. Select first corner with left-click and second corner with right-click."
+  saved: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&Area was saved successfully."
+  removed: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&Area was removed successfully."
+  no-area: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&There is no area at given location."
+  overlap: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&This area overlaps anther area and cannot be saved."
+  no-name: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specifiy a name for the area."
+  world-mismatch: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Area corner worlds don't match."
+  cannot-set: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Area cannot be set because two corners aren't selected."
+  unknown-adapter: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Area adapter with this name isn't registered."
+  tool-given: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&You received an area selector tool. Select first corner with left-click and second corner with right-click."
 reload:
-  reloaded-all: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&Plugin was reloaded successfully."
-  reloaded: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#43d15d&File '${file}' was reloaded successfully."
-  error-all: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&There was an error while reloading the plugin."
-  error: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&There was an error while reloading '${file}'."
-  unknown-type: "&#00D4CB-#08FBB6&Fishy&#00B2D4-#08FBDD&Business &#108b91&» &#fb0826&Specified component doesn't exist."
+  reloaded-all: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&Plugin was reloaded successfully."
+  reloaded: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&File '${file}' was reloaded successfully."
+  error-all: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&There was an error while reloading the plugin."
+  error: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&There was an error while reloading '${file}'."
+  unknown-type: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Specified component doesn't exist."
 
-# todo: better green and red colors (less vibrant red)
-version: 3
+version: 1
