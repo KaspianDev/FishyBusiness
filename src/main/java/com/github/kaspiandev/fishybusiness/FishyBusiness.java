@@ -17,10 +17,11 @@ import com.github.kaspiandev.fishybusiness.listener.AreaFishingListener;
 import com.github.kaspiandev.fishybusiness.reward.*;
 import com.github.kaspiandev.fishybusiness.reward.adapter.CommandRewardAdapter;
 import com.github.kaspiandev.fishybusiness.reward.adapter.MessageRewardAdapter;
-import com.github.kaspiandev.fishybusiness.reward.adapter.MessageTypeAdapter;
 import com.github.kaspiandev.fishybusiness.reward.adapter.RewardAdapter;
 import com.github.kaspiandev.fishybusiness.selector.FishyAreaSelectorFactory;
+import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class FishyBusiness extends JavaPlugin {
@@ -45,7 +46,7 @@ public final class FishyBusiness extends JavaPlugin {
         RewardTypeRegistry.register("command", new RewardType(CommandReward.class, commandRewardAdapter));
 
         MessageRewardAdapter messageRewardAdapter = new MessageRewardAdapter(this);
-        RewardTypeRegistry.register("message", new RewardType(MessageReward.class, new MessageTypeAdapter(), messageRewardAdapter));
+        RewardTypeRegistry.register("message", new RewardType(MessageReward.class, messageRewardAdapter));
 
         areaAdapter = new AreaAdapter();
         rewardAdapter = new RewardAdapter();
@@ -85,7 +86,12 @@ public final class FishyBusiness extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        areaManager.getPlayerAreas().forEach((uuid, area) -> {
+            Player player = Bukkit.getPlayer(uuid);
+            if (player == null) return;
+
+            inventoryManager.loadSaved(player);
+        });
     }
 
     public HookManager getHookManager() {

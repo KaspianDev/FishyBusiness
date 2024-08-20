@@ -12,7 +12,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -63,9 +62,7 @@ public class RewardManager {
                 return reward;
             }
         }
-        return rewards.stream()
-                      .min(Comparator.comparingDouble(Reward::getWeight))
-                      .orElse(rewards.get(0));
+        return rewards.get(RANDOM.nextInt(rewards.size())); // Fallback
     }
 
     private void load() {
@@ -77,8 +74,13 @@ public class RewardManager {
         }
 
         try (FileReader reader = new FileReader(rewardFile)) {
-            List<Reward> loadedAreas = gson.fromJson(reader, REWARD_LIST_TYPE);
-            if (loadedAreas != null) rewards.addAll(loadedAreas);
+            List<Reward> loadedRewards = gson.fromJson(reader, REWARD_LIST_TYPE);
+            if (loadedRewards != null) {
+                rewards.addAll(loadedRewards);
+                totalWeight = loadedRewards.stream()
+                                           .mapToDouble(Reward::getWeight)
+                                           .sum();
+            }
             save();
         } catch (IOException e) {
             throw new RuntimeException(e);

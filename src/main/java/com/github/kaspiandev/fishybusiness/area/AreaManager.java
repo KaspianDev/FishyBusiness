@@ -100,6 +100,10 @@ public class AreaManager {
         return Optional.ofNullable(playerAreas.get(player.getUniqueId()));
     }
 
+    public Map<UUID, Area> getPlayerAreas() {
+        return playerAreas;
+    }
+
     public void clearPlayerArea(Player player) {
         playerAreas.remove(player.getUniqueId());
     }
