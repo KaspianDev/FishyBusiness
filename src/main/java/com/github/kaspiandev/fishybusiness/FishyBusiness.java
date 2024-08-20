@@ -13,8 +13,10 @@ import com.github.kaspiandev.fishybusiness.hook.HookManager;
 import com.github.kaspiandev.fishybusiness.inventory.InventoryManager;
 import com.github.kaspiandev.fishybusiness.listener.AreaActionListener;
 import com.github.kaspiandev.fishybusiness.listener.AreaEventListener;
+import com.github.kaspiandev.fishybusiness.listener.AreaFishingListener;
 import com.github.kaspiandev.fishybusiness.reward.*;
-import com.github.kaspiandev.fishybusiness.reward.adapter.FishyBusinessAdapter;
+import com.github.kaspiandev.fishybusiness.reward.adapter.CommandRewardAdapter;
+import com.github.kaspiandev.fishybusiness.reward.adapter.MessageRewardAdapter;
 import com.github.kaspiandev.fishybusiness.reward.adapter.MessageTypeAdapter;
 import com.github.kaspiandev.fishybusiness.reward.adapter.RewardAdapter;
 import com.github.kaspiandev.fishybusiness.selector.FishyAreaSelectorFactory;
@@ -39,9 +41,11 @@ public final class FishyBusiness extends JavaPlugin {
     public void onEnable() {
         hookManager = new HookManager(this);
 
-        FishyBusinessAdapter fishyBusinessAdapter = new FishyBusinessAdapter(this);
-        RewardTypeRegistry.register("command", new RewardType(CommandReward.class, fishyBusinessAdapter));
-        RewardTypeRegistry.register("message", new RewardType(MessageReward.class, new MessageTypeAdapter(), fishyBusinessAdapter));
+        CommandRewardAdapter commandRewardAdapter = new CommandRewardAdapter(this);
+        RewardTypeRegistry.register("command", new RewardType(CommandReward.class, commandRewardAdapter));
+
+        MessageRewardAdapter messageRewardAdapter = new MessageRewardAdapter(this);
+        RewardTypeRegistry.register("message", new RewardType(MessageReward.class, new MessageTypeAdapter(), messageRewardAdapter));
 
         areaAdapter = new AreaAdapter();
         rewardAdapter = new RewardAdapter();
@@ -66,6 +70,7 @@ public final class FishyBusiness extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new AreaEventListener(this), this);
         getServer().getPluginManager().registerEvents(new AreaActionListener(this), this);
+        getServer().getPluginManager().registerEvents(new AreaFishingListener(this), this);
 
         fishyAreaSelectorFactory = new FishyAreaSelectorFactory(this);
 

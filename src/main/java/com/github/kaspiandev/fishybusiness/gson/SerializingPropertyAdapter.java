@@ -8,7 +8,7 @@ public interface SerializingPropertyAdapter<T> extends PropertyAdapter<T>, JsonS
 
     @Override
     default void inject(GsonBuilder gsonBuilder) {
-        gsonBuilder.registerTypeHierarchyAdapter(this.getClass(), this);
+        gsonBuilder.registerTypeHierarchyAdapter(getAdapterClass(), this);
     }
 
 }

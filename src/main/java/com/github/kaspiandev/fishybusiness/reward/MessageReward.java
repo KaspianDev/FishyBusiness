@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 public class MessageReward implements Reward {
 
-    private transient final FishyBusiness plugin;
+    private final transient FishyBusiness plugin;
     private final String message;
     private final Type messageType;
     private final double weight;

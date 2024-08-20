@@ -7,7 +7,7 @@ public interface InstancePropertyAdapter<T> extends PropertyAdapter<T>, Instance
 
     @Override
     default void inject(GsonBuilder gsonBuilder) {
-        gsonBuilder.registerTypeAdapter(this.getClass(), this);
+        gsonBuilder.registerTypeAdapter(getAdapterClass(), this);
     }
 
 }

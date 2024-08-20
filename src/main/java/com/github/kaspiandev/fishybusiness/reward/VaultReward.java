@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 
 public class VaultReward implements Reward {
 
-    private transient final FishyBusiness plugin;
+    private final transient FishyBusiness plugin;
     private final double amount;
     private final double weight;
 

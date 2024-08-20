@@ -5,6 +5,7 @@ import com.github.kaspiandev.fishybusiness.hook.Hook;
 import com.github.kaspiandev.fishybusiness.reward.RewardType;
 import com.github.kaspiandev.fishybusiness.reward.RewardTypeRegistry;
 import com.github.kaspiandev.fishybusiness.reward.VaultReward;
+import com.github.kaspiandev.fishybusiness.reward.adapter.VaultRewardAdapter;
 import net.milkbowl.vault.Vault;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -26,7 +27,7 @@ public class VaultHook extends Hook<Vault> {
 
     @Override
     protected void load() {
-        RewardTypeRegistry.register("vault", new RewardType(VaultReward.class));
+        RewardTypeRegistry.register("vault", new RewardType(VaultReward.class, new VaultRewardAdapter(plugin)));
     }
 
     public void addMoney(Player player, double amount) {
