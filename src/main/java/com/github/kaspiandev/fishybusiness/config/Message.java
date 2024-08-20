@@ -22,6 +22,10 @@ public enum Message {
     REWARD_NOT_FOUND("reward.not-found"),
     REWARD_NO_COMMAND("reward.no-command"),
     REWARD_NO_WEIGHT("reward.no-weight"),
+    REWARD_OVERLAP("reward.overlap"),
+    REWARD_NO_MESSAGE_TYPE("reward.no-message-type"),
+    REWARD_NO_MESSAGE("reward.no-message"),
+    REWARD_NO_AMOUNT("reward.no-amount"),
     REWARD_UNKNOWN_ADAPTER("reward.unknown-adapter"),
 
     RELOAD_RELOADED_ALL("reload.reloaded-all"),
