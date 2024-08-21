@@ -23,6 +23,8 @@ reward:
   no-command: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the command."
   no-weight: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify reward weight."
   overlap: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Reward with this name already exists."
+  empty-container: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the rewards that container will include."
+  invalid-reward: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Could not add the container because reward '${rewardName}' doesn't exist."
   no-title-properties: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify fade-in, stay and fade-out time for title."
   no-message-type: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the message type."
   no-message: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the message."

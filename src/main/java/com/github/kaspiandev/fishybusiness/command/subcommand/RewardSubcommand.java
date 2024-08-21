@@ -111,6 +111,8 @@ public class RewardSubcommand extends SubCommand {
                                       handleAddActionbar(sender, name, weight, args);
                                   } else if (rewardClass == TitleReward.class) {
                                       handleAddTitle(sender, name, weight, args);
+                                  } else if (rewardClass == ContainerReward.class) {
+                                      handleAddContainer(sender, name, weight, args);
                                   } else {
                                       sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_UNKNOWN_ADAPTER));
                                   }
@@ -120,6 +122,32 @@ public class RewardSubcommand extends SubCommand {
         } catch (NumberFormatException ex) {
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_WEIGHT));
         }
+    }
+
+    @SuppressWarnings("ManualArrayToCollectionCopy")
+    private void handleAddContainer(CommandSender sender, String name, double weight, String[] args) {
+        if (args.length == 5) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_EMPTY_CONTAINER));
+            return;
+        }
+
+        List<String> rewardNames = new ArrayList<>();
+        for (int i = 5; i < args.length; i++) {
+            rewardNames.add(args[i]);
+        }
+        System.out.println(rewardNames);
+
+        for (String rewardName : rewardNames) {
+            if (plugin.getRewardManager().findReward(rewardName).isEmpty()) {
+                sender.spigot().sendMessage(plugin.getMessages().get(
+                        Message.REWARD_INVALID_REWARD,
+                        (message) -> message.replace("${rewardName}", rewardName)));
+                return;
+            }
+        }
+
+        plugin.getRewardManager().addReward(new ContainerReward(plugin, name, rewardNames, weight));
+        sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
     }
 
     private void handleAddVault(CommandSender sender, String name, double weight, String[] args) {
@@ -153,7 +181,7 @@ public class RewardSubcommand extends SubCommand {
             }
 
             StringJoiner message = new StringJoiner(" ");
-            for (int i = 5; i < args.length; i++) {
+            for (int i = 6; i < args.length; i++) {
                 message.add(args[i]);
             }
 
@@ -188,7 +216,7 @@ public class RewardSubcommand extends SubCommand {
             }
 
             StringJoiner message = new StringJoiner(" ");
-            for (int i = 8; i < args.length; i++) {
+            for (int i = 9; i < args.length; i++) {
                 message.add(args[i]);
             }
 
