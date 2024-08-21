@@ -30,7 +30,7 @@ public class PointsReward implements Reward {
     @Override
     public void reward(Player player) {
         plugin.getPointManager().ifPresent((pointManager) -> {
-            pointManager.getPointsTable().addPoints(player, amount);
+            pointManager.addPoints(player, amount);
         });
     }
 

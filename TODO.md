@@ -26,12 +26,13 @@ Planned adapters:
 
 Plugin will have different kinds of awards, including:
 
-- Builtin points
+- ~~Builtin points~~
 - ~~Vault (Economy)~~
 - ~~Commands~~
 - ~~Messages~~
-- Action Bar
-- Title
+- ~~Action Bar~~
+- ~~Title~~
+- ~~Container~~
 - Items (for later)
 
 Physical rewards (items) are stashed and given upon leaving the area.
@@ -39,11 +40,11 @@ Might create a stash plugin and use it as a hook.
 
 ## Point system
 
-Points can be fully disabled and configured, they come with out-of-the-box
+~~Points can be fully disabled and configured, they come with out-of-the-box
 PlaceholderAPI support and will support exchanging for other good in future (as
-alternative currency with exclusive items).
+alternative currency with exclusive items).~~
 
 Planned placeholders:
 
-- %fishybusiness_points% - Returns the amount of points player has  
+- ~~%fishybusiness_points% - Returns the amount of points player has~~  
   ...
