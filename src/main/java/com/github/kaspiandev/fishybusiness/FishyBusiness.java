@@ -52,8 +52,12 @@ public final class FishyBusiness extends JavaPlugin {
         TitleRewardAdapter titleRewardAdapter = new TitleRewardAdapter(this);
         RewardTypeRegistry.register("title", new RewardType(TitleReward.class, titleRewardAdapter));
 
+        RewardType containerRewardType = new RewardType(ContainerReward.class);
+        RewardTypeRegistry.register("container", containerRewardType);
+
         areaAdapter = new AreaAdapter();
         rewardAdapter = new RewardAdapter();
+        rewardAdapter.register(containerRewardType);
 
         try {
             config = new Config(this);

@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.concurrent.TimeUnit;
 
 public class RewardSubcommand extends SubCommand {
@@ -20,6 +21,7 @@ public class RewardSubcommand extends SubCommand {
     private static final Supplier<List<String>> REWARD_TYPE_NAME_CACHE;
     private static final List<String> WEIGHT_CACHE;
     private static final List<String> AMOUNT_CACHE;
+    private static final List<String> DURATION_CACHE;
     private static final List<String> MESSAGE_TYPE_CACHE;
 
     static {
@@ -36,7 +38,12 @@ public class RewardSubcommand extends SubCommand {
 
         AMOUNT_CACHE = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            AMOUNT_CACHE.add(String.valueOf(i + 5));
+            AMOUNT_CACHE.add(String.valueOf(i * 5));
+        }
+
+        DURATION_CACHE = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            DURATION_CACHE.add(String.valueOf(i * 20));
         }
 
         MESSAGE_TYPE_CACHE = Arrays.stream(MessageReward.Type.values())
@@ -102,6 +109,8 @@ public class RewardSubcommand extends SubCommand {
                                       handleAddVault(sender, name, weight, args);
                                   } else if (rewardClass == ActionBarReward.class) {
                                       handleAddActionbar(sender, name, weight, args);
+                                  } else if (rewardClass == TitleReward.class) {
+                                      handleAddTitle(sender, name, weight, args);
                                   } else {
                                       sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_UNKNOWN_ADAPTER));
                                   }
@@ -143,13 +152,51 @@ public class RewardSubcommand extends SubCommand {
                 return;
             }
 
-            StringBuilder message = new StringBuilder();
+            StringJoiner message = new StringJoiner(" ");
             for (int i = 5; i < args.length; i++) {
-                message.append(args[i]);
+                message.add(args[i]);
             }
 
             plugin.getRewardManager().addReward(new ActionBarReward(plugin, name, message.toString(), messageType, weight));
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
+        } catch (IllegalArgumentException ex) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_MESSAGE_TYPE));
+        }
+    }
+
+    private void handleAddTitle(CommandSender sender, String name, double weight, String[] args) {
+        if (args.length == 5) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_MESSAGE_TYPE));
+            return;
+        }
+
+        try {
+            TitleReward.Type messageType = TitleReward.Type.valueOf(args[5]);
+
+            if (args.length <= 8) {
+                sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_TITLE_PROPERTIES));
+                return;
+            }
+
+            int fadeIn = Integer.parseInt(args[6]);
+            int stay = Integer.parseInt(args[7]);
+            int fadeOut = Integer.parseInt(args[8]);
+
+            if (args.length == 9) {
+                sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_MESSAGE));
+                return;
+            }
+
+            StringJoiner message = new StringJoiner(" ");
+            for (int i = 8; i < args.length; i++) {
+                message.add(args[i]);
+            }
+
+            plugin.getRewardManager().addReward(new TitleReward(plugin, name,
+                    message.toString(), null, fadeIn, stay, fadeOut, messageType, weight));
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
+        } catch (NumberFormatException ex) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_TITLE_PROPERTIES));
         } catch (IllegalArgumentException ex) {
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_MESSAGE_TYPE));
         }
@@ -169,9 +216,9 @@ public class RewardSubcommand extends SubCommand {
                 return;
             }
 
-            StringBuilder message = new StringBuilder();
+            StringJoiner message = new StringJoiner(" ");
             for (int i = 5; i < args.length; i++) {
-                message.append(args[i]);
+                message.add(args[i]);
             }
 
             plugin.getRewardManager().addReward(new MessageReward(plugin, name, message.toString(), messageType, weight));
@@ -187,9 +234,9 @@ public class RewardSubcommand extends SubCommand {
             return;
         }
 
-        StringBuilder command = new StringBuilder();
+        StringJoiner command = new StringJoiner(" ");
         for (int i = 5; i < args.length; i++) {
-            command.append(args[i]);
+            command.add(args[i]);
         }
 
         plugin.getRewardManager().addReward(new CommandReward(plugin, name, command.toString(), weight));
@@ -234,6 +281,14 @@ public class RewardSubcommand extends SubCommand {
                 if (args.length == 6) {
                     return MESSAGE_TYPE_CACHE;
                 } else if (args.length == 7) {
+                    return List.of("<message>");
+                }
+            } else if (args[2].equals("title")) {
+                if (args.length == 6) {
+                    return MESSAGE_TYPE_CACHE;
+                } else if (args.length < 10) {
+                    return DURATION_CACHE;
+                } else if (args.length == 10) {
                     return List.of("<message>");
                 }
             } else if (args[2].equals("command")) {

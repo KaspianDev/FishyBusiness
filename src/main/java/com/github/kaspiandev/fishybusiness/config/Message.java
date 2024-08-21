@@ -26,6 +26,7 @@ public enum Message {
     REWARD_NO_COMMAND("reward.no-command"),
     REWARD_NO_WEIGHT("reward.no-weight"),
     REWARD_OVERLAP("reward.overlap"),
+    REWARD_NO_TITLE_PROPERTIES("reward.no-title-properties"),
     REWARD_NO_MESSAGE_TYPE("reward.no-message-type"),
     REWARD_NO_MESSAGE("reward.no-message"),
     REWARD_NO_AMOUNT("reward.no-amount"),

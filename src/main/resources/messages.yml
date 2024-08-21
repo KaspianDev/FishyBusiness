@@ -23,6 +23,7 @@ reward:
   no-command: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the command."
   no-weight: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify reward weight."
   overlap: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Reward with this name already exists."
+  no-title-properties: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify fade-in, stay and fade-out time for title."
   no-message-type: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the message type."
   no-message: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the message."
   no-amount: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the amount of money."
@@ -34,4 +35,4 @@ reload:
   error: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&There was an error while reloading '${file}'."
   unknown-type: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Specified component doesn't exist."
 
-version: 4
+version: 5

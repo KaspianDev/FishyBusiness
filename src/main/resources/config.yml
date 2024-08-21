@@ -16,6 +16,8 @@ rewards:
   enabled-adapters:
     - "command"
     - "message"
+    - "title"
+    - "actionbar"
 
 area:
   # Available:
