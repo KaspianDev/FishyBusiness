@@ -15,9 +15,7 @@ import com.github.kaspiandev.fishybusiness.listener.AreaActionListener;
 import com.github.kaspiandev.fishybusiness.listener.AreaEventListener;
 import com.github.kaspiandev.fishybusiness.listener.AreaFishingListener;
 import com.github.kaspiandev.fishybusiness.reward.*;
-import com.github.kaspiandev.fishybusiness.reward.adapter.CommandRewardAdapter;
-import com.github.kaspiandev.fishybusiness.reward.adapter.MessageRewardAdapter;
-import com.github.kaspiandev.fishybusiness.reward.adapter.RewardAdapter;
+import com.github.kaspiandev.fishybusiness.reward.adapter.*;
 import com.github.kaspiandev.fishybusiness.selector.FishyAreaSelectorFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
@@ -47,6 +45,12 @@ public final class FishyBusiness extends JavaPlugin {
 
         MessageRewardAdapter messageRewardAdapter = new MessageRewardAdapter(this);
         RewardTypeRegistry.register("message", new RewardType(MessageReward.class, messageRewardAdapter));
+
+        ActionBarRewardAdapter actionBarRewardAdapter = new ActionBarRewardAdapter(this);
+        RewardTypeRegistry.register("actionbar", new RewardType(ActionBarReward.class, actionBarRewardAdapter));
+
+        TitleRewardAdapter titleRewardAdapter = new TitleRewardAdapter(this);
+        RewardTypeRegistry.register("title", new RewardType(TitleReward.class, titleRewardAdapter));
 
         areaAdapter = new AreaAdapter();
         rewardAdapter = new RewardAdapter();
