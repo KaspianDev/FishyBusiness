@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class PointsTable extends Table {
@@ -29,6 +32,11 @@ public class PointsTable extends Table {
     private static final String GET_POINTS = """
             SELECT points FROM points
             WHERE player_uuid = ?
+            """;
+    private static final String GET_TOP_POINTS = """
+            SELECT player_uuid, points FROM points
+            ORDER BY points DESC
+            LIMIT 10
             """;
 
     public PointsTable(Database database) {
@@ -56,7 +64,9 @@ public class PointsTable extends Table {
                     statement.setString(1, player.getUniqueId().toString());
                     ResultSet resultSet = statement.executeQuery();
                     if (resultSet.next()) {
-                        return resultSet.getInt(1);
+                        int points = resultSet.getInt(1);
+                        resultSet.close();
+                        return points;
                     }
                 }
             } catch (SQLException ex) {
@@ -68,6 +78,24 @@ public class PointsTable extends Table {
                 return CompletableFuture.completedFuture(points);
             } else {
                 return initializePoints(player).thenApply((v) -> 0);
+            }
+        });
+    }
+
+    public CompletableFuture<Map<UUID, Integer>> getTopPoints() {
+        return CompletableFuture.supplyAsync(() -> {
+            try (Connection connection = database.getSQLConnection()) {
+                try (PreparedStatement statement = connection.prepareStatement(GET_TOP_POINTS)) {
+                    ResultSet resultSet = statement.executeQuery();
+                    Map<UUID, Integer> topPoints = new LinkedHashMap<>();
+                    while (resultSet.next()) {
+                        topPoints.put(UUID.fromString(resultSet.getString(1)), resultSet.getInt(2));
+                    }
+                    resultSet.close();
+                    return topPoints;
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException("An SQL exception occurred.", ex);
             }
         });
     }

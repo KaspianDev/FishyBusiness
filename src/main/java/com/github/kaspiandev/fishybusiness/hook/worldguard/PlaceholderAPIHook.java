@@ -5,9 +5,15 @@ import com.github.kaspiandev.fishybusiness.hook.Hook;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
+import java.util.StringJoiner;
+import java.util.UUID;
 
 public class PlaceholderAPIHook extends Hook<PlaceholderAPIPlugin> {
 
@@ -49,6 +55,13 @@ public class PlaceholderAPIHook extends Hook<PlaceholderAPIPlugin> {
             if (plugin.getPointManager().isPresent()) {
                 if (params.equals("points")) {
                     return String.valueOf(plugin.getPointManager().get().getPoints(player));
+                } else if (params.equals("top_points")) {
+                    StringJoiner joiner = new StringJoiner("\n");
+                    for (Map.Entry<UUID, Integer> entry : plugin.getPointManager().get().getTopPoints().entrySet()) {
+                        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(entry.getKey());
+                        joiner.add(offlinePlayer.getName() + " " + entry.getValue());
+                    }
+                    return joiner.toString();
                 }
             }
 

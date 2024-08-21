@@ -18,44 +18,49 @@ import java.util.concurrent.TimeUnit;
 
 public class RewardSubcommand extends SubCommand {
 
-    private static final Supplier<List<String>> REWARD_TYPE_NAME_CACHE;
-    private static final List<String> WEIGHT_CACHE;
-    private static final List<String> AMOUNT_CACHE;
-    private static final List<String> DURATION_CACHE;
-    private static final List<String> MESSAGE_TYPE_CACHE;
-
-    static {
-        REWARD_TYPE_NAME_CACHE = Suppliers.memoizeWithExpiration(() -> {
-            return RewardTypeRegistry.getRegisteredTypeNames().stream()
-                                     .sorted()
-                                     .toList();
-        }, 30, TimeUnit.SECONDS);
-
-        WEIGHT_CACHE = new ArrayList<>();
-        for (int i = 0; i <= 100; i++) {
-            WEIGHT_CACHE.add(String.valueOf(i));
-        }
-
-        AMOUNT_CACHE = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            AMOUNT_CACHE.add(String.valueOf(i * 5));
-        }
-
-        DURATION_CACHE = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            DURATION_CACHE.add(String.valueOf(i * 20));
-        }
-
-        MESSAGE_TYPE_CACHE = Arrays.stream(MessageReward.Type.values())
-                                   .map(MessageReward.Type::name)
-                                   .toList();
-    }
+    private final Supplier<List<String>> rewardTypeNameCache;
+    private final List<String> weightCache;
+    private final List<String> amountCache;
+    private final List<String> durationCache;
+    private final List<String> messageTypeCache;
+    private final Supplier<List<String>> rewardNameCache;
 
     private final FishyBusiness plugin;
 
     public RewardSubcommand(FishyBusiness plugin) {
         super(plugin, SubCommands.REWARD);
         this.plugin = plugin;
+
+        rewardTypeNameCache = Suppliers.memoizeWithExpiration(() -> {
+            return RewardTypeRegistry.getRegisteredTypeNames().stream()
+                                     .sorted()
+                                     .toList();
+        }, 30, TimeUnit.SECONDS);
+
+        weightCache = new ArrayList<>();
+        for (int i = 0; i <= 100; i++) {
+            weightCache.add(String.valueOf(i));
+        }
+
+        amountCache = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            amountCache.add(String.valueOf(i * 5));
+        }
+
+        durationCache = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            durationCache.add(String.valueOf(i * 20));
+        }
+
+        messageTypeCache = Arrays.stream(MessageReward.Type.values())
+                                 .map(MessageReward.Type::name)
+                                 .toList();
+
+        rewardNameCache = Suppliers.memoizeWithExpiration(() -> {
+            return plugin.getRewardManager().getRewards().stream()
+                         .map(Reward::getName)
+                         .toList();
+        }, 30, TimeUnit.SECONDS);
     }
 
     @Override
@@ -314,26 +319,26 @@ public class RewardSubcommand extends SubCommand {
             return List.of("add", "remove");
         } else if (args[1].equals("add")) {
             if (args.length == 3) {
-                return REWARD_TYPE_NAME_CACHE.get();
+                return rewardTypeNameCache.get();
             } else if (args.length == 4) {
                 return List.of("<name>");
             } else if (args.length == 5) {
-                return WEIGHT_CACHE;
+                return weightCache;
             } else if (args[2].equals("vault") || args[2].equals("points")) {
                 if (args.length == 6) {
-                    return AMOUNT_CACHE;
+                    return amountCache;
                 }
             } else if (args[2].equals("message") || args[2].equals("actionbar")) {
                 if (args.length == 6) {
-                    return MESSAGE_TYPE_CACHE;
+                    return messageTypeCache;
                 } else if (args.length == 7) {
                     return List.of("<message>");
                 }
             } else if (args[2].equals("title")) {
                 if (args.length == 6) {
-                    return MESSAGE_TYPE_CACHE;
+                    return messageTypeCache;
                 } else if (args.length < 10) {
-                    return DURATION_CACHE;
+                    return durationCache;
                 } else if (args.length == 10) {
                     return List.of("<message>");
                 }
@@ -341,6 +346,8 @@ public class RewardSubcommand extends SubCommand {
                 if (args.length == 6) {
                     return List.of("<command>");
                 }
+            } else if (args[2].equals("container")) {
+                return rewardNameCache.get();
             }
         }
         return List.of();

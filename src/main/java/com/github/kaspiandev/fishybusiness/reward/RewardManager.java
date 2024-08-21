@@ -59,6 +59,10 @@ public class RewardManager {
                       .findFirst();
     }
 
+    public List<Reward> getRewards() {
+        return rewards;
+    }
+
     public Reward chooseRandomReward() {
         double randomNumber = RANDOM.nextDouble() * totalWeight;
         double cumulativeWeight = 0;
