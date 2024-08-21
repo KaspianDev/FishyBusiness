@@ -8,6 +8,7 @@ import com.github.kaspiandev.fishybusiness.config.Config;
 import com.github.kaspiandev.fishybusiness.config.Messages;
 import com.github.kaspiandev.fishybusiness.data.Database;
 import com.github.kaspiandev.fishybusiness.data.InventoryTable;
+import com.github.kaspiandev.fishybusiness.data.PointsTable;
 import com.github.kaspiandev.fishybusiness.exception.PluginLoadFailureException;
 import com.github.kaspiandev.fishybusiness.hook.HookManager;
 import com.github.kaspiandev.fishybusiness.inventory.InventoryManager;
@@ -28,6 +29,7 @@ public final class FishyBusiness extends JavaPlugin {
     private Messages messages;
     private Database database;
     private InventoryTable inventoryTable;
+    private PointsTable pointsTable;
     private AreaAdapter areaAdapter;
     private RewardAdapter rewardAdapter;
     private RewardManager rewardManager;
@@ -74,6 +76,11 @@ public final class FishyBusiness extends JavaPlugin {
         database = new Database(this);
         inventoryTable = new InventoryTable(database);
         database.registerTable(inventoryTable);
+
+        // Add point manager
+        pointsTable = new PointsTable(database);
+        database.registerTable(pointsTable);
+
         database.load();
 
         inventoryManager = new InventoryManager(this);
@@ -121,6 +128,10 @@ public final class FishyBusiness extends JavaPlugin {
 
     public Messages getMessages() {
         return messages;
+    }
+
+    public PointsTable getPointsTable() {
+        return pointsTable;
     }
 
     public InventoryManager getInventoryManager() {
