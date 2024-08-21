@@ -8,13 +8,13 @@ import com.github.kaspiandev.fishybusiness.config.Config;
 import com.github.kaspiandev.fishybusiness.config.Messages;
 import com.github.kaspiandev.fishybusiness.data.Database;
 import com.github.kaspiandev.fishybusiness.data.InventoryTable;
-import com.github.kaspiandev.fishybusiness.data.PointsTable;
 import com.github.kaspiandev.fishybusiness.exception.PluginLoadFailureException;
 import com.github.kaspiandev.fishybusiness.hook.HookManager;
 import com.github.kaspiandev.fishybusiness.inventory.InventoryManager;
 import com.github.kaspiandev.fishybusiness.listener.AreaActionListener;
 import com.github.kaspiandev.fishybusiness.listener.AreaEventListener;
 import com.github.kaspiandev.fishybusiness.listener.AreaFishingListener;
+import com.github.kaspiandev.fishybusiness.points.PointManager;
 import com.github.kaspiandev.fishybusiness.reward.*;
 import com.github.kaspiandev.fishybusiness.reward.adapter.*;
 import com.github.kaspiandev.fishybusiness.selector.FishyAreaSelectorFactory;
@@ -23,13 +23,15 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Optional;
+
 public final class FishyBusiness extends JavaPlugin {
 
     private Config config;
     private Messages messages;
     private Database database;
     private InventoryTable inventoryTable;
-    private PointsTable pointsTable;
+    private PointManager pointManager;
     private AreaAdapter areaAdapter;
     private RewardAdapter rewardAdapter;
     private RewardManager rewardManager;
@@ -70,18 +72,18 @@ public final class FishyBusiness extends JavaPlugin {
             throw new RuntimeException(ex);
         }
 
-        areaManager = new AreaManager(this);
-        rewardManager = new RewardManager(this);
-
         database = new Database(this);
         inventoryTable = new InventoryTable(database);
         database.registerTable(inventoryTable);
 
-        // Add point manager
-        pointsTable = new PointsTable(database);
-        database.registerTable(pointsTable);
+        if (config.isPointsEnabled()) {
+            pointManager = new PointManager(this);
+        }
 
         database.load();
+
+        areaManager = new AreaManager(this);
+        rewardManager = new RewardManager(this);
 
         inventoryManager = new InventoryManager(this);
 
@@ -126,12 +128,12 @@ public final class FishyBusiness extends JavaPlugin {
         return rewardManager;
     }
 
-    public Messages getMessages() {
-        return messages;
+    public Optional<PointManager> getPointManager() {
+        return Optional.ofNullable(pointManager);
     }
 
-    public PointsTable getPointsTable() {
-        return pointsTable;
+    public Messages getMessages() {
+        return messages;
     }
 
     public InventoryManager getInventoryManager() {

@@ -32,7 +32,7 @@ public class RewardSubcommand extends SubCommand {
         }, 30, TimeUnit.SECONDS);
 
         WEIGHT_CACHE = new ArrayList<>();
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 0; i <= 100; i++) {
             WEIGHT_CACHE.add(String.valueOf(i));
         }
 
@@ -113,6 +113,8 @@ public class RewardSubcommand extends SubCommand {
                                       handleAddTitle(sender, name, weight, args);
                                   } else if (rewardClass == ContainerReward.class) {
                                       handleAddContainer(sender, name, weight, args);
+                                  } else if (rewardClass == PointsReward.class) {
+                                      handleAddPoints(sender, name, weight, args);
                                   } else {
                                       sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_UNKNOWN_ADAPTER));
                                   }
@@ -152,7 +154,7 @@ public class RewardSubcommand extends SubCommand {
 
     private void handleAddVault(CommandSender sender, String name, double weight, String[] args) {
         if (args.length == 5) {
-            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_AMOUNT));
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_MONEY));
             return;
         }
 
@@ -162,7 +164,23 @@ public class RewardSubcommand extends SubCommand {
             plugin.getRewardManager().addReward(new VaultReward(plugin, name, amount, weight));
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
         } catch (NumberFormatException ex) {
-            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_AMOUNT));
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_MONEY));
+        }
+    }
+
+    private void handleAddPoints(CommandSender sender, String name, double weight, String[] args) {
+        if (args.length == 5) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_POINTS));
+            return;
+        }
+
+        try {
+            int amount = Integer.parseInt(args[5]);
+
+            plugin.getRewardManager().addReward(new PointsReward(plugin, name, amount, weight));
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
+        } catch (NumberFormatException ex) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_POINTS));
         }
     }
 
@@ -301,7 +319,7 @@ public class RewardSubcommand extends SubCommand {
                 return List.of("<name>");
             } else if (args.length == 5) {
                 return WEIGHT_CACHE;
-            } else if (args[2].equals("vault")) {
+            } else if (args[2].equals("vault") || args[2].equals("points")) {
                 if (args.length == 6) {
                     return AMOUNT_CACHE;
                 }

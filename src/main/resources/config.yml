@@ -13,11 +13,13 @@ rewards:
   # - message - Allows you to send a message to player or everyone as a form of reward (supports PlaceholderAPI hook)
   # - actionbar - Same as message
   # - title - Allows you to send a title message to player or everyone (also supports PlaceholderAPI hook)
+  # - points - Allows you to give players internal points
   enabled-adapters:
     - "command"
     - "message"
     - "title"
     - "actionbar"
+    - "points"
 
 area:
   # Available:
@@ -25,6 +27,9 @@ area:
   # - worldguard - Requires WorldGuard, more shapes
   enabled-adapters:
     - "fishy"
+
+points:
+  enabled: true
 
 inventory:
   mask:

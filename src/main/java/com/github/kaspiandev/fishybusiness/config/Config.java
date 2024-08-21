@@ -61,6 +61,10 @@ public class Config {
         });
     }
 
+    public boolean isPointsEnabled() {
+        return document.getBoolean("points.enabled");
+    }
+
     public YamlDocument getDocument() {
         return document;
     }
