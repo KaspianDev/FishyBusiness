@@ -8,8 +8,11 @@ area:
   removed: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&Area was removed successfully."
   no-area: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&There is no area at given location."
   overlap: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&This area overlaps anther area and cannot be saved."
+  no-world: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the region world."
+  no-id: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the region ID."
+  invalid-id: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Region with that ID doesn't exist."
   world-mismatch: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Area corner worlds don't match."
-  cannot-set: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Area cannot be set because two corners aren't selected."
+  cannot-set: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Area cannot be set because two corners aren't selected or you aren't holding the selector."
   unknown-adapter: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Area adapter with this name isn't registered."
   tool-given: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&You received an area selector tool. Select first corner with left-click and second corner with right-click."
 reward:
@@ -31,4 +34,4 @@ reload:
   error: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&There was an error while reloading '${file}'."
   unknown-type: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Specified component doesn't exist."
 
-version: 3
+version: 4

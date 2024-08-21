@@ -135,13 +135,30 @@ public class AreaSubcommand extends SubCommand {
 
     private void handleAddWorldGuard(Player player, String[] args) {
         if (args.length <= 4) {
-            player.spigot().sendMessage(plugin.getMessages().get(Message.COMMAND_NO_ARGUMENTS));
+            player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_NO_WORLD));
             return;
         }
 
-        World world = Bukkit.getWorld(args[3]);
-        String id = args[4];
-        plugin.getAreaManager().addArea(new WorldGuardArea(world, id));
+        World world = Bukkit.getWorld(args[4]);
+        if (world == null) {
+            player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_NO_WORLD));
+            return;
+        }
+
+        if (args.length == 5) {
+            player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_NO_ID));
+            return;
+        }
+
+        try {
+            String id = args[5];
+            plugin.getAreaManager().addArea(new WorldGuardArea(world, id));
+            player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_SAVED));
+        } catch (IllegalArgumentException ex) {
+            player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_INVALID_ID));
+        } catch (AreaOverlapException e) {
+            player.spigot().sendMessage(plugin.getMessages().get(Message.AREA_OVERLAP));
+        }
     }
 
     private void handleAddFishy(Player player, String[] args) {
@@ -194,8 +211,18 @@ public class AreaSubcommand extends SubCommand {
         } else if (args[1].equals("add")) {
             if (args.length == 3) {
                 return AREA_TYPE_NAME_CACHE.get();
-            } else if (args.length == 4) {
-                return List.of("selector", "save");
+            } else if (args[2].equals("fishy")) {
+                if (args.length == 4) {
+                    return List.of("selector", "save");
+                }
+            } else if (args[2].equals("worldguard")) {
+                if (args.length == 4) {
+                    return List.of("save");
+                } else if (args.length == 5) {
+                    return WORLD_NAME_CACHE.get();
+                } else if (args.length == 6) {
+                    return List.of("<id>");
+                }
             }
         } else if (args[1].equals("remove")) {
             if (args.length == 3) {

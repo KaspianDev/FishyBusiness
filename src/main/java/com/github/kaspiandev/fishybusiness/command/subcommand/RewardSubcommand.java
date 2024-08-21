@@ -10,12 +10,17 @@ import com.google.common.base.Suppliers;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class RewardSubcommand extends SubCommand {
 
     private static final Supplier<List<String>> REWARD_TYPE_NAME_CACHE;
+    private static final List<String> WEIGHT_CACHE;
+    private static final List<String> AMOUNT_CACHE;
+    private static final List<String> MESSAGE_TYPE_CACHE;
 
     static {
         REWARD_TYPE_NAME_CACHE = Suppliers.memoizeWithExpiration(() -> {
@@ -23,6 +28,20 @@ public class RewardSubcommand extends SubCommand {
                                      .sorted()
                                      .toList();
         }, 30, TimeUnit.SECONDS);
+
+        WEIGHT_CACHE = new ArrayList<>();
+        for (int i = 1; i <= 100; i++) {
+            WEIGHT_CACHE.add(String.valueOf(i));
+        }
+
+        AMOUNT_CACHE = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            AMOUNT_CACHE.add(String.valueOf(i + 5));
+        }
+
+        MESSAGE_TYPE_CACHE = Arrays.stream(MessageReward.Type.values())
+                                   .map(MessageReward.Type::name)
+                                   .toList();
     }
 
     private final FishyBusiness plugin;
@@ -141,7 +160,7 @@ public class RewardSubcommand extends SubCommand {
         }
 
         StringBuilder command = new StringBuilder();
-        for (int i = 4; i < args.length; i++) {
+        for (int i = 5; i < args.length; i++) {
             command.append(args[i]);
         }
 
@@ -172,6 +191,28 @@ public class RewardSubcommand extends SubCommand {
     public List<String> suggestions(CommandSender sender, String[] args) {
         if (args.length == 2) {
             return List.of("add", "remove");
+        } else if (args[1].equals("add")) {
+            if (args.length == 3) {
+                return REWARD_TYPE_NAME_CACHE.get();
+            } else if (args.length == 4) {
+                return List.of("<name>");
+            } else if (args.length == 5) {
+                return WEIGHT_CACHE;
+            } else if (args[2].equals("vault")) {
+                if (args.length == 6) {
+                    return AMOUNT_CACHE;
+                }
+            } else if (args[2].equals("message")) {
+                if (args.length == 6) {
+                    return MESSAGE_TYPE_CACHE;
+                } else if (args.length == 7) {
+                    return List.of("<message>");
+                }
+            } else if (args[2].equals("command")) {
+                if (args.length == 6) {
+                    return List.of("<command>");
+                }
+            }
         }
         return List.of();
     }

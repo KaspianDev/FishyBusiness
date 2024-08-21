@@ -21,7 +21,7 @@ public class WorldGuardArea implements Area {
 
         Optional<ProtectedRegion> optProtectedRegion = WorldGuardArea.find(this.world, id);
         if (optProtectedRegion.isEmpty()) {
-            throw new IllegalStateException("Region with id " + id + " doesn't exist");
+            throw new IllegalArgumentException("Region with id " + id + " doesn't exist");
         }
 
         this.protectedRegion = optProtectedRegion.get();
