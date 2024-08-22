@@ -2,8 +2,13 @@ package com.github.kaspiandev.fishybusiness.reward;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.hook.worldguard.PlaceholderAPIHook;
+import com.github.kaspiandev.fishybusiness.util.ComponentUtil;
+import com.github.kaspiandev.fishybusiness.util.ItemBuilder;
+import com.github.kaspiandev.fishybusiness.util.ItemLoader;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class CommandReward implements Reward {
 
@@ -32,6 +37,22 @@ public class CommandReward implements Reward {
         plugin.getHookManager().findHook(PlaceholderAPIHook.class).ifPresentOrElse((hook) -> {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), hook.applyPlaceholders(player, command));
         }, () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command));
+    }
+
+    @Override
+    public ItemStack getDisplay(FishyBusiness plugin, Player player) {
+        return plugin.getConf().getRewardDisplay(CommandReward.class)
+                     .map((section) -> {
+                         ItemBuilder commandBuilder = ItemLoader.loadBuilder(section);
+                         String name = commandBuilder.getName();
+                         if (name != null) {
+                             commandBuilder.name(ComponentUtil.toString(plugin.getMessages().get(name, (oldName) -> {
+                                 return oldName.replace("${name}", this.name);
+                             }, player)));
+                         }
+                         return commandBuilder.build();
+                     })
+                     .orElse(new ItemStack(Material.AIR));
     }
 
 }

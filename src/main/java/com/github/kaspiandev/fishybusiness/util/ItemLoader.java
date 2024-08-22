@@ -13,7 +13,7 @@ public class ItemLoader {
 
     private ItemLoader() {}
 
-    public static ItemStack load(Section section) {
+    public static ItemBuilder loadBuilder(Section section) {
         try {
             Material type = Material.valueOf(section.getString("type", "AIR"));
             ItemBuilder itemBuilder = new ItemBuilder(type);
@@ -43,10 +43,14 @@ public class ItemLoader {
                 }
             });
 
-            return itemBuilder.build();
+            return itemBuilder;
         } catch (IllegalArgumentException ex) {
-            return new ItemStack(Material.AIR);
+            return new ItemBuilder(Material.AIR);
         }
+    }
+
+    public static ItemStack loadItem(Section section) {
+        return loadBuilder(section).build();
     }
 
 }

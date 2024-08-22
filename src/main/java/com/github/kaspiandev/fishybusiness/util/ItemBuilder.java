@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class ItemBuilder {
 
-    private final Material type;
+    private Material type;
     private int amount = 1;
     private boolean unbreakable = false;
     private String name;
@@ -27,6 +27,11 @@ public class ItemBuilder {
 
     public static ItemBuilder ofType(Material type) {
         return new ItemBuilder(type);
+    }
+
+    public ItemBuilder type(Material type) {
+        this.type = type;
+        return this;
     }
 
     public ItemBuilder amount(int amount) {
@@ -102,6 +107,34 @@ public class ItemBuilder {
         item.setItemMeta(meta);
 
         return item;
+    }
+
+    public Material getType() {
+        return type;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public boolean isUnbreakable() {
+        return unbreakable;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getLore() {
+        return lore;
+    }
+
+    public Map<Enchantment, Integer> getEnchants() {
+        return enchants;
+    }
+
+    public List<ItemFlag> getItemFlags() {
+        return itemFlags;
     }
 
 }

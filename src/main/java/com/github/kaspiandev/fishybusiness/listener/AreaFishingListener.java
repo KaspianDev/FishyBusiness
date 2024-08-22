@@ -1,6 +1,7 @@
 package com.github.kaspiandev.fishybusiness.listener;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
+import com.github.kaspiandev.fishybusiness.reward.Reward;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.FishHook;
 import org.bukkit.entity.Item;
@@ -28,7 +29,13 @@ public class AreaFishingListener implements Listener {
             Entity caught = event.getCaught();
             if (caught instanceof Item) caught.remove();
 
-            plugin.getRewardManager().chooseRandomReward().reward(plugin, player);
+            Reward reward = plugin.getRewardManager().chooseRandomReward();
+
+            Item hookedItem = player.getWorld().spawn(fishHook.getLocation(), Item.class, (item) -> {
+                item.setItemStack(reward.getDisplay(plugin, player));
+            });
+            fishHook.setHookedEntity(hookedItem);
+            reward.reward(plugin, player);
         });
     }
 

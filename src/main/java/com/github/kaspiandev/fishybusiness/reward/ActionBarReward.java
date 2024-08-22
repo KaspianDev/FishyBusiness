@@ -1,10 +1,15 @@
 package com.github.kaspiandev.fishybusiness.reward;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
+import com.github.kaspiandev.fishybusiness.util.ComponentUtil;
+import com.github.kaspiandev.fishybusiness.util.ItemBuilder;
+import com.github.kaspiandev.fishybusiness.util.ItemLoader;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class ActionBarReward implements Reward {
 
@@ -39,6 +44,22 @@ public class ActionBarReward implements Reward {
             });
             case PLAYER -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, message);
         }
+    }
+
+    @Override
+    public ItemStack getDisplay(FishyBusiness plugin, Player player) {
+        return plugin.getConf().getRewardDisplay(ActionBarReward.class)
+                     .map((section) -> {
+                         ItemBuilder commandBuilder = ItemLoader.loadBuilder(section);
+                         String name = commandBuilder.getName();
+                         if (name != null) {
+                             commandBuilder.name(ComponentUtil.toString(plugin.getMessages().get(name, (oldName) -> {
+                                 return oldName.replace("${name}", this.name);
+                             }, player)));
+                         }
+                         return commandBuilder.build();
+                     })
+                     .orElse(new ItemStack(Material.AIR));
     }
 
     public enum Type {

@@ -64,7 +64,7 @@ public class InventoryManager {
 
             for (int i = 0; i < 9; i++) {
                 char itemChar = maskLine.charAt(i);
-                ItemStack item = ItemLoader.load(document.getSection("inventory.items." + itemChar));
+                ItemStack item = ItemLoader.loadItem(document.getSection("inventory.items." + itemChar));
                 items.add(item);
             }
         }
