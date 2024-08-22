@@ -7,6 +7,7 @@ import org.bukkit.util.io.BukkitObjectOutputStream;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.Base64;
 
 public class InventoryUtil {
 
@@ -47,6 +48,14 @@ public class InventoryUtil {
         } catch (Exception exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    public static String toBase64(ItemStack item) {
+        return Base64.getEncoder().encodeToString(encodeItem(item));
+    }
+
+    public static ItemStack fromBase64(String base64) {
+        return decodeItem(Base64.getDecoder().decode(base64));
     }
 
     public static byte[] encodeItem(ItemStack item) {

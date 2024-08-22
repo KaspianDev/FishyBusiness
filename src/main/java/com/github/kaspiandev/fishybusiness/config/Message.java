@@ -33,6 +33,7 @@ public enum Message {
     REWARD_NO_MESSAGE("reward.no-message"),
     REWARD_NO_MONEY("reward.no-money"),
     REWARD_NO_POINTS("reward.no-points"),
+    REWARD_NO_ITEM("reward.no-item"),
     REWARD_UNKNOWN_ADAPTER("reward.unknown-adapter"),
 
     POINTS_TOP_LIST_ENTRY("points.top-list-entry"),

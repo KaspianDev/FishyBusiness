@@ -33,7 +33,7 @@ Plugin will have different kinds of awards, including:
 - ~~Action Bar~~
 - ~~Title~~
 - ~~Container~~
-- Items (for later)
+- ~~Items (for later)~~
 
 Physical rewards (items) are stashed and given upon leaving the area.
 Might create a stash plugin and use it as a hook.
@@ -46,5 +46,8 @@ alternative currency with exclusive items).~~
 
 Planned placeholders:
 
-- ~~%fishybusiness_points% - Returns the amount of points player has~~  
+- ~~%fishybusiness_points% - Returns the amount of points player has~~
+- ~~%fishybusiness_top_points% - Returns top 10 points~~
+- ~~%fishybusiness_top_points_<place> - Returns name and points of certain to
+  place~~  
   ...

@@ -15,6 +15,7 @@ rewards:
   # - title - Allows you to send a title message to player or everyone (also supports PlaceholderAPI hook)
   # - points - Allows you to give players internal points
   # - container - Allows you to give multiple rewards at once
+  # - item - Allows you to give items as rewards
   enabled-adapters:
     - "command"
     - "message"
@@ -22,6 +23,7 @@ rewards:
     - "actionbar"
     - "points"
     - "container"
+    - "item"
 
 area:
   # Available:

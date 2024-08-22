@@ -9,6 +9,7 @@ import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -120,6 +121,8 @@ public class RewardSubcommand extends SubCommand {
                                       handleAddContainer(sender, name, weight, args);
                                   } else if (rewardClass == PointsReward.class) {
                                       handleAddPoints(sender, name, weight, args);
+                                  } else if (rewardClass == ItemReward.class) {
+                                      handleAddItem(sender, name, weight, args);
                                   } else {
                                       sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_UNKNOWN_ADAPTER));
                                   }
@@ -154,6 +157,22 @@ public class RewardSubcommand extends SubCommand {
         }
 
         plugin.getRewardManager().addReward(new ContainerReward(plugin, name, rewardNames, weight));
+        sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
+    }
+
+    private void handleAddItem(CommandSender sender, String name, double weight, String[] args) {
+        if (!(sender instanceof Player player)) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.COMMAND_ONLY_PLAYERS));
+            return;
+        }
+
+        ItemStack item = player.getInventory().getItemInMainHand();
+        if (item.getType().isAir()) {
+            player.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_ITEM, player));
+            return;
+        }
+
+        plugin.getRewardManager().addReward(new ItemReward(name, item, weight));
         sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
     }
 

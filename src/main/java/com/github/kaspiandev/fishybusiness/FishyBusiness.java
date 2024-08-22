@@ -59,6 +59,10 @@ public final class FishyBusiness extends JavaPlugin {
         ContainerRewardAdapter containerRewardAdapter = new ContainerRewardAdapter(this);
         RewardTypeRegistry.register("container", new RewardType(ContainerReward.class, containerRewardAdapter));
 
+        // TODO: Stashing
+        ItemB64Adapter itemAdapter = new ItemB64Adapter();
+        RewardTypeRegistry.register("item", new RewardType(ItemReward.class, itemAdapter));
+
         areaAdapter = new AreaAdapter();
         rewardAdapter = new RewardAdapter();
 
