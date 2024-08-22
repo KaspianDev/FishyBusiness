@@ -1,19 +1,20 @@
 package com.github.kaspiandev.fishybusiness.hook.worldguard;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
+import com.github.kaspiandev.fishybusiness.config.Message;
 import com.github.kaspiandev.fishybusiness.hook.Hook;
+import com.github.kaspiandev.fishybusiness.points.TopPointEntry;
+import com.github.kaspiandev.fishybusiness.util.ComponentUtil;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Map;
+import java.util.List;
 import java.util.StringJoiner;
-import java.util.UUID;
 
 public class PlaceholderAPIHook extends Hook<PlaceholderAPIPlugin> {
 
@@ -56,15 +57,36 @@ public class PlaceholderAPIHook extends Hook<PlaceholderAPIPlugin> {
                 if (params.equals("points")) {
                     return String.valueOf(plugin.getPointManager().get().getPoints(player));
                 } else if (params.equals("top_points")) {
+                    List<TopPointEntry> topEntries = plugin.getPointManager().get().getTopPoints();
                     StringJoiner joiner = new StringJoiner("\n");
-                    for (Map.Entry<UUID, Integer> entry : plugin.getPointManager().get().getTopPoints().entrySet()) {
-                        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(entry.getKey());
-                        joiner.add(offlinePlayer.getName() + " " + entry.getValue());
+                    for (int i = 0; i < topEntries.size(); i++) {
+                        TopPointEntry entry = topEntries.get(i);
+                        String name = Bukkit.getOfflinePlayer(entry.uuid()).getName();
+
+                        int currentPlace = i + 1;
+                        String topEntryFormat = ComponentUtil.toString(plugin.getMessages().get(Message.POINTS_TOP_LIST_ENTRY, (format) -> {
+                            return format.replace("${name}", (name == null) ? "unknown" : name)
+                                         .replace("${points}", String.valueOf(entry.amount()))
+                                         .replace("${place}", String.valueOf(currentPlace));
+                        }));
+                        joiner.add(topEntryFormat);
                     }
                     return joiner.toString();
+                } else if (params.startsWith("top_points_")) {
+                    try {
+                        int place = Math.min(9, Integer.parseInt(params.substring("top_points_".length())) - 1);
+                        TopPointEntry entry = plugin.getPointManager().get().getTopPoints().get(place);
+
+                        String name = Bukkit.getOfflinePlayer(entry.uuid()).getName();
+                        return ComponentUtil.toString(plugin.getMessages().get(Message.POINTS_TOP_ENTRY, (format) -> {
+                            return format.replace("${name}", (name == null) ? "unknown" : name)
+                                         .replace("${points}", String.valueOf(entry.amount()));
+                        }));
+                    } catch (NumberFormatException | IndexOutOfBoundsException ex) {
+                        return null;
+                    }
                 }
             }
-
             return null;
         }
 

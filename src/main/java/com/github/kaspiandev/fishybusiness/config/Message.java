@@ -35,6 +35,9 @@ public enum Message {
     REWARD_NO_POINTS("reward.no-points"),
     REWARD_UNKNOWN_ADAPTER("reward.unknown-adapter"),
 
+    POINTS_TOP_LIST_ENTRY("points.top-list-entry"),
+    POINTS_TOP_ENTRY("points.top-entry"),
+
     RELOAD_RELOADED_ALL("reload.reloaded-all"),
     RELOAD_RELOADED("reload.reloaded"),
     RELOAD_ERROR("reload.error"),

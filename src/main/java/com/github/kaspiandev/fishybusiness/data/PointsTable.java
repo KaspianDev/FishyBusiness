@@ -1,13 +1,14 @@
 package com.github.kaspiandev.fishybusiness.data;
 
+import com.github.kaspiandev.fishybusiness.points.TopPointEntry;
 import org.bukkit.entity.Player;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -82,14 +83,14 @@ public class PointsTable extends Table {
         });
     }
 
-    public CompletableFuture<Map<UUID, Integer>> getTopPoints() {
+    public CompletableFuture<List<TopPointEntry>> getTopPoints() {
         return CompletableFuture.supplyAsync(() -> {
             try (Connection connection = database.getSQLConnection()) {
                 try (PreparedStatement statement = connection.prepareStatement(GET_TOP_POINTS)) {
                     ResultSet resultSet = statement.executeQuery();
-                    Map<UUID, Integer> topPoints = new LinkedHashMap<>();
+                    List<TopPointEntry> topPoints = new ArrayList<>();
                     while (resultSet.next()) {
-                        topPoints.put(UUID.fromString(resultSet.getString(1)), resultSet.getInt(2));
+                        topPoints.add(new TopPointEntry(UUID.fromString(resultSet.getString(1)), resultSet.getInt(2)));
                     }
                     resultSet.close();
                     return topPoints;

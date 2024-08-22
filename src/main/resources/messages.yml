@@ -31,6 +31,9 @@ reward:
   no-money: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the amount of money."
   no-points: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the amount of points."
   unknown-adapter: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&Reward adapter with this name isn't registered."
+points:
+  top-list-entry: "&7#${place} &e${name} &7- &a${points}"
+  top-entry: "&e${name} &7- &a${points}"
 reload:
   reloaded-all: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&Plugin was reloaded successfully."
   reloaded: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&File '${file}' was reloaded successfully."
