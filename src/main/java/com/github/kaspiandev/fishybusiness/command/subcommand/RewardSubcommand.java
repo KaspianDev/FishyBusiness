@@ -156,7 +156,7 @@ public class RewardSubcommand extends SubCommand {
             }
         }
 
-        plugin.getRewardManager().addReward(new ContainerReward(plugin, name, rewardNames, weight));
+        plugin.getRewardManager().addReward(new ContainerReward(name, rewardNames, weight));
         sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
     }
 
@@ -185,7 +185,7 @@ public class RewardSubcommand extends SubCommand {
         try {
             double amount = Double.parseDouble(args[5]);
 
-            plugin.getRewardManager().addReward(new VaultReward(plugin, name, amount, weight));
+            plugin.getRewardManager().addReward(new VaultReward(name, amount, weight));
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
         } catch (NumberFormatException ex) {
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_MONEY));
@@ -201,7 +201,7 @@ public class RewardSubcommand extends SubCommand {
         try {
             int amount = Integer.parseInt(args[5]);
 
-            plugin.getRewardManager().addReward(new PointsReward(plugin, name, amount, weight));
+            plugin.getRewardManager().addReward(new PointsReward(name, amount, weight));
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
         } catch (NumberFormatException ex) {
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_POINTS));
@@ -227,7 +227,7 @@ public class RewardSubcommand extends SubCommand {
                 message.add(args[i]);
             }
 
-            plugin.getRewardManager().addReward(new ActionBarReward(plugin, name, message.toString(), messageType, weight));
+            plugin.getRewardManager().addReward(new ActionBarReward(name, message.toString(), messageType, weight));
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
         } catch (IllegalArgumentException ex) {
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_MESSAGE_TYPE));
@@ -262,8 +262,8 @@ public class RewardSubcommand extends SubCommand {
                 message.add(args[i]);
             }
 
-            plugin.getRewardManager().addReward(new TitleReward(plugin, name,
-                    message.toString(), null, fadeIn, stay, fadeOut, messageType, weight));
+            plugin.getRewardManager().addReward(new TitleReward(name, message.toString(),
+                    null, fadeIn, stay, fadeOut, messageType, weight));
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
         } catch (NumberFormatException ex) {
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_TITLE_PROPERTIES));
@@ -291,7 +291,7 @@ public class RewardSubcommand extends SubCommand {
                 message.add(args[i]);
             }
 
-            plugin.getRewardManager().addReward(new MessageReward(plugin, name, message.toString(), messageType, weight));
+            plugin.getRewardManager().addReward(new MessageReward(name, message.toString(), messageType, weight));
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
         } catch (IllegalArgumentException ex) {
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_MESSAGE_TYPE));
@@ -309,7 +309,7 @@ public class RewardSubcommand extends SubCommand {
             command.add(args[i]);
         }
 
-        plugin.getRewardManager().addReward(new CommandReward(plugin, name, command.toString(), weight));
+        plugin.getRewardManager().addReward(new CommandReward(name, command.toString(), weight));
         sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
     }
 

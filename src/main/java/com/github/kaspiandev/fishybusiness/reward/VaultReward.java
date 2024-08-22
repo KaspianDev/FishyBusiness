@@ -3,16 +3,15 @@ package com.github.kaspiandev.fishybusiness.reward;
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.hook.worldguard.VaultHook;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 public class VaultReward implements Reward {
 
-    private final transient FishyBusiness plugin;
     private final String name;
     private final double amount;
     private final double weight;
 
-    public VaultReward(FishyBusiness plugin, String name, double amount, double weight) {
-        this.plugin = plugin;
+    public VaultReward(String name, double amount, double weight) {
         this.name = name;
         this.amount = amount;
         this.weight = weight;
@@ -29,10 +28,15 @@ public class VaultReward implements Reward {
     }
 
     @Override
-    public void reward(Player player) {
+    public void reward(FishyBusiness plugin, Player player) {
         plugin.getHookManager().findHook(VaultHook.class).ifPresent((hook) -> {
             hook.addMoney(player, amount);
         });
+    }
+
+    @Override
+    public ItemStack getDisplay(FishyBusiness plugin, Player player) {
+        return null;
     }
 
 }

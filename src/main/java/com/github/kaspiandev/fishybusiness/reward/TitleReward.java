@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 
 public class TitleReward implements Reward {
 
-    private final transient FishyBusiness plugin;
     private final String name;
     private final String title;
     private final String subtitle;
@@ -17,8 +16,7 @@ public class TitleReward implements Reward {
     private final Type messageType;
     private final double weight;
 
-    public TitleReward(FishyBusiness plugin, String name, String title, String subtitle, Type messageType, double weight) {
-        this.plugin = plugin;
+    public TitleReward(String name, String title, String subtitle, Type messageType, double weight) {
         this.name = name;
         this.title = title;
         this.subtitle = subtitle;
@@ -29,9 +27,8 @@ public class TitleReward implements Reward {
         this.weight = weight;
     }
 
-    public TitleReward(FishyBusiness plugin, String name, String title, String subtitle,
+    public TitleReward(String name, String title, String subtitle,
                        int fadeIn, int stay, int fadeOut, Type messageType, double weight) {
-        this.plugin = plugin;
         this.name = name;
         this.title = title;
         this.subtitle = subtitle;
@@ -53,7 +50,7 @@ public class TitleReward implements Reward {
     }
 
     @Override
-    public void reward(Player player) {
+    public void reward(FishyBusiness plugin, Player player) {
         String title = (this.title == null)
                 ? null
                 : ComponentUtil.toString(plugin.getMessages().get(this.title, player));

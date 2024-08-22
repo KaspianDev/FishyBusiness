@@ -25,6 +25,40 @@ rewards:
     - "container"
     - "item"
 
+  displays:
+    command:
+      type: PAPER
+      name: "&e&lCommand &7(${name})"
+      enchants:
+        - type: "unbreaking"
+          level: 1
+    vault:
+      type: SUNFLOWER
+      name: "&a&l${amount}"
+      enchants:
+        - type: "unbreaking"
+          level: 1
+    points:
+      type: PAPER
+      name: "&a&l${amount}"
+      enchants:
+        - type: "unbreaking"
+          level: 1
+    container:
+      type: CHEST
+      name: "&6&lRewards"
+      enchants:
+        - type: "unbreaking"
+          level: 1
+    message:
+      type: AIR
+    title:
+      type: AIR
+    actionbar:
+      type: AIR
+    item:
+      type: AIR # Dynamic
+
 area:
   # Available:
   # - fishy - Build-in, only rectangles

@@ -5,7 +5,6 @@ import com.github.kaspiandev.fishybusiness.data.PointsTable;
 import com.github.kaspiandev.fishybusiness.reward.PointsReward;
 import com.github.kaspiandev.fishybusiness.reward.RewardType;
 import com.github.kaspiandev.fishybusiness.reward.RewardTypeRegistry;
-import com.github.kaspiandev.fishybusiness.reward.adapter.PointsRewardAdapter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,8 +31,7 @@ public class PointManager implements Listener {
         Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this::refreshTopPoints, 0, 1200);
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
 
-        PointsRewardAdapter pointsRewardAdapter = new PointsRewardAdapter(plugin);
-        RewardType pointsRewardType = new RewardType(PointsReward.class, pointsRewardAdapter);
+        RewardType pointsRewardType = new RewardType(PointsReward.class);
         RewardTypeRegistry.register("points", pointsRewardType);
     }
 

@@ -7,13 +7,11 @@ import org.bukkit.entity.Player;
 
 public class CommandReward implements Reward {
 
-    private final transient FishyBusiness plugin;
     private final String name;
     private final String command;
     private final double weight;
 
-    public CommandReward(FishyBusiness plugin, String name, String command, double weight) {
-        this.plugin = plugin;
+    public CommandReward(String name, String command, double weight) {
         this.name = name;
         this.command = command;
         this.weight = weight;
@@ -30,7 +28,7 @@ public class CommandReward implements Reward {
     }
 
     @Override
-    public void reward(Player player) {
+    public void reward(FishyBusiness plugin, Player player) {
         plugin.getHookManager().findHook(PlaceholderAPIHook.class).ifPresentOrElse((hook) -> {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), hook.applyPlaceholders(player, command));
         }, () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command));

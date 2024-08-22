@@ -16,7 +16,8 @@ import com.github.kaspiandev.fishybusiness.listener.AreaEventListener;
 import com.github.kaspiandev.fishybusiness.listener.AreaFishingListener;
 import com.github.kaspiandev.fishybusiness.points.PointManager;
 import com.github.kaspiandev.fishybusiness.reward.*;
-import com.github.kaspiandev.fishybusiness.reward.adapter.*;
+import com.github.kaspiandev.fishybusiness.reward.adapter.ItemB64Adapter;
+import com.github.kaspiandev.fishybusiness.reward.adapter.RewardAdapter;
 import com.github.kaspiandev.fishybusiness.selector.FishyAreaSelectorFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
@@ -44,20 +45,11 @@ public final class FishyBusiness extends JavaPlugin {
     public void onEnable() {
         hookManager = new HookManager(this);
 
-        CommandRewardAdapter commandRewardAdapter = new CommandRewardAdapter(this);
-        RewardTypeRegistry.register("command", new RewardType(CommandReward.class, commandRewardAdapter));
-
-        MessageRewardAdapter messageRewardAdapter = new MessageRewardAdapter(this);
-        RewardTypeRegistry.register("message", new RewardType(MessageReward.class, messageRewardAdapter));
-
-        ActionBarRewardAdapter actionBarRewardAdapter = new ActionBarRewardAdapter(this);
-        RewardTypeRegistry.register("actionbar", new RewardType(ActionBarReward.class, actionBarRewardAdapter));
-
-        TitleRewardAdapter titleRewardAdapter = new TitleRewardAdapter(this);
-        RewardTypeRegistry.register("title", new RewardType(TitleReward.class, titleRewardAdapter));
-
-        ContainerRewardAdapter containerRewardAdapter = new ContainerRewardAdapter(this);
-        RewardTypeRegistry.register("container", new RewardType(ContainerReward.class, containerRewardAdapter));
+        RewardTypeRegistry.register("command", new RewardType(CommandReward.class));
+        RewardTypeRegistry.register("message", new RewardType(MessageReward.class));
+        RewardTypeRegistry.register("actionbar", new RewardType(ActionBarReward.class));
+        RewardTypeRegistry.register("title", new RewardType(TitleReward.class));
+        RewardTypeRegistry.register("container", new RewardType(ContainerReward.class));
 
         // TODO: Stashing
         ItemB64Adapter itemAdapter = new ItemB64Adapter();

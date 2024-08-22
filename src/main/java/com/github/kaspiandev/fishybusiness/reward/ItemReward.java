@@ -1,5 +1,6 @@
 package com.github.kaspiandev.fishybusiness.reward;
 
+import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -27,7 +28,7 @@ public class ItemReward implements Reward {
     }
 
     @Override
-    public void reward(Player player) {
+    public void reward(FishyBusiness plugin, Player player) {
         PlayerInventory inventory = player.getInventory();
         if (inventory.firstEmpty() == -1) {
             player.getWorld().dropItem(player.getLocation(), item);

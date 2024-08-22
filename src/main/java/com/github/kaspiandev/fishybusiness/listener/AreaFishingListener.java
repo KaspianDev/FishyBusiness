@@ -28,7 +28,7 @@ public class AreaFishingListener implements Listener {
             Entity caught = event.getCaught();
             if (caught instanceof Item) caught.remove();
 
-            plugin.getRewardManager().chooseRandomReward().reward(player);
+            plugin.getRewardManager().chooseRandomReward().reward(plugin, player);
         });
     }
 

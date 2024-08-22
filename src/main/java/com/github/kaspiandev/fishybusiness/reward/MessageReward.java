@@ -7,14 +7,12 @@ import org.bukkit.entity.Player;
 
 public class MessageReward implements Reward {
 
-    private final transient FishyBusiness plugin;
     private final String name;
     private final String message;
     private final Type messageType;
     private final double weight;
 
-    public MessageReward(FishyBusiness plugin, String name, String message, Type messageType, double weight) {
-        this.plugin = plugin;
+    public MessageReward(String name, String message, Type messageType, double weight) {
         this.name = name;
         this.message = message;
         this.messageType = messageType;
@@ -32,7 +30,7 @@ public class MessageReward implements Reward {
     }
 
     @Override
-    public void reward(Player player) {
+    public void reward(FishyBusiness plugin, Player player) {
         BaseComponent[] message = plugin.getMessages().get(this.message, player);
         switch (messageType) {
             case BROADCAST -> Bukkit.spigot().broadcast(message);
