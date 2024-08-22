@@ -2,6 +2,7 @@ package com.github.kaspiandev.fishybusiness.listener;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.reward.Reward;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.FishHook;
 import org.bukkit.entity.Item;
@@ -9,8 +10,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.metadata.FixedMetadataValue;
 
 public class AreaFishingListener implements Listener {
+
+    public static final String REWARD_META = "fishybusiness-reward";
 
     private final FishyBusiness plugin;
 
@@ -32,9 +38,25 @@ public class AreaFishingListener implements Listener {
             Reward reward = plugin.getRewardManager().chooseRandomReward();
 
             Item hookedItem = player.getWorld().spawn(fishHook.getLocation(), Item.class, (item) -> {
-                item.setItemStack(reward.getDisplay(plugin, player));
+                ItemStack display = reward.getDisplay(plugin, player);
+                item.setItemStack(display);
+
+                ItemMeta displayMeta = display.getItemMeta();
+                if (displayMeta != null) {
+                    item.setOwner(player.getUniqueId());
+                    if (displayMeta.hasDisplayName()) {
+                        item.setCustomName(displayMeta.getDisplayName());
+                        item.setCustomNameVisible(true);
+                    }
+                }
+
+                item.setMetadata(REWARD_META, new FixedMetadataValue(plugin, true));
             });
+
+            Bukkit.getScheduler().runTaskLater(plugin, hookedItem::remove, 40);
+
             fishHook.setHookedEntity(hookedItem);
+            hookedItem.setVelocity(player.getLocation().add(0, 2, 0).getDirection().normalize().multiply(-1));
             reward.reward(plugin, player);
         });
     }

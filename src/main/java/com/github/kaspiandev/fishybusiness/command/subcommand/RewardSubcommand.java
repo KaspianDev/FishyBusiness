@@ -145,7 +145,6 @@ public class RewardSubcommand extends SubCommand {
         for (int i = 5; i < args.length; i++) {
             rewardNames.add(args[i]);
         }
-        System.out.println(rewardNames);
 
         for (String rewardName : rewardNames) {
             if (plugin.getRewardManager().findReward(rewardName).isEmpty()) {

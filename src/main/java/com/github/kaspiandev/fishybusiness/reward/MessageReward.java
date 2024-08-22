@@ -45,7 +45,7 @@ public class MessageReward implements Reward {
 
     @Override
     public ItemStack getDisplay(FishyBusiness plugin, Player player) {
-        return plugin.getConf().getRewardDisplay(ActionBarReward.class)
+        return plugin.getConf().getRewardDisplay(MessageReward.class)
                      .map((section) -> {
                          ItemBuilder commandBuilder = ItemLoader.loadBuilder(section);
                          String name = commandBuilder.getName();

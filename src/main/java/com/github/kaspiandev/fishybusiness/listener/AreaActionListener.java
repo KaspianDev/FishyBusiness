@@ -3,6 +3,7 @@ package com.github.kaspiandev.fishybusiness.listener;
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.event.AreaEnterEvent;
 import com.github.kaspiandev.fishybusiness.event.AreaLeaveEvent;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -57,6 +58,13 @@ public class AreaActionListener implements Listener {
     @EventHandler
     public void onPickup(EntityPickupItemEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
+
+        Item item = event.getItem();
+        if (item.hasMetadata(AreaFishingListener.REWARD_META)) {
+            item.remove();
+            event.setCancelled(true);
+            return;
+        }
 
         if (plugin.getAreaManager().getPlayerArea(player).isPresent()) {
             event.setCancelled(true);

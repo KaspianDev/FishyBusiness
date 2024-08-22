@@ -12,7 +12,7 @@ public interface Reward {
 
     void reward(FishyBusiness plugin, Player player);
 
-    // TODO: switch to returning Item instead for more control, apply some placeholders by default
+    // TODO: apply some placeholders by default
     ItemStack getDisplay(FishyBusiness plugin, Player player);
 
 }

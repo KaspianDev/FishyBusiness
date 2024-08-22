@@ -72,7 +72,7 @@ public class TitleReward implements Reward {
 
     @Override
     public ItemStack getDisplay(FishyBusiness plugin, Player player) {
-        return plugin.getConf().getRewardDisplay(ActionBarReward.class)
+        return plugin.getConf().getRewardDisplay(TitleReward.class)
                      .map((section) -> {
                          ItemBuilder commandBuilder = ItemLoader.loadBuilder(section);
                          String name = commandBuilder.getName();

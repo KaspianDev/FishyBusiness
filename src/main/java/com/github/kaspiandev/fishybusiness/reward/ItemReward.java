@@ -47,7 +47,7 @@ public class ItemReward implements Reward {
 
     @Override
     public ItemStack getDisplay(FishyBusiness plugin, Player player) {
-        return plugin.getConf().getRewardDisplay(ActionBarReward.class)
+        return plugin.getConf().getRewardDisplay(ItemReward.class)
                      .map((section) -> {
                          ItemStack rewardItem = getItem();
                          ItemBuilder commandBuilder = ItemLoader.loadBuilder(section)
