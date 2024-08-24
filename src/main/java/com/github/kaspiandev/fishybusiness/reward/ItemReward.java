@@ -1,12 +1,12 @@
 package com.github.kaspiandev.fishybusiness.reward;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
+import com.github.kaspiandev.fishybusiness.hook.worldguard.POBoxHook;
 import com.github.kaspiandev.fishybusiness.util.ItemBuilder;
 import com.github.kaspiandev.fishybusiness.util.ItemLoader;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class ItemReward implements Reward {
@@ -33,12 +33,9 @@ public class ItemReward implements Reward {
 
     @Override
     public void reward(FishyBusiness plugin, Player player) {
-        PlayerInventory inventory = player.getInventory();
-        if (inventory.firstEmpty() == -1) {
-            player.getWorld().dropItem(player.getLocation(), item);
-        } else {
-            inventory.addItem(item);
-        }
+        plugin.getHookManager().findHook(POBoxHook.class).ifPresent((poBoxHook) -> {
+            poBoxHook.stashItem(player, item);
+        });
     }
 
     public ItemStack getItem() {

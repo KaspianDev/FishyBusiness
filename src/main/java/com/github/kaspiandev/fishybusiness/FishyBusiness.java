@@ -16,7 +16,6 @@ import com.github.kaspiandev.fishybusiness.listener.AreaEventListener;
 import com.github.kaspiandev.fishybusiness.listener.AreaFishingListener;
 import com.github.kaspiandev.fishybusiness.points.PointManager;
 import com.github.kaspiandev.fishybusiness.reward.*;
-import com.github.kaspiandev.fishybusiness.reward.adapter.ItemB64Adapter;
 import com.github.kaspiandev.fishybusiness.reward.adapter.RewardAdapter;
 import com.github.kaspiandev.fishybusiness.selector.FishyAreaSelectorFactory;
 import org.bukkit.Bukkit;
@@ -50,10 +49,6 @@ public final class FishyBusiness extends JavaPlugin {
         RewardTypeRegistry.register("actionbar", new RewardType(ActionBarReward.class));
         RewardTypeRegistry.register("title", new RewardType(TitleReward.class));
         RewardTypeRegistry.register("container", new RewardType(ContainerReward.class));
-
-        // TODO: Stashing
-        ItemB64Adapter itemAdapter = new ItemB64Adapter();
-        RewardTypeRegistry.register("item", new RewardType(ItemReward.class, itemAdapter));
 
         areaAdapter = new AreaAdapter();
         rewardAdapter = new RewardAdapter();

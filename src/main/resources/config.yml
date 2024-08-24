@@ -3,6 +3,7 @@ hooks:
   # - WorldGuard - Provides worldguard area adapter
   # - PlaceholderAPI - Support for messages and whatnot
   # - Vault - Provides vault reward adapter
+  # - POBox - Allows you to stash items received from fishing to be collected later
   enabled:
     - "WorldGuard"
 
@@ -15,7 +16,7 @@ rewards:
   # - title - Allows you to send a title message to player or everyone (also supports PlaceholderAPI hook)
   # - points - Allows you to give players internal points
   # - container - Allows you to give multiple rewards at once
-  # - item - Allows you to give items as rewards
+  # - item - Allows you to give items as rewards (POBox hook is required)
   enabled-adapters:
     - "command"
     - "message"
@@ -23,7 +24,6 @@ rewards:
     - "actionbar"
     - "points"
     - "container"
-    - "item"
 
   displays:
     command:

@@ -1,6 +1,7 @@
 package com.github.kaspiandev.fishybusiness.hook;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
+import com.github.kaspiandev.fishybusiness.hook.worldguard.POBoxHook;
 import com.github.kaspiandev.fishybusiness.hook.worldguard.PlaceholderAPIHook;
 import com.github.kaspiandev.fishybusiness.hook.worldguard.VaultHook;
 import com.github.kaspiandev.fishybusiness.hook.worldguard.WorldGuardHook;
@@ -18,6 +19,7 @@ public class HookRegistry {
         registry.put("WorldGuard", WorldGuardHook::new);
         registry.put("PlaceholderAPI", PlaceholderAPIHook::new);
         registry.put("Vault", VaultHook::new);
+        registry.put("POBox", POBoxHook::new);
     }
 
     private HookRegistry() {}
