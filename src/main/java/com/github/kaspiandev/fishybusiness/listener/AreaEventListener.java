@@ -62,7 +62,7 @@ public class AreaEventListener implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         plugin.getAreaManager().getPlayerArea(player).ifPresent((area) -> {
-            plugin.getAreaManager().clearPlayerArea(event.getPlayer());
+            plugin.getAreaManager().clearPlayerArea(player);
             Bukkit.getServer().getPluginManager().callEvent(new AreaLeaveEvent(player, area));
         });
     }

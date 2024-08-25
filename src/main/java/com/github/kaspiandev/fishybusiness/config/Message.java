@@ -43,7 +43,9 @@ public enum Message {
     RELOAD_RELOADED("reload.reloaded"),
     RELOAD_ERROR("reload.error"),
     RELOAD_ERROR_ALL("reload.error-all"),
-    RELOAD_UNKNOWN_TYPE("reload.unknown-type");
+    RELOAD_UNKNOWN_TYPE("reload.unknown-type"),
+
+    MAIL_CANNOT_CLAIM("mail.cannot-claim");
 
     private final String path;
 

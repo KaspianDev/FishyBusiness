@@ -14,6 +14,7 @@ import org.bukkit.inventory.PlayerInventory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 public class InventoryManager {
@@ -86,15 +87,15 @@ public class InventoryManager {
     }
 
     // TODO: modify database to only load 4 storage rows
-    public void loadSaved(Player player) {
+    public CompletableFuture<Void> loadSaved(Player player) {
         PlayerInventory inventory = player.getInventory();
         ItemStack[] cachedInventory = INVENTORY_CACHE.getIfPresent(player.getUniqueId());
         if (cachedInventory != null) {
             inventory.setContents(cachedInventory);
-            return;
+            return CompletableFuture.completedFuture(null);
         }
 
-        plugin.getInventoryTable().loadInventory(player).thenAccept((optItems) -> {
+        return plugin.getInventoryTable().loadInventory(player).thenAccept((optItems) -> {
             optItems.ifPresent((items) -> {
                 Bukkit.getScheduler().runTask(plugin, () -> {
                     inventory.setContents(items);

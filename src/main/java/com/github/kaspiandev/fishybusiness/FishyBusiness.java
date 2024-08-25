@@ -97,7 +97,7 @@ public final class FishyBusiness extends JavaPlugin {
             Player player = Bukkit.getPlayer(uuid);
             if (player == null) return;
 
-            inventoryManager.loadSaved(player);
+            inventoryManager.loadSaved(player).join();
         });
     }
 

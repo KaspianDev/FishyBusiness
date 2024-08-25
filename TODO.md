@@ -35,8 +35,8 @@ Plugin will have different kinds of awards, including:
 - ~~Container~~
 - ~~Items (for later)~~
 
-Physical rewards (items) are stashed and given upon leaving the area.
-Might create a stash plugin and use it as a hook.
+~~Physical rewards (items) are stashed and given upon leaving the area.~~  
+~~Might create a stash plugin and use it as a hook.~~
 
 ## Point system
 
