@@ -2,7 +2,7 @@ package com.github.kaspiandev.fishybusiness.config;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.exception.PluginLoadFailureException;
-import com.github.kaspiandev.fishybusiness.hook.worldguard.PlaceholderAPIHook;
+import com.github.kaspiandev.fishybusiness.hook.PlaceholderAPIHook;
 import com.github.kaspiandev.fishybusiness.util.ColorUtil;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import dev.dejvokep.boostedyaml.dvs.versioning.BasicVersioning;

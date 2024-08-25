@@ -1,8 +1,7 @@
-package com.github.kaspiandev.fishybusiness.hook.worldguard;
+package com.github.kaspiandev.fishybusiness.hook;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.config.Message;
-import com.github.kaspiandev.fishybusiness.hook.Hook;
 import com.github.kaspiandev.fishybusiness.reward.ItemReward;
 import com.github.kaspiandev.fishybusiness.reward.RewardType;
 import com.github.kaspiandev.fishybusiness.reward.RewardTypeRegistry;
@@ -10,7 +9,7 @@ import com.github.kaspiandev.fishybusiness.reward.adapter.ItemB64Adapter;
 import com.github.kaspiandev.pobox.POBox;
 import com.github.kaspiandev.pobox.event.MailClaimEvent;
 import com.github.kaspiandev.pobox.mail.ItemMail;
-import com.github.kaspiandev.pobox.mail.UniqueMail;
+import com.github.kaspiandev.pobox.mail.MailManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,8 +30,9 @@ public class POBoxHook extends Hook<POBox> implements Listener {
     }
 
     public void stashItem(Player player, ItemStack item) {
-        hookPlugin.getMailManager().getBox(player).ifPresent((box) -> {
-            box.addMail(new UniqueMail(new ItemMail("FishyBusiness Reward", item)));
+        MailManager mailManager = hookPlugin.getMailManager();
+        mailManager.getBox(player).ifPresent((box) -> {
+            mailManager.sendMail(box, new ItemMail("FishyBusiness Reward", item));
         });
     }
 

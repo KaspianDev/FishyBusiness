@@ -1,7 +1,7 @@
 package com.github.kaspiandev.fishybusiness.reward;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
-import com.github.kaspiandev.fishybusiness.hook.worldguard.POBoxHook;
+import com.github.kaspiandev.fishybusiness.hook.POBoxHook;
 import com.github.kaspiandev.fishybusiness.util.ItemBuilder;
 import com.github.kaspiandev.fishybusiness.util.ItemLoader;
 import org.bukkit.Material;

@@ -1,7 +1,7 @@
 package com.github.kaspiandev.fishybusiness.reward;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
-import com.github.kaspiandev.fishybusiness.hook.worldguard.VaultHook;
+import com.github.kaspiandev.fishybusiness.hook.VaultHook;
 import com.github.kaspiandev.fishybusiness.util.ComponentUtil;
 import com.github.kaspiandev.fishybusiness.util.ItemBuilder;
 import com.github.kaspiandev.fishybusiness.util.ItemLoader;

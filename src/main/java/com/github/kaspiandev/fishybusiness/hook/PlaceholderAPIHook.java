@@ -1,8 +1,7 @@
-package com.github.kaspiandev.fishybusiness.hook.worldguard;
+package com.github.kaspiandev.fishybusiness.hook;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.config.Message;
-import com.github.kaspiandev.fishybusiness.hook.Hook;
 import com.github.kaspiandev.fishybusiness.points.TopPointEntry;
 import com.github.kaspiandev.fishybusiness.util.ComponentUtil;
 import me.clip.placeholderapi.PlaceholderAPI;

@@ -1,10 +1,6 @@
 package com.github.kaspiandev.fishybusiness.hook;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
-import com.github.kaspiandev.fishybusiness.hook.worldguard.POBoxHook;
-import com.github.kaspiandev.fishybusiness.hook.worldguard.PlaceholderAPIHook;
-import com.github.kaspiandev.fishybusiness.hook.worldguard.VaultHook;
-import com.github.kaspiandev.fishybusiness.hook.worldguard.WorldGuardHook;
 
 import java.util.HashMap;
 import java.util.Map;

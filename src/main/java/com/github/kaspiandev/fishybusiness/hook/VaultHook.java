@@ -1,7 +1,6 @@
-package com.github.kaspiandev.fishybusiness.hook.worldguard;
+package com.github.kaspiandev.fishybusiness.hook;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
-import com.github.kaspiandev.fishybusiness.hook.Hook;
 import com.github.kaspiandev.fishybusiness.reward.RewardType;
 import com.github.kaspiandev.fishybusiness.reward.RewardTypeRegistry;
 import com.github.kaspiandev.fishybusiness.reward.VaultReward;
