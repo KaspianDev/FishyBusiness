@@ -35,8 +35,31 @@ public class PointsSubcommand extends SubCommand {
         switch (arg) {
             case "give" -> handleGive(sender, args);
             case "remove" -> handleRemove(sender, args);
+            case "get" -> handleGet(sender, args);
             default -> sender.spigot().sendMessage(plugin.getMessages().get(Message.COMMAND_INVALID_SUBCOMMAND));
         }
+    }
+
+    private void handleGet(CommandSender sender, String[] args) {
+        if (args.length < 2) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.POINTS_NO_PLAYER));
+            return;
+        }
+
+        Player target = Bukkit.getPlayer(args[2]);
+        if (target == null) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.POINTS_NO_PLAYER));
+            return;
+        }
+
+
+        plugin.getPointManager().ifPresent((pointManager) -> {
+            int amount = pointManager.getPoints(target);
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.POINTS_PLAYER_POINTS, (message) -> {
+                return message.replace("${amount}", String.valueOf(amount))
+                              .replace("${player}", target.getName());
+            }));
+        });
     }
 
     private void handleRemove(CommandSender sender, String[] args) {
@@ -62,9 +85,11 @@ public class PointsSubcommand extends SubCommand {
             plugin.getPointManager().ifPresent((pointManager) -> {
                 pointManager.addPoints(target, -amount);
             });
-            sender.spigot().sendMessage(plugin.getMessages().get(Message.POINTS_REMOVED));
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.POINTS_REMOVED, (message) -> {
+                return message.replace("${amount}", String.valueOf(amount));
+            }));
         } catch (NumberFormatException ex) {
-            sender.spigot().sendMessage(plugin.getMessages().get(Message.POINTS_REMOVE_NO_AMOUNT));
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.POINTS_INVALID_POINTS));
         }
     }
 
@@ -91,16 +116,18 @@ public class PointsSubcommand extends SubCommand {
             plugin.getPointManager().ifPresent((pointManager) -> {
                 pointManager.addPoints(target, amount);
             });
-            sender.spigot().sendMessage(plugin.getMessages().get(Message.POINTS_GIVEN));
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.POINTS_GIVEN, (message) -> {
+                return message.replace("${amount}", String.valueOf(amount));
+            }));
         } catch (NumberFormatException ex) {
-            sender.spigot().sendMessage(plugin.getMessages().get(Message.POINTS_GIVE_NO_AMOUNT));
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.POINTS_INVALID_POINTS));
         }
     }
 
     @Override
     public List<String> suggestions(CommandSender sender, String[] args) {
         if (args.length == 2) {
-            return List.of("add", "remove");
+            return List.of("add", "remove", "get");
         } else if (args[1].equals("add") || args[1].equals("remove")) {
             if (args.length == 4) {
                 return amountCache;

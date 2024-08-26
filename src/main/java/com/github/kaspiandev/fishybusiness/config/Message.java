@@ -41,6 +41,8 @@ public enum Message {
     POINTS_GIVEN("points.given"),
     POINTS_REMOVE_NO_AMOUNT("points.remove-no-amount"),
     POINTS_REMOVED("points.removed"),
+    POINTS_INVALID_POINTS("points.invalid-points"),
+    POINTS_PLAYER_POINTS("points.player-points"),
     POINTS_TOP_LIST_ENTRY("points.top-list-entry"),
     POINTS_TOP_ENTRY("points.top-entry"),
 
