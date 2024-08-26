@@ -2,6 +2,7 @@ package com.github.kaspiandev.fishybusiness.command;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.command.subcommand.AreaSubcommand;
+import com.github.kaspiandev.fishybusiness.command.subcommand.PointsSubcommand;
 import com.github.kaspiandev.fishybusiness.command.subcommand.ReloadSubcommand;
 import com.github.kaspiandev.fishybusiness.command.subcommand.RewardSubcommand;
 
@@ -26,6 +27,10 @@ public class SubCommandRegistry {
         registry.put(areaSubcommand.getType().getKey(), areaSubcommand);
         RewardSubcommand rewardSubcommand = new RewardSubcommand(plugin);
         registry.put(rewardSubcommand.getType().getKey(), rewardSubcommand);
+        if (plugin.getConf().isPointsEnabled()) {
+            PointsSubcommand pointsSubcommand = new PointsSubcommand(plugin);
+            registry.put(pointsSubcommand.getType().getKey(), pointsSubcommand);
+        }
     }
 
     public Map<String, SubCommand> getRegistry() {

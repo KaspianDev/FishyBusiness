@@ -49,11 +49,8 @@ public class AreaSubcommand extends SubCommand {
         COORDINATE_COMPLETION_COOLDOWN = new Cooldown<>();
     }
 
-    private final FishyBusiness plugin;
-
     public AreaSubcommand(FishyBusiness plugin) {
         super(plugin, SubCommands.AREA);
-        this.plugin = plugin;
     }
 
     @Override

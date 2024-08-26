@@ -53,10 +53,10 @@ public class AreaFishingListener implements Listener {
                 item.setMetadata(REWARD_META, new FixedMetadataValue(plugin, true));
             });
 
-            Bukkit.getScheduler().runTaskLater(plugin, hookedItem::remove, 40);
+            Bukkit.getScheduler().runTaskLater(plugin, hookedItem::remove, 20);
 
             fishHook.setHookedEntity(hookedItem);
-            hookedItem.setVelocity(player.getLocation().add(0, 2, 0).getDirection().normalize().multiply(-1));
+            hookedItem.setVelocity(player.getLocation().add(0, 1.5, 0).getDirection().normalize().multiply(-0.85));
             reward.reward(plugin, player);
         });
     }

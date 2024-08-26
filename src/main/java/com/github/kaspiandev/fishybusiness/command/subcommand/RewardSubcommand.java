@@ -26,11 +26,8 @@ public class RewardSubcommand extends SubCommand {
     private final List<String> messageTypeCache;
     private final Supplier<List<String>> rewardNameCache;
 
-    private final FishyBusiness plugin;
-
     public RewardSubcommand(FishyBusiness plugin) {
         super(plugin, SubCommands.REWARD);
-        this.plugin = plugin;
 
         rewardTypeNameCache = Suppliers.memoizeWithExpiration(() -> {
             return RewardTypeRegistry.getRegisteredTypeNames().stream()

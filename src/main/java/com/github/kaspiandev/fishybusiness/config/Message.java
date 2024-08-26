@@ -36,6 +36,11 @@ public enum Message {
     REWARD_NO_ITEM("reward.no-item"),
     REWARD_UNKNOWN_ADAPTER("reward.unknown-adapter"),
 
+    POINTS_NO_PLAYER("points.no-player"),
+    POINTS_GIVE_NO_AMOUNT("points.give-no-amount"),
+    POINTS_GIVEN("points.given"),
+    POINTS_REMOVE_NO_AMOUNT("points.remove-no-amount"),
+    POINTS_REMOVED("points.removed"),
     POINTS_TOP_LIST_ENTRY("points.top-list-entry"),
     POINTS_TOP_ENTRY("points.top-entry"),
 

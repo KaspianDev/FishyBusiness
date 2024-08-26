@@ -4,7 +4,8 @@ public enum SubCommands {
 
     RELOAD("reload", "fishybusiness.command.reload"),
     AREA("area", "fishybusiness.command.area"),
-    REWARD("reward", "fishybusiness.command.reward");
+    REWARD("reward", "fishybusiness.command.reward"),
+    POINTS("points", "fishybusiness.command.points");
 
     private final String key;
     private final String permission;

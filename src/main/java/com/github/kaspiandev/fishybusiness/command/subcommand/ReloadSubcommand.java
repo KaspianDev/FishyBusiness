@@ -18,11 +18,8 @@ public class ReloadSubcommand extends SubCommand {
             "messages"
     );
 
-    private final FishyBusiness plugin;
-
     public ReloadSubcommand(FishyBusiness plugin) {
         super(plugin, SubCommands.RELOAD);
-        this.plugin = plugin;
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class SubCommand {
 
-    private final FishyBusiness plugin;
+    protected final FishyBusiness plugin;
     private final SubCommands type;
     private final String permission;
 
