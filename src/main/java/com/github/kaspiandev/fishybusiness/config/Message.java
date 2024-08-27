@@ -43,6 +43,8 @@ public enum Message {
     POINTS_REMOVED("points.removed"),
     POINTS_INVALID_POINTS("points.invalid-points"),
     POINTS_PLAYER_POINTS("points.player-points"),
+    POINTS_TOP_ENTRY_SINGLE("points.top-entry-single"),
+    POINTS_TOP_HEADER("points.top-header"),
     POINTS_TOP_LIST_ENTRY("points.top-list-entry"),
     POINTS_TOP_ENTRY("points.top-entry"),
 

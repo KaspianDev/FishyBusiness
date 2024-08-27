@@ -54,23 +54,27 @@ public class PlaceholderAPIHook extends Hook<PlaceholderAPIPlugin> {
         public String onPlaceholderRequest(Player player, @NotNull String params) {
             if (plugin.getPointManager().isPresent()) {
                 if (params.equals("points")) {
-                    return String.valueOf(plugin.getPointManager().get().getPoints(player));
+                    return plugin.getPointManager().map((pointManager) -> {
+                        return String.valueOf(pointManager.getPoints(player));
+                    }).orElse(null);
                 } else if (params.equals("top_points")) {
-                    List<TopPointEntry> topEntries = plugin.getPointManager().get().getTopPoints();
-                    StringJoiner joiner = new StringJoiner("\n");
-                    for (int i = 0; i < topEntries.size(); i++) {
-                        TopPointEntry entry = topEntries.get(i);
-                        String name = Bukkit.getOfflinePlayer(entry.uuid()).getName();
+                    return plugin.getPointManager().map((pointManager) -> {
+                        List<TopPointEntry> topEntries = pointManager.getTopPoints();
+                        StringJoiner joiner = new StringJoiner("\n");
+                        for (int i = 0; i < topEntries.size(); i++) {
+                            TopPointEntry entry = topEntries.get(i);
+                            String name = Bukkit.getOfflinePlayer(entry.uuid()).getName();
 
-                        int currentPlace = i + 1;
-                        String topEntryFormat = ComponentUtil.toString(plugin.getMessages().get(Message.POINTS_TOP_LIST_ENTRY, (format) -> {
-                            return format.replace("${name}", (name == null) ? "unknown" : name)
-                                         .replace("${points}", String.valueOf(entry.amount()))
-                                         .replace("${place}", String.valueOf(currentPlace));
-                        }));
-                        joiner.add(topEntryFormat);
-                    }
-                    return joiner.toString();
+                            int currentPlace = i + 1;
+                            String topEntryFormat = ComponentUtil.toString(plugin.getMessages().get(Message.POINTS_TOP_LIST_ENTRY, (format) -> {
+                                return format.replace("${name}", (name == null) ? "unknown" : name)
+                                             .replace("${points}", String.valueOf(entry.amount()))
+                                             .replace("${place}", String.valueOf(currentPlace));
+                            }));
+                            joiner.add(topEntryFormat);
+                        }
+                        return joiner.toString();
+                    }).orElse(null);
                 } else if (params.startsWith("top_points_")) {
                     try {
                         int place = Math.min(9, Integer.parseInt(params.substring("top_points_".length())) - 1);

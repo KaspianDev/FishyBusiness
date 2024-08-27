@@ -40,6 +40,8 @@ points:
   removed: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&${amount} points were removed successfully."
   invalid-points: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&The amount of points must be a number."
   player-points: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&Player ${player} has ${amount} points."
+  top-entry-single: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&Player ${name} at place #${place} has ${points} points!"
+  top-header: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#33e153&Top point list:"
   top-list-entry: "&7#${place} &e${name} &7- &a${points}"
   top-entry: "&e${name} &7- &a${points}"
 reload:
