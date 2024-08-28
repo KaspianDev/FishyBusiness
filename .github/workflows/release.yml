@@ -22,3 +22,4 @@ jobs:
       with:
         tag_name: ${{ github.sha }}
         files: ./build/libs/FishyBusiness-*.jar
+        token: ${{ secrets.RELEASE_TOKEN }}
