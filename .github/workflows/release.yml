@@ -17,9 +17,11 @@ jobs:
         cache: 'gradle'
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Generate tag name
+      run: echo "TAG_NAME=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
     - name: Upload JAR to Release
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: ${GITHUB_SHA::7}
+        tag_name: ${TAG_NAME}
         files: ./build/libs/FishyBusiness-*.jar
         token: ${{ secrets.RELEASE_TOKEN }}
