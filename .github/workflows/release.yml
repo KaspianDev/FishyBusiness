@@ -1,0 +1,23 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+        cache: 'gradle'
+    - name: Build with Gradle
+      run: ./gradlew build
+    - name: Upload JAR to Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: ./build/libs/FishyBusiness-*.jar
