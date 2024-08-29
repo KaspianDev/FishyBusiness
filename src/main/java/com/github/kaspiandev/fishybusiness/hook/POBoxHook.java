@@ -2,7 +2,10 @@ package com.github.kaspiandev.fishybusiness.hook;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.config.Message;
-import com.github.kaspiandev.fishybusiness.reward.*;
+import com.github.kaspiandev.fishybusiness.reward.ItemReward;
+import com.github.kaspiandev.fishybusiness.reward.POBoxReward;
+import com.github.kaspiandev.fishybusiness.reward.RewardType;
+import com.github.kaspiandev.fishybusiness.reward.RewardTypeRegistry;
 import com.github.kaspiandev.fishybusiness.reward.adapter.ItemB64Adapter;
 import com.github.kaspiandev.pobox.POBox;
 import com.github.kaspiandev.pobox.event.MailClaimEvent;
@@ -55,26 +58,26 @@ public class POBoxHook extends Hook<POBox> implements Listener {
         event.setCancelled(true);
     }
 
-    public RewardMail buildRewardMail(String name, Reward reward) {
-        return new RewardMail(name, reward);
+    public RewardMail buildRewardMail(String name, String rewardName) {
+        return new RewardMail(name, rewardName);
     }
 
-    public RewardMail buildRewardMail(String name, Reward reward, Material icon) {
-        return new RewardMail(name, reward, icon);
+    public RewardMail buildRewardMail(String name, String rewardName, Material icon) {
+        return new RewardMail(name, rewardName, icon);
     }
 
     public class RewardMail extends Mail {
 
         private final String rewardName;
 
-        public RewardMail(String name, Reward reward) {
+        public RewardMail(String name, String rewardName) {
             super(name);
-            this.rewardName = reward.getName();
+            this.rewardName = rewardName;
         }
 
-        public RewardMail(String name, Reward reward, Material icon) {
+        public RewardMail(String name, String rewardName, Material icon) {
             super(name, icon);
-            this.rewardName = reward.getName();
+            this.rewardName = rewardName;
         }
 
         @Override

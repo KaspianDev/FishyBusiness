@@ -120,6 +120,8 @@ public class RewardSubcommand extends SubCommand {
                                       handleAddPoints(sender, name, weight, args);
                                   } else if (rewardClass == ItemReward.class) {
                                       handleAddItem(sender, name, weight, args);
+                                  } else if (rewardClass == POBoxReward.class) {
+                                      handleAddPOBox(sender, name, weight, args);
                                   } else {
                                       sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_UNKNOWN_ADAPTER));
                                   }
@@ -129,6 +131,24 @@ public class RewardSubcommand extends SubCommand {
         } catch (NumberFormatException ex) {
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_WEIGHT));
         }
+    }
+
+    private void handleAddPOBox(CommandSender sender, String name, double weight, String[] args) {
+        if (args.length == 5) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NOT_FOUND));
+            return;
+        }
+
+        String rewardName = args[5];
+        if (plugin.getRewardManager().findReward(rewardName).isEmpty()) {
+            sender.spigot().sendMessage(plugin.getMessages().get(
+                    Message.REWARD_NOT_FOUND,
+                    (message) -> message.replace("${rewardName}", rewardName)));
+            return;
+        }
+
+        plugin.getRewardManager().addReward(new POBoxReward(name, rewardName, weight));
+        sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
     }
 
     @SuppressWarnings("ManualArrayToCollectionCopy")
@@ -363,6 +383,10 @@ public class RewardSubcommand extends SubCommand {
                 }
             } else if (args[2].equals("container")) {
                 return rewardNameCache.get();
+            } else if (args[2].equals("pobox")) {
+                if (args.length == 6) {
+                    return rewardNameCache.get();
+                }
             }
         }
         return List.of();
