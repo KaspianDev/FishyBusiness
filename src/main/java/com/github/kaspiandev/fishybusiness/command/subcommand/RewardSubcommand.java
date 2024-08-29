@@ -130,6 +130,8 @@ public class RewardSubcommand extends SubCommand {
                                       handleAddPOBox(sender, name, weight, args);
                                   } else if (rewardClass == SoundReward.class) {
                                       handleAddSound(sender, name, weight, args);
+                                  } else if (rewardClass == XPReward.class) {
+                                      handleAddXP(sender, name, weight, args);
                                   } else {
                                       sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_UNKNOWN_ADAPTER));
                                   }
@@ -213,6 +215,22 @@ public class RewardSubcommand extends SubCommand {
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
         } catch (IllegalArgumentException ex) {
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_SOUND));
+        }
+    }
+
+    private void handleAddXP(CommandSender sender, String name, double weight, String[] args) {
+        if (args.length == 5) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_XP));
+            return;
+        }
+
+        try {
+            int amount = Integer.parseInt(args[5]);
+
+            plugin.getRewardManager().addReward(new XPReward(name, amount, weight));
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
+        } catch (NumberFormatException ex) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_XP));
         }
     }
 
@@ -383,7 +401,7 @@ public class RewardSubcommand extends SubCommand {
                 return List.of("<name>");
             } else if (args.length == 5) {
                 return weightCache;
-            } else if (args[2].equals("vault") || args[2].equals("points")) {
+            } else if (args[2].equals("vault") || args[2].equals("points") || args[2].equals("xp")) {
                 if (args.length == 6) {
                     return amountCache;
                 }

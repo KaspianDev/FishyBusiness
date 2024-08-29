@@ -10,7 +10,7 @@ hooks:
   pobox:
     item:
       custom-icon: true # Use item type as icon
-      custom-name: false # Use item name as mail name instead of the name below (will fallback to that when there's no name on item)
+      custom-name: true # Use item name as mail name instead of the name below (will fallback to that when there's no name on item)
       name: "&b&lFishyBusiness Reward"
 
 rewards:
@@ -25,6 +25,7 @@ rewards:
   # - container - Allows you to give multiple rewards at once
   # - item - Allows you to give items as rewards (POBox hook is required)
   # - pobox - Allows you to send any reward as mail (POBox hook is required)
+  # - xp - Allows you to give xp to the player
   enabled-adapters:
     - "command"
     - "message"
@@ -33,6 +34,7 @@ rewards:
     - "points"
     - "container"
     - "sound"
+    - "xp"
 
   displays:
     command:
@@ -43,10 +45,13 @@ rewards:
           level: 1
     vault:
       type: SUNFLOWER
-      name: "&a&l${amount}"
+      name: "&a&l${amount}$"
       enchants:
         - type: "unbreaking"
           level: 1
+    xp:
+      type: EXPERIENCE_BOTTLE
+      name: "&a&l${amount}XP"
     points:
       type: PAPER
       name: "&a&l${amount}"
@@ -105,4 +110,4 @@ inventory:
         - type: "unbreaking"
           level: 1
 
-version: 3
+version: 4

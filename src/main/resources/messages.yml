@@ -29,6 +29,7 @@ reward:
   no-message-type: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the message type."
   no-sound: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the sound name."
   no-message: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the message."
+  no-xp: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the amount of xp."
   no-money: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the amount of money."
   no-points: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the amount of points."
   no-item: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to hold an item to add it as reward."
@@ -54,4 +55,4 @@ reload:
 mail:
   cannot-claim: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You cannot claim mail while fishing."
 
-version: 7
+version: 8
