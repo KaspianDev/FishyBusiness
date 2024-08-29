@@ -23,6 +23,7 @@ rewards:
   # - points - Allows you to give players internal points
   # - container - Allows you to give multiple rewards at once
   # - item - Allows you to give items as rewards (POBox hook is required)
+  # - pobox - Allows you to send any reward as mail
   enabled-adapters:
     - "command"
     - "message"
