@@ -7,6 +7,7 @@ import com.github.kaspiandev.fishybusiness.reward.POBoxReward;
 import com.github.kaspiandev.fishybusiness.reward.RewardType;
 import com.github.kaspiandev.fishybusiness.reward.RewardTypeRegistry;
 import com.github.kaspiandev.fishybusiness.reward.adapter.ItemB64Adapter;
+import com.github.kaspiandev.fishybusiness.util.ComponentUtil;
 import com.github.kaspiandev.pobox.POBox;
 import com.github.kaspiandev.pobox.event.MailClaimEvent;
 import com.github.kaspiandev.pobox.mail.ItemMail;
@@ -38,14 +39,21 @@ public class POBoxHook extends Hook<POBox> implements Listener {
         MailManager mailManager = hookPlugin.getMailManager();
         mailManager.getBox(player).ifPresent((box) -> {
             ItemMeta meta = item.getItemMeta();
-            String name = (plugin.getConf().isPOBoxItemCustomName())
-                    ? (meta == null || !meta.hasDisplayName()) ? plugin.getConf().getPOBoxItemName() : meta.getDisplayName()
-                    : plugin.getConf().getPOBoxItemName();
+            String name = ComponentUtil.toString(plugin.getMessages().get(
+                    (plugin.getConf().isPOBoxItemCustomName())
+                            ? (meta == null || !meta.hasDisplayName()) ? plugin.getConf().getPOBoxItemName() : meta.getDisplayName()
+                            : plugin.getConf().getPOBoxItemName()));
             if (plugin.getConf().isPOBoxItemCustomIcon()) {
                 mailManager.sendMail(box, new ItemMail(name, item, item.getType()));
             } else {
                 mailManager.sendMail(box, new ItemMail(name, item));
             }
+        });
+    }
+
+    public void sendMail(Player player, Mail mail) {
+        hookPlugin.getMailManager().getBox(player).ifPresent((box) -> {
+            hookPlugin.getMailManager().sendMail(box, mail);
         });
     }
 

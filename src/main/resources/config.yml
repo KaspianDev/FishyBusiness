@@ -20,6 +20,7 @@ rewards:
   # - message - Allows you to send a message to player or everyone as a form of reward (supports PlaceholderAPI hook)
   # - actionbar - Same as message
   # - title - Allows you to send a title message to player or everyone (also supports PlaceholderAPI hook)
+  # - sound - Allows you to play a sound to the player
   # - points - Allows you to give players internal points
   # - container - Allows you to give multiple rewards at once
   # - item - Allows you to give items as rewards (POBox hook is required)
@@ -31,6 +32,7 @@ rewards:
     - "actionbar"
     - "points"
     - "container"
+    - "sound"
 
   displays:
     command:
@@ -58,6 +60,8 @@ rewards:
         - type: "unbreaking"
           level: 1
     message:
+      type: AIR
+    sound:
       type: AIR
     title:
       type: AIR

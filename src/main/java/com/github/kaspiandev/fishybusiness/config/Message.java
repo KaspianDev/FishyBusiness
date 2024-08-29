@@ -30,6 +30,7 @@ public enum Message {
     REWARD_INVALID_REWARD("reward.invalid-reward"),
     REWARD_NO_TITLE_PROPERTIES("reward.no-title-properties"),
     REWARD_NO_MESSAGE_TYPE("reward.no-message-type"),
+    REWARD_NO_SOUND("reward.no-sound"),
     REWARD_NO_MESSAGE("reward.no-message"),
     REWARD_NO_MONEY("reward.no-money"),
     REWARD_NO_POINTS("reward.no-points"),

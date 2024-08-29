@@ -7,6 +7,7 @@ import com.github.kaspiandev.fishybusiness.config.Message;
 import com.github.kaspiandev.fishybusiness.reward.*;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
+import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -24,6 +25,7 @@ public class RewardSubcommand extends SubCommand {
     private final List<String> amountCache;
     private final List<String> durationCache;
     private final List<String> messageTypeCache;
+    private final List<String> soundCache;
     private final Supplier<List<String>> rewardNameCache;
 
     public RewardSubcommand(FishyBusiness plugin) {
@@ -53,6 +55,10 @@ public class RewardSubcommand extends SubCommand {
         messageTypeCache = Arrays.stream(MessageReward.Type.values())
                                  .map(MessageReward.Type::name)
                                  .toList();
+
+        soundCache = Arrays.stream(Sound.values())
+                           .map(Sound::name)
+                           .toList();
 
         rewardNameCache = Suppliers.memoizeWithExpiration(() -> {
             return plugin.getRewardManager().getRewards().stream()
@@ -122,6 +128,8 @@ public class RewardSubcommand extends SubCommand {
                                       handleAddItem(sender, name, weight, args);
                                   } else if (rewardClass == POBoxReward.class) {
                                       handleAddPOBox(sender, name, weight, args);
+                                  } else if (rewardClass == SoundReward.class) {
+                                      handleAddSound(sender, name, weight, args);
                                   } else {
                                       sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_UNKNOWN_ADAPTER));
                                   }
@@ -190,6 +198,22 @@ public class RewardSubcommand extends SubCommand {
 
         plugin.getRewardManager().addReward(new ItemReward(name, item, weight));
         sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
+    }
+
+    private void handleAddSound(CommandSender sender, String name, double weight, String[] args) {
+        if (args.length == 5) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_SOUND));
+            return;
+        }
+
+        try {
+            Sound sound = Sound.valueOf(args[5]);
+
+            plugin.getRewardManager().addReward(new SoundReward(name, sound, weight));
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
+        } catch (IllegalArgumentException ex) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_SOUND));
+        }
     }
 
     private void handleAddVault(CommandSender sender, String name, double weight, String[] args) {
@@ -386,6 +410,10 @@ public class RewardSubcommand extends SubCommand {
             } else if (args[2].equals("pobox")) {
                 if (args.length == 6) {
                     return rewardNameCache.get();
+                }
+            } else if (args[2].equals("sound")) {
+                if (args.length == 6) {
+                    return soundCache;
                 }
             }
         }
