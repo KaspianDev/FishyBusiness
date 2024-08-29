@@ -7,6 +7,12 @@ hooks:
   enabled:
     - "WorldGuard"
 
+  pobox:
+    item:
+      custom-icon: true # Use item type as icon
+      custom-name: false # Use item name as mail name instead of the name below (will fallback to that when there's no name on item)
+      name: "&b&lFishyBusiness Reward"
+
 rewards:
   # Available:
   # - command - Allows executing commands as form of reward (can be used with PlaceholderAPI hook for placeholder support)
@@ -94,4 +100,4 @@ inventory:
         - type: "unbreaking"
           level: 1
 
-version: 2
+version: 3

@@ -68,6 +68,18 @@ public class Config {
         return document.getBoolean("points.enabled");
     }
 
+    public boolean isPOBoxItemCustomIcon() {
+        return document.getBoolean("hooks.pobox.item.custom-icon");
+    }
+
+    public boolean isPOBoxItemCustomName() {
+        return document.getBoolean("hooks.pobox.item.custom-name");
+    }
+
+    public String getPOBoxItemName() {
+        return document.getString("hooks.pobox.item.name");
+    }
+
     public Optional<Section> getRewardDisplay(Class<? extends Reward> clazz) {
         return RewardTypeRegistry.findByClass(clazz)
                                  .map((name) -> document.getSection("rewards.displays." + name));

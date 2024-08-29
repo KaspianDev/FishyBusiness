@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class POBoxHook extends Hook<POBox> implements Listener {
 
@@ -32,7 +33,15 @@ public class POBoxHook extends Hook<POBox> implements Listener {
     public void stashItem(Player player, ItemStack item) {
         MailManager mailManager = hookPlugin.getMailManager();
         mailManager.getBox(player).ifPresent((box) -> {
-            mailManager.sendMail(box, new ItemMail("FishyBusiness Reward", item));
+            ItemMeta meta = item.getItemMeta();
+            String name = (plugin.getConf().isPOBoxItemCustomName())
+                    ? (meta == null || !meta.hasDisplayName()) ? plugin.getConf().getPOBoxItemName() : meta.getDisplayName()
+                    : plugin.getConf().getPOBoxItemName();
+            if (plugin.getConf().isPOBoxItemCustomIcon()) {
+                mailManager.sendMail(box, new ItemMail(name, item, item.getType()));
+            } else {
+                mailManager.sendMail(box, new ItemMail(name, item));
+            }
         });
     }
 
