@@ -76,6 +76,10 @@ public class Config {
         return document.getBoolean("hooks.pobox.item.custom-name");
     }
 
+    public String getPOBoxItemSender() {
+        return document.getString("hooks.pobox.item.sender");
+    }
+
     public String getPOBoxItemName() {
         return document.getString("hooks.pobox.item.name");
     }

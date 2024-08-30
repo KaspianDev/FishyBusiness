@@ -11,6 +11,7 @@ hooks:
     item:
       custom-icon: true # Use item type as icon
       custom-name: true # Use item name as mail name instead of the name below (will fallback to that when there's no name on item)
+      sender: "FishyBusiness"
       name: "&b&lFishyBusiness Reward"
 
 rewards:
@@ -110,4 +111,4 @@ inventory:
         - type: "unbreaking"
           level: 1
 
-version: 4
+version: 5

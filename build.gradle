@@ -42,7 +42,7 @@ dependencies {
     compileOnly "com.sk89q.worldguard:worldguard-bukkit:7.0.9"
     compileOnly "com.github.MilkBowl:Vault:1.7.3"
     compileOnly "me.clip:placeholderapi:2.11.6"
-    compileOnly "com.github.KaspianDev:POBox:80a2527"
+    compileOnly "com.github.KaspianDev:POBox:cfc831443c"
 
     // Shaded, hard dependencies
     compileOnly "dev.dejvokep:boosted-yaml:1.3.5"

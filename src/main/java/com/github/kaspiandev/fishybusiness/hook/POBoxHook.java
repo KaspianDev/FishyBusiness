@@ -64,10 +64,19 @@ public class POBoxHook extends Hook<POBox> implements Listener {
     }
 
     public RewardMail buildRewardMail(Player player, String name, Reward reward) {
-        if (plugin.getConf().isPOBoxItemCustomIcon()) {
-            return new RewardMail(name, reward.getName(), reward.getDisplay(plugin, player).getType());
+        String sender = plugin.getConf().getPOBoxItemSender();
+        if (sender.isEmpty()) {
+            if (plugin.getConf().isPOBoxItemCustomIcon()) {
+                return new RewardMail(name, reward.getName(), reward.getDisplay(plugin, player).getType());
+            } else {
+                return new RewardMail(name, reward.getName());
+            }
         } else {
-            return new RewardMail(name, reward.getName());
+            if (plugin.getConf().isPOBoxItemCustomIcon()) {
+                return new RewardMail(name, reward.getName(), reward.getDisplay(plugin, player).getType(), sender);
+            } else {
+                return new RewardMail(name, sender, reward.getName());
+            }
         }
     }
 
@@ -86,6 +95,16 @@ public class POBoxHook extends Hook<POBox> implements Listener {
 
         public RewardMail(String name, String rewardName, Material icon) {
             super(name, icon);
+            this.rewardName = rewardName;
+        }
+
+        public RewardMail(String name, String sender, String rewardName) {
+            super(name, sender);
+            this.rewardName = rewardName;
+        }
+
+        public RewardMail(String name, String rewardName, Material icon, String sender) {
+            super(name, icon, sender);
             this.rewardName = rewardName;
         }
 
