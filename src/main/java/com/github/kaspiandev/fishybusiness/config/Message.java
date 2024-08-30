@@ -31,6 +31,7 @@ public enum Message {
     REWARD_NO_TITLE_PROPERTIES("reward.no-title-properties"),
     REWARD_NO_MESSAGE_TYPE("reward.no-message-type"),
     REWARD_NO_SOUND("reward.no-sound"),
+    REWARD_NO_PITCH_OR_VOLUME("reward.no-pitch-or-volume"),
     REWARD_NO_MESSAGE("reward.no-message"),
     REWARD_NO_XP("reward.no-xp"),
     REWARD_NO_MONEY("reward.no-money"),

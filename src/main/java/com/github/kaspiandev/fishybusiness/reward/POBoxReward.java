@@ -31,7 +31,9 @@ public class POBoxReward implements Reward {
     @Override
     public void reward(FishyBusiness plugin, Player player) {
         plugin.getHookManager().findHook(POBoxHook.class).ifPresent((hook) -> {
-            hook.sendMail(player, hook.buildRewardMail(name, rewardName));
+            plugin.getRewardManager().findReward(rewardName).ifPresentOrElse((reward) -> {
+                hook.sendMail(player, hook.buildRewardMail(player, name, reward));
+            }, () -> hook.sendMail(player, hook.buildRewardMail(name, rewardName)));
         });
     }
 

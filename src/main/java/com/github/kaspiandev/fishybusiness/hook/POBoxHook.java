@@ -2,10 +2,7 @@ package com.github.kaspiandev.fishybusiness.hook;
 
 import com.github.kaspiandev.fishybusiness.FishyBusiness;
 import com.github.kaspiandev.fishybusiness.config.Message;
-import com.github.kaspiandev.fishybusiness.reward.ItemReward;
-import com.github.kaspiandev.fishybusiness.reward.POBoxReward;
-import com.github.kaspiandev.fishybusiness.reward.RewardType;
-import com.github.kaspiandev.fishybusiness.reward.RewardTypeRegistry;
+import com.github.kaspiandev.fishybusiness.reward.*;
 import com.github.kaspiandev.fishybusiness.reward.adapter.ItemB64Adapter;
 import com.github.kaspiandev.fishybusiness.util.ComponentUtil;
 import com.github.kaspiandev.pobox.POBox;
@@ -66,12 +63,16 @@ public class POBoxHook extends Hook<POBox> implements Listener {
         event.setCancelled(true);
     }
 
-    public RewardMail buildRewardMail(String name, String rewardName) {
-        return new RewardMail(name, rewardName);
+    public RewardMail buildRewardMail(Player player, String name, Reward reward) {
+        if (plugin.getConf().isPOBoxItemCustomIcon()) {
+            return new RewardMail(name, reward.getName(), reward.getDisplay(plugin, player).getType());
+        } else {
+            return new RewardMail(name, reward.getName());
+        }
     }
 
-    public RewardMail buildRewardMail(String name, String rewardName, Material icon) {
-        return new RewardMail(name, rewardName, icon);
+    public RewardMail buildRewardMail(String name, String rewardName) {
+        return new RewardMail(name, rewardName);
     }
 
     public class RewardMail extends Mail {

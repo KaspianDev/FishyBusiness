@@ -28,6 +28,7 @@ reward:
   no-title-properties: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify fade-in, stay and fade-out time for title."
   no-message-type: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the message type."
   no-sound: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the sound name."
+  no-pitch-or-volume: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to either specify both pitch and volume or specify none."
   no-message: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the message."
   no-xp: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the amount of xp."
   no-money: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You need to specify the amount of money."
@@ -55,4 +56,4 @@ reload:
 mail:
   cannot-claim: "&#00B2D4-#08FBDD&FishyBusiness &#108b91&» &#e13347&You cannot claim mail while fishing."
 
-version: 8
+version: 9

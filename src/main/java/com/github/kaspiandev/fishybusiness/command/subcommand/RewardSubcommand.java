@@ -210,9 +210,17 @@ public class RewardSubcommand extends SubCommand {
 
         try {
             Sound sound = Sound.valueOf(args[5]);
+            if (args.length <= 8) {
+                plugin.getRewardManager().addReward(new SoundReward(name, sound, weight));
+            } else {
+                float pitch = Float.parseFloat(args[6]);
+                float volume = Float.parseFloat(args[7]);
 
-            plugin.getRewardManager().addReward(new SoundReward(name, sound, weight));
+                plugin.getRewardManager().addReward(new SoundReward(name, sound, pitch, volume, weight));
+            }
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_ADDED));
+        } catch (NumberFormatException ex) {
+            sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_PITCH_OR_VOLUME));
         } catch (IllegalArgumentException ex) {
             sender.spigot().sendMessage(plugin.getMessages().get(Message.REWARD_NO_SOUND));
         }
@@ -434,6 +442,8 @@ public class RewardSubcommand extends SubCommand {
                     return soundCache;
                 }
             }
+        } else if (args[1].equals("remove")) {
+            return rewardNameCache.get();
         }
         return List.of();
     }
