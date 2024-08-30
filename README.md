@@ -1,5 +1,7 @@
 # FishyBusiness
 
+![](assets/fishybusiness.png)
+
 FishyBusiness is a minigame minecraft plugin designed for lobbies. You can set
 up your own areas where players will enter fishing mode and fish for rewards.
 Once player leaves the area their inventory will be loaded from backup.
